@@ -29,8 +29,12 @@ def enter():
     PLAYER.append(PlayerClass.Player(MAP[0].x, MAP[0].y, 'p'))
     DICE = DiceClass.Dice()
 
-    game_world.objects.insert(0, MAP)
-    game_world.objects.insert(1, PLAYER)
+    #game_world.objects.insert(0, MAP)
+    #game_world.objects.insert(1, PLAYER)
+    for tiles in MAP:
+        game_world.add_object(tiles, 0)
+    for character in PLAYER:
+        game_world.add_object(character, 0)
     game_world.add_object(DICE, 1)
 
 def exit():
