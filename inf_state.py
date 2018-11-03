@@ -17,7 +17,7 @@ money_font = None
 def enter():
     global image, width, height, cur_state, title_font, money_font, clicked_tile, lens
     if image == None:
-        image = load_image('Popup.png')
+        image = load_image('.\\popup\\info.png')
     if title_font == None:
         title_font = load_font('.\\font\\InterparkGothicBold.ttf', 20)
     if money_font == None:
