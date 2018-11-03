@@ -2,6 +2,8 @@ import random
 import json
 import os
 
+import inf_state
+
 from pico2d import *
 import game_framework
 import game_world
@@ -57,7 +59,9 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
                 game_framework.quit()
         elif event.type == SDL_MOUSEBUTTONDOWN:
+            event.y = WINDOW_HEIGHT - event.y + 1
             DICE.handle_event(event)
+            game_framework.push_state(inf_state)
         else:
             pass
 

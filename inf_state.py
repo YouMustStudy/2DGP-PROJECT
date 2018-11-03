@@ -43,18 +43,18 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
                 game_framework.quit()
         elif event.type == SDL_MOUSEBUTTONDOWN:
-            pass
+            event.y = main_state.WINDOW_HEIGHT - event.y + 1
+            cur_state.handle_events(event)
         else:
             pass
 
 
 def update():
-    global cur_state
     cur_state.update()
 
 
 def draw():
-    global cur_state
+    game_framework.stack[0].draw()
     cur_state.draw()
 
 class EnterState:
@@ -74,7 +74,7 @@ class EnterState:
             cur_state = IdleState
 
     @staticmethod
-    def handle_events():
+    def handle_events(event):
         pass
 
 
