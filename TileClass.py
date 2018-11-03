@@ -13,7 +13,7 @@ class Bigtile:
         self.image = None
             
     def draw(self):
-        self.image.rotate_draw(0, self.x, self.y)
+        self.image.rotate_draw(math.radians(self.theta), self.x, self.y)
 
     def update(self):
         pass

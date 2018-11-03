@@ -61,7 +61,7 @@ def handle_events():
         elif event.type == SDL_MOUSEBUTTONDOWN:
             event.y = WINDOW_HEIGHT - event.y + 1
             DICE.handle_event(event)
-            game_framework.push_state(inf_state)
+            #game_framework.push_state(inf_state)
         else:
             pass
 
