@@ -103,4 +103,24 @@ class IdleState:
     @staticmethod
     def handle_events(event):
         if event.x > main_state.WINDOW_WIDTH/2 + 51 and event.x < main_state.WINDOW_WIDTH/2 + 85 and event.y > main_state.WINDOW_HEIGHT/2 + 73 and event.y < main_state.WINDOW_HEIGHT/2 + 107:
+            global cur_state
+            cur_state = ExitState
+
+class ExitState:
+    @staticmethod
+    def draw():
+        image.draw(main_state.WINDOW_WIDTH/2, main_state.WINDOW_HEIGHT/2, width, height)
+
+    @staticmethod
+    def update():
+        global width, height, image
+        width -= image.w * game_framework.frame_time *15
+        height -= image.h * game_framework.frame_time *15
+        width = clamp(0, width, image.w)
+        height = clamp(0, height, image.h)
+        if width == 0:
             game_framework.pop_state()
+
+    @staticmethod
+    def handle_events(event):
+        pass
