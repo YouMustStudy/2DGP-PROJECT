@@ -73,6 +73,11 @@ class EnterState:
             global cur_state
             cur_state = IdleState
 
+    @staticmethod
+    def handle_events():
+        pass
+
+
 class IdleState:
     @staticmethod
     def draw():
@@ -94,3 +99,8 @@ class IdleState:
     @staticmethod
     def update():
         pass
+
+    @staticmethod
+    def handle_events(event):
+        if event.x > main_state.WINDOW_WIDTH/2 + 51 and event.x < main_state.WINDOW_WIDTH/2 + 85 and event.y > main_state.WINDOW_HEIGHT/2 + 73 and event.y < main_state.WINDOW_HEIGHT/2 + 107:
+            game_framework.pop_state()
