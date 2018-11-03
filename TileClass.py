@@ -1,17 +1,16 @@
 from pico2d import*
 import main_state
 import math
-
+import json
 
 class Bigtile:
-    image = None
 
     def __init__(self, x, y):
         self.x, self.y = x, y
         self.sx, self.sy = x-main_state.WINDOW_WIDTH/2, y-main_state.WINDOW_HEIGHT/2
         self.theta=0
-        if Bigtile.image == None:
-            Bigtile.image=load_image('Bigtile.png')
+        self.name=None
+        self.image = None
             
     def draw(self):
         self.image.rotate_draw(math.radians(self.theta), self.x, self.y)
@@ -45,14 +44,15 @@ class Bigtile:
 
 
 class Smalltile:
-    image = None
 
     def __init__(self, x, y):
         self.x, self.y = x, y
         self.sx, self.sy = x-main_state.WINDOW_WIDTH/2, y-main_state.WINDOW_HEIGHT/2
         self.theta=0
-        if Smalltile.image == None:
-            Smalltile.image=load_image('Tile.png')
+        self.name=None
+        self.image=None
+        self.BuildingCost=None
+        self.PassingCost=None
             
     def draw(self):
         self.image.rotate_draw(math.radians(self.theta), self.x, self.y)
@@ -86,8 +86,12 @@ class Smalltile:
 
 def load_position(x, y):
     pos=[]
-    tile=load_image('Tile.png')
-    bigtile=load_image('Bigtile.png')
+    #tile=load_image('Tile.png')
+    #bigtile=load_image('Bigtile.png')
+
+    tile=load_image('.\\tile\\방콕.png')
+    bigtile=load_image('.\\tile\\무인도.png')
+
     x-=3*tile.w + bigtile.w/2
     y-=3*tile.w + bigtile.w/2
     pos.append(Bigtile(x, y))
@@ -111,4 +115,15 @@ def init_tile():
     pos+=load_position(main_state.WINDOW_WIDTH/2, main_state.WINDOW_HEIGHT/2)
     for i in range(7):
         pos[-(i+1)].rotate(270)
+
+    MAP_DATA_FILE = open('.\\data\\MAP_DATA.txt', 'r')
+    MAP_DATA = json.load(MAP_DATA_FILE)
+    MAP_DATA_FILE.close()
+
+    for i in range(28):
+        pos[i].name = MAP_DATA[i]['Name']
+        if (i % 7) != 0:
+            pos[i].PassingCost = MAP_DATA[i]['PassingCost']
+            pos[i].BuildingCost = MAP_DATA[i]['BuildingCost']
+
     return pos
