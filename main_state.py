@@ -20,14 +20,16 @@ WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 800
 
 test = None
+bgimage = None
 
 def enter():
-    global MAP, PLAYER, PLAYER_TURN, DICE, test
+    global MAP, PLAYER, PLAYER_TURN, DICE, test, bgimage
     test = load_image('Popup.png')
     PLAYER_TURN = 0
     MAP = TileClass.init_tile()
     PLAYER.append(PlayerClass.Player(MAP[0].x, MAP[0].y, 'p'))
     DICE = DiceClass.Dice()
+    bgimage = load_image('bgimage.jpeg')
 
     #game_world.objects.insert(0, MAP)
     #game_world.objects.insert(1, PLAYER)
@@ -70,6 +72,7 @@ def update():
 
 def draw():
     clear_canvas()
+    draw_rectangle(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)
     for game_object in game_world.all_objects():
         game_object.draw()
     test.draw(WINDOW_WIDTH/2, WINDOW_HEIGHT/2)

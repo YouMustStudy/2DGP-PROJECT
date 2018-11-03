@@ -13,7 +13,7 @@ class Bigtile:
         self.image = None
             
     def draw(self):
-        self.image.rotate_draw(math.radians(self.theta), self.x, self.y)
+        self.image.rotate_draw(0, self.x, self.y)
 
     def update(self):
         pass
@@ -53,6 +53,7 @@ class Smalltile:
         self.image=None
         self.BuildingCost=None
         self.PassingCost=None
+        self.level = 0
             
     def draw(self):
         self.image.rotate_draw(math.radians(self.theta), self.x, self.y)
@@ -121,9 +122,10 @@ def init_tile():
     MAP_DATA_FILE.close()
 
     for i in range(28):
-        pos[i].name = MAP_DATA[i]['Name']
+        pos[i].name = MAP_DATA[str(i)]['Name']
+        pos[i].image=load_image('.\\tile\\' + pos[i].name + '.png')
         if (i % 7) != 0:
-            pos[i].PassingCost = MAP_DATA[i]['PassingCost']
-            pos[i].BuildingCost = MAP_DATA[i]['BuildingCost']
+            pos[i].PassingCost = MAP_DATA[str(i)]['PassingCost']
+            pos[i].BuildingCost = MAP_DATA[str(i)]['BuildingCost']
 
     return pos
