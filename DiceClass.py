@@ -20,7 +20,7 @@ class Dice:
 
     def Rolling_Dice(self):
         dice = DiceResult()
-        game_world.add_object(dice, 3)
+        game_world.add_object(dice, 1)
 
 class DiceResult:
     image = None

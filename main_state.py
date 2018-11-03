@@ -31,7 +31,7 @@ def enter():
 
     game_world.objects.insert(0, MAP)
     game_world.objects.insert(1, PLAYER)
-    game_world.add_object(DICE, 2)
+    game_world.add_object(DICE, 1)
 
 def exit():
     game_world.clear()
