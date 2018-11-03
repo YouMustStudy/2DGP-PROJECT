@@ -42,6 +42,9 @@ class Bigtile:
         self.sx=self.x
         self.sy=self.y
 
+    def isclicked(self, x, y):
+        return 0
+
 
 class Smalltile:
 
@@ -84,6 +87,17 @@ class Smalltile:
     def fix_start(self):
         self.sx=self.x
         self.sy=self.y
+
+    def isclicked(self, x, y):
+        side = self.theta // 90 % 2
+
+        if side == 0:
+            if x > self.x - 35 and x < self.x + 35 and y > self.y - 50 and y < self.y + 50:
+                return 1
+        elif side == 1:
+            if x > self.x - 50 and x < self.x + 50 and y > self.y - 35 and y < self.y + 35:
+                return 1
+        return 0
 
 def load_position(x, y):
     pos=[]

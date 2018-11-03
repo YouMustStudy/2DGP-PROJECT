@@ -21,6 +21,8 @@ PLAYER_TURN = None
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 800
 
+CLICKED_TILE = 0 #팝업창을 띄울 타일
+
 bgimage = None
 
 def enter():
@@ -61,6 +63,7 @@ def handle_events():
         elif event.type == SDL_MOUSEBUTTONDOWN:
             event.y = WINDOW_HEIGHT - event.y + 1
             DICE.handle_event(event)
+            popup_event(event)
             #game_framework.push_state(inf_state)
         else:
             pass
@@ -84,3 +87,10 @@ def rotate_map(theta):
 def fix_map():
     for tiles in MAP:
         tiles.fix_position()
+
+def popup_event(event):
+    global CLICKED_TILE
+    for tile in MAP:
+        if tile.isclicked(event.x, event.y) == 1:
+            CLICKED_TILE = tile
+            game_framework.push_state(inf_state)

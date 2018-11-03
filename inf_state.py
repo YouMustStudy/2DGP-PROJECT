@@ -5,15 +5,17 @@ import main_state
 image = None
 width = None
 height = None
-name = '방콕'
-len = len(name)
 cur_state = None
 
+clicked_tile = None #클릭된 타일
+lens = None #출력 될 글자 수
+
+#팝업창에 사용될 폰트들
 title_font = None
 money_font = None
 
 def enter():
-    global image, width, height, cur_state, title_font, money_font
+    global image, width, height, cur_state, title_font, money_font, clicked_tile, lens
     if image == None:
         image = load_image('Popup.png')
     if title_font == None:
@@ -21,6 +23,13 @@ def enter():
     if money_font == None:
         money_font = load_font('.\\font\\InterparkGothicBold.ttf', 10)
     width = height = 0
+    clicked_tile = main_state.CLICKED_TILE
+    lens = [len(clicked_tile.name),
+           len(str(clicked_tile.BuildingCost[0])),
+           len(str(clicked_tile.BuildingCost[1])),
+           len(str(clicked_tile.BuildingCost[2])),
+           len(str(clicked_tile.BuildingCost[3])),
+           len(str(clicked_tile.PassingCost[clicked_tile.level]))]
     cur_state = EnterState
 
 
@@ -82,13 +91,13 @@ class IdleState:
     @staticmethod
     def draw():
         image.draw(main_state.WINDOW_WIDTH/2, main_state.WINDOW_HEIGHT/2)
-        title_font.draw(main_state.WINDOW_WIDTH/2 - 10*len, main_state.WINDOW_HEIGHT/2 + 88, name,(255, 255, 255))
-        money_font.draw(main_state.WINDOW_WIDTH / 2 + 58 - 12, main_state.WINDOW_HEIGHT / 2 + 30, '34' + '만')
-        money_font.draw(main_state.WINDOW_WIDTH / 2 + 58 - 18, main_state.WINDOW_HEIGHT / 2 + 12, '348' + '만')
-        money_font.draw(main_state.WINDOW_WIDTH / 2 + 58 - 18, main_state.WINDOW_HEIGHT / 2 - 5, '348' + '만')
-        money_font.draw(main_state.WINDOW_WIDTH / 2 + 58 - 18, main_state.WINDOW_HEIGHT / 2 - 22, '348' + '만')
+        title_font.draw(main_state.WINDOW_WIDTH/2 - 10*lens[0], main_state.WINDOW_HEIGHT/2 + 88, clicked_tile.name,(255, 255, 255))
+        money_font.draw(main_state.WINDOW_WIDTH / 2 + 58 - 6*lens[1], main_state.WINDOW_HEIGHT / 2 + 30, str(clicked_tile.BuildingCost[0]) + '만')
+        money_font.draw(main_state.WINDOW_WIDTH / 2 + 58 - 6*lens[2], main_state.WINDOW_HEIGHT / 2 + 12, str(clicked_tile.BuildingCost[1]) + '만')
+        money_font.draw(main_state.WINDOW_WIDTH / 2 + 58 - 6*lens[3], main_state.WINDOW_HEIGHT / 2 - 5, str(clicked_tile.BuildingCost[2]) + '만')
+        money_font.draw(main_state.WINDOW_WIDTH / 2 + 58 - 6*lens[4], main_state.WINDOW_HEIGHT / 2 - 22, str(clicked_tile.BuildingCost[3]) + '만')
 
-        title_font.draw(main_state.WINDOW_WIDTH / 2 - 22, main_state.WINDOW_HEIGHT / 2 - 78, '2460', (255, 0, 0))
+        title_font.draw(main_state.WINDOW_WIDTH / 2 - 22, main_state.WINDOW_HEIGHT / 2 - 78, str(clicked_tile.PassingCost[clicked_tile.level]), (255, 0, 0))
         title_font.draw(main_state.WINDOW_WIDTH / 2 + 30, main_state.WINDOW_HEIGHT / 2 - 78, '만', (255, 0, 0))
         r = 17
         x = main_state.WINDOW_WIDTH/2 + 68
