@@ -31,10 +31,8 @@ def enter():
     MAP = TileClass.init_tile()
     PLAYER.append(PlayerClass.Player(MAP[0].x, MAP[0].y, 'p'))
     DICE = DiceClass.Dice()
-    bgimage = load_image('bgimage.jpeg')
+    bgimage = load_image('bgimage.jpg')
 
-    #game_world.objects.insert(0, MAP)
-    #game_world.objects.insert(1, PLAYER)
     for tiles in MAP:
         game_world.add_object(tiles, 0)
     for character in PLAYER:
@@ -75,7 +73,7 @@ def update():
 
 
 def draw():
-    draw_rectangle(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)
+    bgimage.draw(WINDOW_WIDTH/2, WINDOW_HEIGHT/2, WINDOW_WIDTH, WINDOW_HEIGHT)
     for game_object in game_world.all_objects():
         game_object.draw()
 
