@@ -112,16 +112,3 @@ def init_tile():
     for i in range(7):
         pos[-(i+1)].rotate(270)
     return pos
-
-
-def rotate_world():
-    global pos
-    for i in range(9):
-        clear_canvas()
-        for things in pos:
-            things.rotate(-10)
-            things.draw()
-        update_canvas()
-        delay(0.03)
-    for things in pos:
-        things.fix_position()
