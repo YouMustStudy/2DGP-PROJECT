@@ -6,16 +6,17 @@ import game_framework
 
 class Dice:
     def __init__(self):
-        self.image = load_image('.\\icons\\play.png')
-
+        self.image = load_image('.\\icons\\dice.png')
+        self.visible = 0
     def update(self):
         pass
 
     def draw(self):
-        self.image.draw(400, 400, 50, 50)
+        self.image.clip_draw(self.visible * 120, 0, 120, 80, 400, 400)
 
     def handle_event(self, event):
-        if event.x > 400 - 25 and event.x < 400+25 and event.y > 400-25 and event.y < 400+25:
+        if self.visible == 0 and event.x > 400 - 60 and event.x < 400+60 and event.y > 400-30 and event.y < 400+30:
+            self.visible = 1
             self.Rolling_Dice()
 
     def Rolling_Dice(self):
