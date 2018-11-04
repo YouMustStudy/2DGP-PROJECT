@@ -1,5 +1,8 @@
 from pico2d import*
 import main_state
+import game_framework
+import building_state
+import main_state
 
 class Player:
     def __init__(self, x, y, shape):
@@ -76,6 +79,13 @@ class RunState:
                 player.change_state(SpinState)
             elif player.move == 0:
                 player.change_state(IdleState)
+                #도착 후 이벤트 처리
+                if(player.index % 7 == 0): #큰타일 - 특수이벤트
+                    pass
+                elif(player.index == 9 or player.index == 24): #찬스카드
+                    pass
+                elif(main_state.MAP[player.index].owner == -1 or main_state.MAP[player.index].owner == main_state.PLAYER_TURN): #땅주인이 없거나 본인이 주인이면
+                    game_framework.push_state(building_state) #건설상태로 분기
 
 
     @staticmethod
