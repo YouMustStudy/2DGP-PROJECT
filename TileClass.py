@@ -56,7 +56,8 @@ class Smalltile:
         self.image=None
         self.BuildingCost=None
         self.PassingCost=None
-        self.level = 0
+        self.level = -1
+        self.owner = -1
             
     def draw(self):
         self.image.rotate_draw(math.radians(self.theta), self.x, self.y)

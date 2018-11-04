@@ -12,9 +12,10 @@ lens = None #출력 될 글자 수
 check = None #V자 아이콘
 cross = None #X자 아이콘
 
-min_level = 1
-max_level = 2
-total_cost = None
+min_level = None #필수적으로 건설해야하는 레벨
+select_level = None #현재 선택된 건설레벨
+max_level = None #건설가능한 최대 레벨
+total_cost = None #총 건설비
 
 #아이콘 위치
 pos = [(main_state.WINDOW_WIDTH/2 + 66, main_state.WINDOW_HEIGHT/2 + 30),
@@ -27,7 +28,7 @@ title_font = None
 money_font = None
 
 def enter():
-    global image, width, height, cur_state, title_font, money_font, clicked_tile, lens, check, cross, min_level, max_level
+    global image, width, height, cur_state, title_font, money_font, clicked_tile, lens, check, cross, min_level, max_level, select_level, total_cost
     if image == None:
         image = load_image('.\\popup\\upgrade.png')
     if title_font == None:
@@ -36,16 +37,27 @@ def enter():
         money_font = load_font('.\\font\\InterparkGothicBold.ttf', 10)
     width = height = 0
 
+    clicked_tile = main_state.MAP[main_state.PLAYER[main_state.PLAYER_TURN].index]
+    min_level = clicked_tile.level+1
+    select_level = min_level
+    max_level = min(main_state.PLAYER[main_state.PLAYER_TURN].round, 3)
+
+    total_cost = clicked_tile.BuildingCost[min_level]
+
     check = [CheckIcon(pos[i]) for i in range(max_level + 1)]
     cross = [CrossIcon(pos[i]) for i in range(max_level+1, 4)]
 
-    clicked_tile = main_state.CLICKED_TILE
+    for i in range(0, min_level +1):
+        check[i].visible = 0
+
     lens = [len(clicked_tile.name),
            len(str(clicked_tile.BuildingCost[0])),
            len(str(clicked_tile.BuildingCost[1])),
            len(str(clicked_tile.BuildingCost[2])),
            len(str(clicked_tile.BuildingCost[3])),
-           len(str(clicked_tile.PassingCost[clicked_tile.level]))]
+           len(str(clicked_tile.PassingCost[min_level])),
+           len(str(total_cost))
+            ]
 
     cur_state = EnterState
 
@@ -109,14 +121,19 @@ class IdleState:
     @staticmethod
     def draw():
         image.draw(main_state.WINDOW_WIDTH/2, main_state.WINDOW_HEIGHT/2)
+        #도시이름 출력
         title_font.draw(main_state.WINDOW_WIDTH/2 - 10*lens[0], main_state.WINDOW_HEIGHT/2 + 88, clicked_tile.name,(255, 255, 255))
+        #건설비용 출력
         money_font.draw(main_state.WINDOW_WIDTH / 2 + 48 - 6*lens[1], main_state.WINDOW_HEIGHT / 2 + 30, str(clicked_tile.BuildingCost[0]) + '만')
         money_font.draw(main_state.WINDOW_WIDTH / 2 + 48 - 6*lens[2], main_state.WINDOW_HEIGHT / 2 + 12, str(clicked_tile.BuildingCost[1]) + '만')
         money_font.draw(main_state.WINDOW_WIDTH / 2 + 48 - 6*lens[3], main_state.WINDOW_HEIGHT / 2 - 5, str(clicked_tile.BuildingCost[2]) + '만')
         money_font.draw(main_state.WINDOW_WIDTH / 2 + 48 - 6*lens[4], main_state.WINDOW_HEIGHT / 2 - 22, str(clicked_tile.BuildingCost[3]) + '만')
-
-        title_font.draw(main_state.WINDOW_WIDTH / 2 - 6*lens[5], main_state.WINDOW_HEIGHT / 2 - 63, str(clicked_tile.PassingCost[clicked_tile.level]), (255, 0, 0))
+        #통행료 출력
+        title_font.draw(main_state.WINDOW_WIDTH / 2 - 6*lens[5], main_state.WINDOW_HEIGHT / 2 - 63, str(clicked_tile.PassingCost[select_level]), (255, 0, 0))
         title_font.draw(main_state.WINDOW_WIDTH / 2 + 30, main_state.WINDOW_HEIGHT / 2 - 63, '만', (255, 0, 0))
+        #총 건설비용 출력
+        money_font.draw(main_state.WINDOW_WIDTH / 2 + 17 - 6 * lens[6], main_state.WINDOW_HEIGHT / 2 - 91, str(total_cost) + '만', (146, 49, 33))
+
         r = 17
         x = main_state.WINDOW_WIDTH/2 + 68
         y = main_state.WINDOW_HEIGHT/2 + 90
@@ -135,12 +152,18 @@ class IdleState:
     def handle_events(event):
         for i in range(min_level, max_level+1):
             if(check[i].handle_events(event) == 1):
-                global total_cost
+                global total_cost, select_level, lens
                 total_cost = 0
+                select_level = i
+                #체크 아이콘 재설정
                 for j in range(min_level, i+1):
                     check[j].visible = 0
+                    total_cost+=clicked_tile.BuildingCost[j] #건설비용 재산정
                 for j in range(i+1, max_level+1):
                     check[j].visible = 1
+
+                lens[5] = len(str(clicked_tile.PassingCost[select_level]))
+                lens[6] = len(str(total_cost))
         if event.x > main_state.WINDOW_WIDTH/2 + 51 and event.x < main_state.WINDOW_WIDTH/2 + 85 and event.y > main_state.WINDOW_HEIGHT/2 + 73 and event.y < main_state.WINDOW_HEIGHT/2 + 107:
             global cur_state
             cur_state = ExitState
