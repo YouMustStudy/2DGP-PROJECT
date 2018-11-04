@@ -2,6 +2,9 @@ import random
 import json
 import os
 
+WINDOW_WIDTH = 800
+WINDOW_HEIGHT = 800
+
 import inf_state
 import building_state
 
@@ -19,8 +22,7 @@ PLAYER = []
 DICE = None
 PHASE = None
 PLAYER_TURN = None
-WINDOW_WIDTH = 800
-WINDOW_HEIGHT = 800
+
 
 CLICKED_TILE = 0 #팝업창을 띄울 타일
 
@@ -92,4 +94,4 @@ def popup_event(event):
     for tile in MAP:
         if tile.isclicked(event.x, event.y) == 1:
             CLICKED_TILE = tile
-            game_framework.push_state(inf_state)
+            game_framework.push_state(building_state)
