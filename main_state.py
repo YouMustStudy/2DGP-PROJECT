@@ -2,7 +2,7 @@ import random
 import json
 import os
 
-WINDOW_WIDTH = 800
+WINDOW_WIDTH = 1000
 WINDOW_HEIGHT = 800
 
 import inf_state
@@ -36,6 +36,8 @@ def enter():
     DICE = DiceClass.Dice()
     bgimage = load_image('bgimage.jpg')
 
+
+    #game_world.add_object(MAP, 0)
     for tiles in MAP:
         game_world.add_object(tiles, 0)
     for character in PLAYER:
@@ -65,7 +67,6 @@ def handle_events():
             event.y = WINDOW_HEIGHT - event.y + 1
             DICE.handle_event(event)
             popup_event(event)
-            #game_framework.push_state(inf_state)
         else:
             pass
 
@@ -94,4 +95,4 @@ def popup_event(event):
     for tile in MAP:
         if tile.isclicked(event.x, event.y) == 1:
             CLICKED_TILE = tile
-            game_framework.push_state(building_state)
+            game_framework.push_state(inf_state)

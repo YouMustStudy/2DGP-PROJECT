@@ -12,10 +12,10 @@ class Dice:
         pass
 
     def draw(self):
-        self.image.clip_draw(self.visible * 120, 0, 120, 80, 400, 400)
+        self.image.clip_draw(self.visible * 120, 0, 120, 80, main_state.WINDOW_WIDTH/2, main_state.WINDOW_HEIGHT/2)
 
     def handle_event(self, event):
-        if self.visible == 0 and event.x > 400 - 60 and event.x < 400+60 and event.y > 400-30 and event.y < 400+30:
+        if self.visible == 0 and event.x > main_state.WINDOW_WIDTH/2 - 60 and event.x < main_state.WINDOW_WIDTH/2+60 and event.y > main_state.WINDOW_HEIGHT/2-30 and event.y < main_state.WINDOW_HEIGHT/2+30:
             self.visible = 1
             self.Rolling_Dice()
 
@@ -26,7 +26,7 @@ class Dice:
 class DiceResult:
     image = None
     def __init__(self):
-        self.x, self.y = 400, 500
+        self.x, self.y = 500, 550
         self.number = random.randint(1, 6)
         self.timer = 0.8
         if DiceResult.image == None:

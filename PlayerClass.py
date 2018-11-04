@@ -66,7 +66,7 @@ class RunState:
     @staticmethod
     def do(player):
         player.frame = (player.frame+1) % 2
-        player.x += 1
+        player.x += game_framework.frame_time * 70 * 3
         player.x = clamp(main_state.MAP[player.index].x, player.x, main_state.MAP[player.index+1].x)
         if player.x == main_state.MAP[player.index+1].x:
             player.index = (player.index + 1) % 28
