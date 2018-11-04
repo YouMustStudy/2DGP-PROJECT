@@ -11,6 +11,7 @@ clicked_tile = None #클릭된 타일
 lens = None #출력 될 글자 수
 check = None #V자 아이콘
 cross = None #X자 아이콘
+purchase = None #건설 아이콘
 
 min_level = None #필수적으로 건설해야하는 레벨
 select_level = None #현재 선택된 건설레벨
@@ -28,14 +29,17 @@ title_font = None
 money_font = None
 
 def enter():
-    global image, width, height, cur_state, title_font, money_font, clicked_tile, lens, check, cross, min_level, max_level, select_level, total_cost
+    global image, width, height, cur_state, title_font, money_font, clicked_tile, lens, check, cross, min_level, max_level, select_level, total_cost, purchase
     if image == None:
         image = load_image('.\\popup\\upgrade.png')
     if title_font == None:
         title_font = load_font('.\\font\\InterparkGothicBold.ttf', 20)
     if money_font == None:
         money_font = load_font('.\\font\\InterparkGothicBold.ttf', 10)
+    if purchase == None:
+        purchase = PurchaseIcon(main_state.WINDOW_WIDTH/2, main_state.WINDOW_HEIGHT/2 - 91)
     width = height = 0
+
 
     clicked_tile = main_state.MAP[main_state.PLAYER[main_state.PLAYER_TURN].index]
     min_level = clicked_tile.level+1
@@ -121,6 +125,8 @@ class IdleState:
     @staticmethod
     def draw():
         image.draw(main_state.WINDOW_WIDTH/2, main_state.WINDOW_HEIGHT/2)
+        purchase.draw()
+
         #도시이름 출력
         title_font.draw(main_state.WINDOW_WIDTH/2 - 10*lens[0], main_state.WINDOW_HEIGHT/2 + 88, clicked_tile.name,(255, 255, 255))
         #건설비용 출력
@@ -138,6 +144,7 @@ class IdleState:
         x = main_state.WINDOW_WIDTH/2 + 68
         y = main_state.WINDOW_HEIGHT/2 + 90
         draw_rectangle(x-r, y-r, x+r, y+r)
+
         for icon in check:
             icon.draw()
         for icon in cross:
@@ -211,5 +218,21 @@ class CheckIcon:
 
     def handle_events(self, event):
         if event.x > self.x - 5 and self.x + 5 and event.y > self.y-5 and event.y < self.y+5:
+            return 1
+        return 0
+
+class PurchaseIcon:
+    image = None
+    def __init__(self, x, y):
+        self.x , self.y = x, y
+        self.visible = 0
+        if PurchaseIcon.image == None:
+            PurchaseIcon.image = load_image('.\\icons\\purchase.png')
+
+    def draw(self):
+        self.image.clip_draw(123 * self.visible, 0, 123, 26, self.x, self.y)
+
+    def handle_events(self, event):
+        if self.visible == 0 and event.x > self.x - 60 and self.x + 60 and event.y > self.y-13 and event.y < self.y+13:
             return 1
         return 0
