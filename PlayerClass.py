@@ -66,8 +66,12 @@ class RunState:
         player.x += 1
         player.x = clamp(main_state.MAP[player.index].x, player.x, main_state.MAP[player.index+1].x)
         if player.x == main_state.MAP[player.index+1].x:
-            player.index += 1
+            player.index = (player.index + 1) % 28
             player.move -= 1
+            #월급 시스템 추가
+            if(player.index == 0):
+                player.cash += 600
+                player.money += 600
             if main_state.MAP[player.index].theta > 0:
                 player.change_state(SpinState)
             elif player.move == 0:
