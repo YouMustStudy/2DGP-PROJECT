@@ -171,6 +171,11 @@ class IdleState:
 
                 lens[5] = len(str(clicked_tile.PassingCost[select_level]))
                 lens[6] = len(str(total_cost))
+                if total_cost > main_state.PLAYER[main_state.PLAYER_TURN].cash:
+                    purchase.visible = 1
+                else:
+                    purchase.visible = 0
+
         if event.x > main_state.WINDOW_WIDTH/2 + 51 and event.x < main_state.WINDOW_WIDTH/2 + 85 and event.y > main_state.WINDOW_HEIGHT/2 + 73 and event.y < main_state.WINDOW_HEIGHT/2 + 107:
             global cur_state
             cur_state = ExitState
