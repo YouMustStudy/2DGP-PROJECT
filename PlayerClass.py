@@ -6,8 +6,8 @@ class Player:
         self.index=0 #현 위치
         self.x = x
         self.y = y
-        self.money=0 #총자산
-        self.cash=0 #현자산
+        self.money=4000 #총자산
+        self.cash=4000 #현자산
         self.image = None
         if shape == 'p':
             self.image = load_image('.\\character\\pig.png')
