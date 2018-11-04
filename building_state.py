@@ -10,18 +10,24 @@ cur_state = None
 clicked_tile = None #클릭된 타일
 lens = None #출력 될 글자 수
 check = None #V자 아이콘
+cross = None #X자 아이콘
 
+min_level = 1
+max_level = 2
+total_cost = None
+
+#아이콘 위치
 pos = [(main_state.WINDOW_WIDTH/2 + 66, main_state.WINDOW_HEIGHT/2 + 30),
-       (main_state.WINDOW_WIDTH / 2 + 66, main_state.WINDOW_HEIGHT / 2 + 15),
-       (main_state.WINDOW_WIDTH / 2 + 66, main_state.WINDOW_HEIGHT / 2 + 0),
-       (main_state.WINDOW_WIDTH / 2 + 66, main_state.WINDOW_HEIGHT / 2 - 15)]
+       (main_state.WINDOW_WIDTH / 2 + 66, main_state.WINDOW_HEIGHT / 2 + 13),
+       (main_state.WINDOW_WIDTH / 2 + 66, main_state.WINDOW_HEIGHT / 2 - 4),
+       (main_state.WINDOW_WIDTH / 2 + 66, main_state.WINDOW_HEIGHT / 2 - 20)]
 
 #팝업창에 사용될 폰트들
 title_font = None
 money_font = None
 
 def enter():
-    global image, width, height, cur_state, title_font, money_font, clicked_tile, lens, check
+    global image, width, height, cur_state, title_font, money_font, clicked_tile, lens, check, cross, min_level, max_level
     if image == None:
         image = load_image('.\\popup\\upgrade.png')
     if title_font == None:
@@ -30,8 +36,9 @@ def enter():
         money_font = load_font('.\\font\\InterparkGothicBold.ttf', 10)
     width = height = 0
 
-    check = [CheckIcon(pos[i]) for i in range(4)]
-    '''
+    check = [CheckIcon(pos[i]) for i in range(max_level + 1)]
+    cross = [CrossIcon(pos[i]) for i in range(max_level+1, 4)]
+
     clicked_tile = main_state.CLICKED_TILE
     lens = [len(clicked_tile.name),
            len(str(clicked_tile.BuildingCost[0])),
@@ -39,7 +46,7 @@ def enter():
            len(str(clicked_tile.BuildingCost[2])),
            len(str(clicked_tile.BuildingCost[3])),
            len(str(clicked_tile.PassingCost[clicked_tile.level]))]
-        '''
+
     cur_state = EnterState
 
 
@@ -69,12 +76,12 @@ def handle_events():
 
 
 def update():
-    #game_framework.stack[0].update()
+    game_framework.stack[0].update()
     cur_state.update()
 
 
 def draw():
-    #game_framework.stack[0].draw()
+    game_framework.stack[0].draw()
     cur_state.draw()
 
 class EnterState:
@@ -102,19 +109,21 @@ class IdleState:
     @staticmethod
     def draw():
         image.draw(main_state.WINDOW_WIDTH/2, main_state.WINDOW_HEIGHT/2)
-        #title_font.draw(main_state.WINDOW_WIDTH/2 - 10*lens[0], main_state.WINDOW_HEIGHT/2 + 88, clicked_tile.name,(255, 255, 255))
-        #money_font.draw(main_state.WINDOW_WIDTH / 2 + 58 - 6*lens[1], main_state.WINDOW_HEIGHT / 2 + 30, str(clicked_tile.BuildingCost[0]) + '만')
-        #money_font.draw(main_state.WINDOW_WIDTH / 2 + 58 - 6*lens[2], main_state.WINDOW_HEIGHT / 2 + 12, str(clicked_tile.BuildingCost[1]) + '만')
-        #money_font.draw(main_state.WINDOW_WIDTH / 2 + 58 - 6*lens[3], main_state.WINDOW_HEIGHT / 2 - 5, str(clicked_tile.BuildingCost[2]) + '만')
-        #money_font.draw(main_state.WINDOW_WIDTH / 2 + 58 - 6*lens[4], main_state.WINDOW_HEIGHT / 2 - 22, str(clicked_tile.BuildingCost[3]) + '만')
+        title_font.draw(main_state.WINDOW_WIDTH/2 - 10*lens[0], main_state.WINDOW_HEIGHT/2 + 88, clicked_tile.name,(255, 255, 255))
+        money_font.draw(main_state.WINDOW_WIDTH / 2 + 58 - 6*lens[1], main_state.WINDOW_HEIGHT / 2 + 30, str(clicked_tile.BuildingCost[0]) + '만')
+        money_font.draw(main_state.WINDOW_WIDTH / 2 + 58 - 6*lens[2], main_state.WINDOW_HEIGHT / 2 + 12, str(clicked_tile.BuildingCost[1]) + '만')
+        money_font.draw(main_state.WINDOW_WIDTH / 2 + 58 - 6*lens[3], main_state.WINDOW_HEIGHT / 2 - 5, str(clicked_tile.BuildingCost[2]) + '만')
+        money_font.draw(main_state.WINDOW_WIDTH / 2 + 58 - 6*lens[4], main_state.WINDOW_HEIGHT / 2 - 22, str(clicked_tile.BuildingCost[3]) + '만')
 
-        #title_font.draw(main_state.WINDOW_WIDTH / 2 - 22, main_state.WINDOW_HEIGHT / 2 - 78, str(clicked_tile.PassingCost[clicked_tile.level]), (255, 0, 0))
-        #title_font.draw(main_state.WINDOW_WIDTH / 2 + 30, main_state.WINDOW_HEIGHT / 2 - 78, '만', (255, 0, 0))
+        title_font.draw(main_state.WINDOW_WIDTH / 2 - 22, main_state.WINDOW_HEIGHT / 2 - 78, str(clicked_tile.PassingCost[clicked_tile.level]), (255, 0, 0))
+        title_font.draw(main_state.WINDOW_WIDTH / 2 + 30, main_state.WINDOW_HEIGHT / 2 - 78, '만', (255, 0, 0))
         r = 17
         x = main_state.WINDOW_WIDTH/2 + 68
         y = main_state.WINDOW_HEIGHT/2 + 90
         draw_rectangle(x-r, y-r, x+r, y+r)
         for icon in check:
+            icon.draw()
+        for icon in cross:
             icon.draw()
 
 
@@ -124,8 +133,14 @@ class IdleState:
 
     @staticmethod
     def handle_events(event):
-        for icon in check:
-            icon.handle_events(event)
+        for i in range(min_level, max_level+1):
+            if(check[i].handle_events(event) == 1):
+                global total_cost
+                total_cost = 0
+                for j in range(min_level, i+1):
+                    check[j].visible = 0
+                for j in range(i+1, max_level+1):
+                    check[j].visible = 1
         if event.x > main_state.WINDOW_WIDTH/2 + 51 and event.x < main_state.WINDOW_WIDTH/2 + 85 and event.y > main_state.WINDOW_HEIGHT/2 + 73 and event.y < main_state.WINDOW_HEIGHT/2 + 107:
             global cur_state
             cur_state = ExitState
@@ -173,6 +188,5 @@ class CheckIcon:
 
     def handle_events(self, event):
         if event.x > self.x - 5 and self.x + 5 and event.y > self.y-5 and event.y < self.y+5:
-            self.visible = (self.visible+1) %2
             return 1
         return 0

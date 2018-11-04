@@ -3,6 +3,7 @@ import json
 import os
 
 import inf_state
+import building_state
 
 from pico2d import *
 import game_framework
