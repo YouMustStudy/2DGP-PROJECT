@@ -157,9 +157,15 @@ class IdleState:
 
     @staticmethod
     def handle_events(event):
+        if(purchase.handle_events(event)):
+            global total_cost, select_level
+            main_state.PLAYER[main_state.PLAYER_TURN].cash -= total_cost #건설비용 지불
+            clicked_tile.owner = main_state.PLAYER_TURN #소유권 변경
+            clicked_tile.level = select_level #건설레벨 적용
+            game_framework.pop_state() #건설상태 종료
         for i in range(min_level, max_level+1):
             if(check[i].handle_events(event) == 1):
-                global total_cost, select_level, lens
+                global lens
                 total_cost = 0
                 select_level = i
                 #체크 아이콘 재설정
