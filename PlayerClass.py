@@ -6,7 +6,7 @@ import main_state
 
 class Player:
     def __init__(self, x, y, shape):
-        self.index=0 #현 위치
+        self.index=3 #현 위치
         self.x = x
         self.y = y
         self.money=4000 #총자산

@@ -26,8 +26,8 @@ class Dice:
 class DiceResult:
     image = None
     def __init__(self):
-        self.x, self.y = 500, 550
-        self.number = random.randint(1, 6)
+        self.x, self.y = 400, 550
+        self.number = random.randint(5, 5)
         self.timer = 0.8
         if DiceResult.image == None:
             DiceResult.image = []

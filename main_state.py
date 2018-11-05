@@ -2,11 +2,11 @@ import random
 import json
 import os
 
-WINDOW_WIDTH = 1000
+WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 800
 
 import inf_state
-import building_state
+import pause_state
 
 from pico2d import *
 import game_framework
@@ -27,15 +27,16 @@ PLAYER_TURN = None
 CLICKED_TILE = 0 #팝업창을 띄울 타일
 
 bgimage = None
+menu = None
 
 def enter():
-    global MAP, PLAYER, PLAYER_TURN, DICE, bgimage
+    global MAP, PLAYER, PLAYER_TURN, DICE, bgimage, menu
     PLAYER_TURN = 0
     MAP = TileClass.init_tile()
-    PLAYER.append(PlayerClass.Player(MAP[0].x, MAP[0].y, 'p'))
+    PLAYER.append(PlayerClass.Player(MAP[3].x, MAP[3].y, 'p'))
     DICE = DiceClass.Dice()
     bgimage = load_image('bgimage.jpg')
-
+    menu = load_image('.\\icons\\settings.png')
 
     #game_world.add_object(MAP, 0)
     for tiles in MAP:
@@ -67,6 +68,8 @@ def handle_events():
             event.y = WINDOW_HEIGHT - event.y + 1
             DICE.handle_event(event)
             popup_event(event)
+            if event.x > 750-25 and event.x < 750+25 and event.y > 750-25 and event.y < 750+25:
+                game_framework.push_state(pause_state)
         else:
             pass
 
@@ -78,6 +81,7 @@ def update():
 
 def draw():
     bgimage.draw(WINDOW_WIDTH/2, WINDOW_HEIGHT/2, WINDOW_WIDTH, WINDOW_HEIGHT)
+    menu.draw(750, 750, 50, 50)
     for game_object in game_world.all_objects():
         game_object.draw()
 
