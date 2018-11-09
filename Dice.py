@@ -1,6 +1,12 @@
+import math
 from Vector import Vector
 from pico2d import *
 from game_framework import frame_time
+
+#탄성도
+elastic = 0.5
+#월드의 Z축
+axisZ = Vector(0, 0, 1)
 
 class Dice:
     image = None
@@ -30,3 +36,15 @@ class Dice:
 
     def draw(self):
         pass
+
+    def collison_ground(self):
+        vecZ = self.vecX.cross(self.vecY)
+        for i in range(-1, 2, 2):
+            for j in range(-1, 2, 2):
+                for k in range(-1, 2, 2):
+                    point = Vector(i*self.vecX.x+j*self.vecY.x+k*vecZ.x, i*self.vecX.y+j*self.vecY.y+k*vecZ.y, i*self.vecX.z+j*self.vecY.z+k*vecZ.z)
+                    if(self.z + point.z < -1):
+                        torque = point.cross(axisZ)
+                        torque.normalize()
+                        torque.mul( elastic*(max(0, -self.vz) + max(0, self.va.dot(torque.mul(-1)))) + 0.1)
+                        self.va.add(torque)
