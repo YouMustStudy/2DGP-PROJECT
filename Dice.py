@@ -7,6 +7,8 @@ from game_framework import frame_time
 elastic = 0.5
 #월드의 Z축
 axisZ = Vector(0, 0, 1)
+#60프레임 기준
+FRAME_PER_TIME = 60.0
 
 class Dice:
     image = None
@@ -32,7 +34,14 @@ class Dice:
             Dice.image = load_image('.\\dice\\dice.png')
 
     def update(self):
-        pass
+        self.collison_ground()
+        self.rotate(self.va, self.va / 10 * frame_time * FRAME_PER_TIME)
+        if(self.z > 10):
+            self.z = 10
+        if(self.z > 0):
+            self.vz -= 1 * frame_time
+
+
 
     def draw(self):
         pass
@@ -60,13 +69,11 @@ class Dice:
         if(proj.y < 0):
             rotZ *= -1
         rotY = math.acos(piv.dot(proj))
-
         self.vecX.rotateZ(-rotZ).rotateY(-rotY)
         self.vecX.rotateX(radian)
         self.vecX.rotateY(rotY).rotateZ(rotZ)
         self.vecY.rotateZ(-rotZ).rotateY(-rotY)
         self.vecY.rotateX(radian)
         self.vecY.rotateY(rotY).rotateZ(rotZ)
-
         self.vecX.normalize()
         self.vecY.normalize()
