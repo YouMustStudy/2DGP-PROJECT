@@ -32,4 +32,5 @@ class Vector:
     def dot(self, vec):
         return self.x*vec.x + self.y*vec.y + self.z*vec.z
 
-    
+    def cross(self, vec):
+        return Vector(self.y * vec.z - self.z * vec.y, self.z * vec.x - self.x * vec.z, self.x * vec.y - self.y * vec.x);
