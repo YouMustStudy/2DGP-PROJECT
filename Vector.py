@@ -15,4 +15,10 @@ class Vector:
         self.x /= size
         self.y /= size
         self.z /= size
-        return
+        return Vector(self.x, self.y, self.z)
+
+    def add(self, vec):
+        self.x += vec.x
+        self.y += vec.y
+        self.z += vec.z
+        return Vector(self.x, self.y, self.z)
