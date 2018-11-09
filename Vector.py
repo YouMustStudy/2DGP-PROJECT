@@ -28,3 +28,8 @@ class Vector:
         self.y *= num
         self.z *= num
         return Vector(self.x, self.y, self.z)
+
+    def dot(self, vec):
+        return self.x*vec.x + self.y*vec.y + self.z*vec.z
+
+    
