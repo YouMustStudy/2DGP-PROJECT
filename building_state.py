@@ -140,10 +140,10 @@ class IdleState:
         #총 건설비용 출력
         money_font.draw(main_state.WINDOW_WIDTH / 2 + 17 - 6 * lens[6], main_state.WINDOW_HEIGHT / 2 - 91, str(total_cost) + '만', (146, 49, 33))
 
-        r = 17
-        x = main_state.WINDOW_WIDTH/2 + 68
-        y = main_state.WINDOW_HEIGHT/2 + 90
-        draw_rectangle(x-r, y-r, x+r, y+r)
+        #r = 17
+        #x = main_state.WINDOW_WIDTH/2 + 68
+        #y = main_state.WINDOW_HEIGHT/2 + 90
+        #draw_rectangle(x-r, y-r, x+r, y+r)
 
         for icon in check:
             icon.draw()
