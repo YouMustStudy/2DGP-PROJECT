@@ -34,3 +34,10 @@ class Vector:
 
     def cross(self, vec):
         return Vector(self.y * vec.z - self.z * vec.y, self.z * vec.x - self.x * vec.z, self.x * vec.y - self.y * vec.x);
+
+    def rotateX(self, degree):
+        radian = math.radians(degree)
+        cos = math.cos(radian)
+        sin = math.sin(radian)
+        self.y, self.z = cos*self.y - sin*self.z, sin*self.y + cos*self.z
+        return Vector(self.x, self.y, self.z)
