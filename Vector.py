@@ -41,3 +41,10 @@ class Vector:
         sin = math.sin(radian)
         self.y, self.z = cos*self.y - sin*self.z, sin*self.y + cos*self.z
         return Vector(self.x, self.y, self.z)
+
+    def rotateY(self, degree):
+        radian = math.radians(degree)
+        cos = math.cos(radian)
+        sin = math.sin(radian)
+        self.x, self.z = cos*self.x + sin*self.z, -sin*self.x + cos*self.z
+        return Vector(self.x, self.y, self.z)
