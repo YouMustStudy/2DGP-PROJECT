@@ -22,3 +22,9 @@ class Vector:
         self.y += vec.y
         self.z += vec.z
         return Vector(self.x, self.y, self.z)
+
+    def mul(self, num):
+        self.x *= num
+        self.y *= num
+        self.z *= num
+        return Vector(self.x, self.y, self.z)
