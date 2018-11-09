@@ -48,3 +48,25 @@ class Dice:
                         torque.normalize()
                         torque.mul( elastic*(max(0, -self.vz) + max(0, self.va.dot(torque.mul(-1)))) + 0.1)
                         self.va.add(torque)
+
+
+    #피벗을 축으로 회전하는 함수
+    def rotate(self, pivot, radian):
+        if(radian == 0):
+            return None
+        piv = pivot.normalize()
+        proj = Vector(pivot.x, pivot.y, 0).normalize()
+        rotZ = math.acos(proj.x)
+        if(proj.y < 0):
+            rotZ *= -1
+        rotY = math.acos(piv.dot(proj))
+
+        self.vecX.rotateZ(-rotZ).rotateY(-rotY)
+        self.vecX.rotateX(radian)
+        self.vecX.rotateY(rotY).rotateZ(rotZ)
+        self.vecY.rotateZ(-rotZ).rotateY(-rotY)
+        self.vecY.rotateX(radian)
+        self.vecY.rotateY(rotY).rotateZ(rotZ)
+
+        self.vecX.normalize()
+        self.vecY.normalize()
