@@ -1,5 +1,5 @@
 WINDOW_WIDTH = 800
-WINDOW_HEIGHT = 1000
+WINDOW_HEIGHT = 900
 CENTER = (WINDOW_WIDTH /2, WINDOW_HEIGHT - 400)
 
 #라이브러리 임포트
@@ -33,7 +33,7 @@ CLICKED_TILE = 0 #팝업창을 띄울 타일
 bgimage = None
 
 def enter():
-    global MAP, PLAYER, PLAYER_TURN, DICE, bgimage, PURSE_BUTTON
+    global MAP, PLAYER, PLAYER_TURN, DICE, bgimage, PAUSE_BUTTON
     PLAYER_TURN = 0
     MAP = Tile.init_tile()
     PLAYER.append(Player(MAP[3].x, MAP[3].y, 'p'))
@@ -71,7 +71,7 @@ def handle_events():
             event.y = WINDOW_HEIGHT - event.y + 1
             DICE.handle_event(event)
             popup_event(event)
-
+            PAUSE_BUTTON.handle_event(event)
         else:
             pass
 

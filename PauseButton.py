@@ -13,8 +13,8 @@ class PauseButton:
         pass
 
     def draw(self):
-        self.image.draw(750, 955, 50, 50)
+        self.image.draw(750, 855, 50, 50)
 
-    def handle_events(self, event):
-        if event.x > 750 - 25 and event.x < 750 + 25 and event.y > 750 - 25 and event.y < 750 + 25:
+    def handle_event(self, event):
+        if event.x > 750 - 25 and event.x < 750 + 25 and event.y > 855 - 25 and event.y < 855 + 25:
             game_framework.push_state(pause_state)
