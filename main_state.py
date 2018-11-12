@@ -1,7 +1,3 @@
-import random
-import json
-import os
-
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 1000
 CENTER = (WINDOW_WIDTH /2, WINDOW_HEIGHT - 400)
@@ -15,6 +11,7 @@ import game_world
 import PlayerClass
 import TileClass
 import DiceClass
+from Dice import DiceButton
 
 name = "MainState"
 
@@ -35,7 +32,7 @@ def enter():
     PLAYER_TURN = 0
     MAP = TileClass.init_tile()
     PLAYER.append(PlayerClass.Player(MAP[3].x, MAP[3].y, 'p'))
-    DICE = DiceClass.Dice()
+    DICE = DiceButton()
     bgimage = load_image('bgimage.jpg')
     menu = load_image('.\\icons\\settings.png')
 

@@ -4,6 +4,9 @@ class Vector:
     def __init__(self, x, y, z):
         self.x, self.y, self.z = x, y, z
 
+    def set(self, x, y, z):
+        self.x, self.y, self.z = x, y, z
+
     def clone(self):
         return Vector(self.x, self.y, self.z)
 
@@ -12,22 +15,18 @@ class Vector:
 
     def normalize(self):
         size = self.size()
+        if size == 0:
+            return self
         self.x /= size
         self.y /= size
         self.z /= size
         return Vector(self.x, self.y, self.z)
 
     def add(self, vec):
-        self.x += vec.x
-        self.y += vec.y
-        self.z += vec.z
-        return Vector(self.x, self.y, self.z)
+        return Vector(self.x + vec.x, self.y + vec.y, self.z + vec.z)
 
     def mul(self, num):
-        self.x *= num
-        self.y *= num
-        self.z *= num
-        return Vector(self.x, self.y, self.z)
+        return Vector(self.x * num, self.y * num, self.z * num)
 
     def dot(self, vec):
         return self.x*vec.x + self.y*vec.y + self.z*vec.z
