@@ -17,7 +17,7 @@ from Dice import DiceButton
 import Tile
 from PauseButton import PauseButton
 
-
+import new_building_state
 
 name = "MainState"
 
@@ -47,6 +47,8 @@ def enter():
         game_world.add_object(character, 0)
     game_world.add_object(DICE, 1)
     game_world.add_object(PAUSE_BUTTON, 1)
+
+    game_framework.push_state(new_building_state)
 
 def exit():
     game_world.clear()
