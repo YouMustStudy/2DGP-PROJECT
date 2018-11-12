@@ -128,6 +128,18 @@ class Dice:
         if self.end:
             self.endtimer -= game_framework.frame_time
             if self.endtimer <= 0:
+                if self.index[1] == 0:
+                    main_state.PLAYER[main_state.PLAYER_TURN].move = 3
+                elif self.index[1] == 8:
+                    main_state.PLAYER[main_state.PLAYER_TURN].move = 4
+                elif self.index[0] == 0:
+                    main_state.PLAYER[main_state.PLAYER_TURN].move = 1
+                elif self.index[0] == 4:
+                    main_state.PLAYER[main_state.PLAYER_TURN].move = 2
+                elif self.index[0] == 8:
+                    main_state.PLAYER[main_state.PLAYER_TURN].move = 6
+                elif self.index[0] == 12:
+                    main_state.PLAYER[main_state.PLAYER_TURN].move = 5
                 game_world.remove_object(self)
 
 
