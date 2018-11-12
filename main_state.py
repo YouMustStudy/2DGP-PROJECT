@@ -3,7 +3,8 @@ import json
 import os
 
 WINDOW_WIDTH = 800
-WINDOW_HEIGHT = 800
+WINDOW_HEIGHT = 1000
+CENTER = (WINDOW_WIDTH /2, WINDOW_HEIGHT - 400)
 
 import inf_state
 import pause_state

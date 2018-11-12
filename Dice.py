@@ -40,6 +40,11 @@ class Dice:
             self.z = 10
         if(self.z > 0):
             self.vz -= 1 * frame_time
+        self.x += self.vx
+        self.y += self.vz
+        self.y += self.vz
+
+
 
 
 

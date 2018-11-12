@@ -1,5 +1,6 @@
 from pico2d import*
-import main_state
+from main_state import CENTER
+from game_framework import frame_time
 import game_framework
 import building_state
 import main_state
@@ -29,13 +30,13 @@ class Player:
 
     def rotate(self, theta):
         theta=math.radians(theta)
-        self.x-=main_state.WINDOW_WIDTH/2
-        self.y-=main_state.WINDOW_HEIGHT/2
+        self.x-=CENTER[0]
+        self.y-=CENTER[1]
         tmp_x, tmp_y = self.x, self.y
         self.x=tmp_x*math.cos(theta) - tmp_y*math.sin(theta)
         self.y=tmp_x*math.sin(theta) + tmp_y*math.cos(theta)
-        self.x+=main_state.WINDOW_WIDTH/2
-        self.y+=main_state.WINDOW_HEIGHT/2
+        self.x+=CENTER[0]
+        self.y+=CENTER[1]
 
     def change_state(self, state):
         self.status.exit(self)
@@ -102,8 +103,10 @@ class SpinState:
     def do(player):
         player.frame = (player.frame+1) % 2
         if main_state.MAP[player.index].theta > 0:
-            player.rotate(-1)
-            main_state.rotate_map(-1)
+            theta = min(main_state.MAP[player.index].theta, 180 * game_framework.frame_time)
+            player.rotate(-theta)
+            main_state.rotate_map(-theta)
+            print(main_state.MAP[player.index].theta)
         else:
             main_state.fix_map()
             player.change_state(IdleState)
