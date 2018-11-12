@@ -19,25 +19,31 @@ max_level = None #건설가능한 최대 레벨
 total_cost = None #총 건설비
 
 #아이콘 위치
-pos = [(main_state.WINDOW_WIDTH/2 + 66, main_state.WINDOW_HEIGHT/2 + 30),
-       (main_state.WINDOW_WIDTH / 2 + 66, main_state.WINDOW_HEIGHT / 2 + 13),
-       (main_state.WINDOW_WIDTH / 2 + 66, main_state.WINDOW_HEIGHT / 2 - 4),
-       (main_state.WINDOW_WIDTH / 2 + 66, main_state.WINDOW_HEIGHT / 2 - 20)]
+pos = [(158, 458),
+       (292, 458),
+       (427, 458),
+       (562, 458)]
 
 #팝업창에 사용될 폰트들
 title_font = None
 money_font = None
+passing_font = None
+cost_font = None
 
 def enter():
-    global image, width, height, cur_state, title_font, money_font, clicked_tile, lens, check, cross, min_level, max_level, select_level, total_cost, purchase
+    global image, width, height, cur_state, title_font, money_font, clicked_tile, lens, check, cross, min_level, max_level, select_level, total_cost, purchase, passing_font, cost_font
     if image == None:
         image = load_image('.\\popup\\upgrade.png')
     if title_font == None:
-        title_font = load_font('.\\font\\InterparkGothicBold.ttf', 20)
+        title_font = load_font('.\\font\\InterparkGothicBold.ttf', 40)
     if money_font == None:
-        money_font = load_font('.\\font\\InterparkGothicBold.ttf', 10)
+        money_font = load_font('.\\font\\InterparkGothicBold.ttf', 18)
+    if passing_font == None:
+        passing_font = load_font('.\\font\\InterparkGothicBold.ttf', 24)
+    if cost_font == None:
+        cost_font = load_font('.\\font\\InterparkGothicBold.ttf', 30)
     if purchase == None:
-        purchase = PurchaseIcon(main_state.WINDOW_WIDTH/2, main_state.WINDOW_HEIGHT/2 - 91)
+        purchase = PurchaseIcon(main_state.WINDOW_WIDTH/2 + 16, main_state.WINDOW_HEIGHT/2 - 97)
     width = height = 0
 
 
@@ -52,7 +58,7 @@ def enter():
     cross = [CrossIcon(pos[i]) for i in range(max_level+1, 4)]
 
     for i in range(0, min_level +1):
-        check[i].visible = 0
+        check[i].visible = 1
 
     lens = [len(clicked_tile.name),
            len(str(clicked_tile.BuildingCost[0])),
@@ -128,21 +134,21 @@ class IdleState:
         purchase.draw()
 
         #도시이름 출력
-        title_font.draw(main_state.WINDOW_WIDTH/2 - 10*lens[0], main_state.WINDOW_HEIGHT/2 + 88, clicked_tile.name,(255, 255, 255))
+        title_font.draw(main_state.WINDOW_WIDTH/2 - 20*lens[0], main_state.WINDOW_HEIGHT/2 + 145, clicked_tile.name,(223, 233, 236))
         #건설비용 출력
-        money_font.draw(main_state.WINDOW_WIDTH / 2 + 48 - 6*lens[1], main_state.WINDOW_HEIGHT / 2 + 30, str(clicked_tile.BuildingCost[0]) + '만')
-        money_font.draw(main_state.WINDOW_WIDTH / 2 + 48 - 6*lens[2], main_state.WINDOW_HEIGHT / 2 + 12, str(clicked_tile.BuildingCost[1]) + '만')
-        money_font.draw(main_state.WINDOW_WIDTH / 2 + 48 - 6*lens[3], main_state.WINDOW_HEIGHT / 2 - 5, str(clicked_tile.BuildingCost[2]) + '만')
-        money_font.draw(main_state.WINDOW_WIDTH / 2 + 48 - 6*lens[4], main_state.WINDOW_HEIGHT / 2 - 22, str(clicked_tile.BuildingCost[3]) + '만')
+        money_font.draw(main_state.WINDOW_WIDTH / 2 - 180 - 6*lens[1], main_state.WINDOW_HEIGHT / 2 - 22, str(clicked_tile.BuildingCost[0]) + '만', (198, 54, 23))
+        money_font.draw(main_state.WINDOW_WIDTH / 2 - 45 - 6*lens[2], main_state.WINDOW_HEIGHT / 2 - 22, str(clicked_tile.BuildingCost[1]) + '만', (198, 54, 23))
+        money_font.draw(main_state.WINDOW_WIDTH / 2 + 90 - 6*lens[3], main_state.WINDOW_HEIGHT / 2 - 22, str(clicked_tile.BuildingCost[2]) + '만', (198, 54, 23))
+        money_font.draw(main_state.WINDOW_WIDTH / 2 + 225 - 6*lens[4], main_state.WINDOW_HEIGHT / 2 - 22, str(clicked_tile.BuildingCost[3]) + '만', (198, 54, 23))
         #통행료 출력
-        title_font.draw(main_state.WINDOW_WIDTH / 2 - 6*lens[5], main_state.WINDOW_HEIGHT / 2 - 63, str(clicked_tile.PassingCost[select_level]), (255, 0, 0))
-        title_font.draw(main_state.WINDOW_WIDTH / 2 + 30, main_state.WINDOW_HEIGHT / 2 - 63, '만', (255, 0, 0))
+        passing_font.draw(main_state.WINDOW_WIDTH / 2 + 50 - 6*lens[5], main_state.WINDOW_HEIGHT / 2 - 153, str(clicked_tile.PassingCost[select_level]) + '만', (94, 85, 70))
         #총 건설비용 출력
-        money_font.draw(main_state.WINDOW_WIDTH / 2 + 17 - 6 * lens[6], main_state.WINDOW_HEIGHT / 2 - 91, str(total_cost) + '만', (146, 49, 33))
+        cost_font.draw(main_state.WINDOW_WIDTH / 2 + 34 - 6 * lens[6], main_state.WINDOW_HEIGHT / 2 - 97, str(total_cost) + '만', (146, 49, 33))
 
-        #r = 17
-        #x = main_state.WINDOW_WIDTH/2 + 68
-        #y = main_state.WINDOW_HEIGHT/2 + 90
+        #종료버튼 BB
+        #r = 27
+        #x = 663
+        #y = 598
         #draw_rectangle(x-r, y-r, x+r, y+r)
 
         for icon in check:
@@ -157,6 +163,7 @@ class IdleState:
 
     @staticmethod
     def handle_events(event):
+        print(event.x, event.y)
         if(purchase.handle_events(event)):
             global total_cost, select_level
             main_state.PLAYER[main_state.PLAYER_TURN].cash -= total_cost #건설비용 지불
@@ -170,19 +177,19 @@ class IdleState:
                 select_level = i
                 #체크 아이콘 재설정
                 for j in range(min_level, i+1):
-                    check[j].visible = 0
+                    check[j].visible = 1
                     total_cost+=clicked_tile.BuildingCost[j] #건설비용 재산정
                 for j in range(i+1, max_level+1):
-                    check[j].visible = 1
+                    check[j].visible = 0
 
                 lens[5] = len(str(clicked_tile.PassingCost[select_level]))
                 lens[6] = len(str(total_cost))
                 if total_cost > main_state.PLAYER[main_state.PLAYER_TURN].cash:
-                    purchase.visible = 1
-                else:
                     purchase.visible = 0
+                else:
+                    purchase.visible = 1
 
-        if event.x > main_state.WINDOW_WIDTH/2 + 51 and event.x < main_state.WINDOW_WIDTH/2 + 85 and event.y > main_state.WINDOW_HEIGHT/2 + 73 and event.y < main_state.WINDOW_HEIGHT/2 + 107:
+        if event.x > 663 - 27 and event.x < 663 + 27 and event.y > 598 - 27 and event.y < 598 + 27:
             global cur_state
             cur_state = ExitState
 
@@ -213,22 +220,22 @@ class CrossIcon:
             CrossIcon.image = load_image('.\\icons\\cross.png')
 
     def draw(self):
-        self.image.draw(self.x, self.y)
+        self.image.draw(self.x, self.y, 32, 27)
 
 
 class CheckIcon:
     image = None
     def __init__(self, pos):
         self.x, self.y = pos[0], pos[1]
-        self.visible = 1
+        self.visible = 0
         if CheckIcon.image == None:
             CheckIcon.image = load_image('.\\icons\\check.png')
 
     def draw(self):
-        self.image.clip_draw(10 * self.visible, 0, 10, 10, self.x, self.y)
+        self.image.clip_draw(32 * self.visible, 0, 32, 27, self.x, self.y, 32, 27)
 
     def handle_events(self, event):
-        if event.x > self.x - 5 and self.x + 5 and event.y > self.y-5 and event.y < self.y+5:
+        if event.x > self.x - 16 and self.x + 16 and event.y > self.y-13 and event.y < self.y+13:
             return 1
         return 0
 
@@ -236,14 +243,15 @@ class PurchaseIcon:
     image = None
     def __init__(self, x, y):
         self.x , self.y = x, y
-        self.visible = 0
+        self.visible = 1
         if PurchaseIcon.image == None:
             PurchaseIcon.image = load_image('.\\icons\\purchase.png')
 
     def draw(self):
-        self.image.clip_draw(123 * self.visible, 0, 123, 26, self.x, self.y)
+        draw_rectangle(self.x-165, self.y-33, self.x+165, self.y+33)
+        self.image.clip_draw(330 * self.visible, 0, 330, 66, self.x, self.y)
 
     def handle_events(self, event):
-        if self.visible == 0 and event.x > self.x - 60 and self.x + 60 and event.y > self.y-13 and event.y < self.y+13:
+        if self.visible and event.x > self.x - 165 and self.x + 165 and event.y > self.y-33 and event.y < self.y+33:
             return 1
         return 0
