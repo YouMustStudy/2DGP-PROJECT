@@ -61,6 +61,7 @@ class Dice:
         #주사위 정지 검사
         self.timer = 0.1
         #정지 후 확정 타이머
+        self.end = False
         self.endtimer = 1.0
         #주사위 스프라이트
         if Dice.image == None:
@@ -118,14 +119,16 @@ class Dice:
             if self.z == 0 and self.oldvasize <0.3 and self.va.size() < 0.3:
                 self.va.set(0, 0, 0)
                 self.stablize()
-                self.endtimer -= game_framework.frame_time
-                if self.endtimer <= 0:
-                    game_world.remove_object(self)
+                self.end = True
             self.oldz = self.z
             self.oldvz = self.oldvz
             self.oldvasize = self.va.size()
-            #주기적인 상태체크
             self.timer = 0.1
+
+        if self.end:
+            self.endtimer -= game_framework.frame_time
+            if self.endtimer <= 0:
+                game_world.remove_object(self)
 
 
         self.rot = 0
