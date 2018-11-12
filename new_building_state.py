@@ -19,10 +19,10 @@ max_level = None #건설가능한 최대 레벨
 total_cost = None #총 건설비
 
 #아이콘 위치
-pos = [(main_state.WINDOW_WIDTH/2 + 66, main_state.WINDOW_HEIGHT/2 + 30),
-       (main_state.WINDOW_WIDTH / 2 + 66, main_state.WINDOW_HEIGHT / 2 + 13),
-       (main_state.WINDOW_WIDTH / 2 + 66, main_state.WINDOW_HEIGHT / 2 - 4),
-       (main_state.WINDOW_WIDTH / 2 + 66, main_state.WINDOW_HEIGHT / 2 - 20)]
+pos = [(158, 458),
+       (292, 458),
+       (427, 458),
+       (562, 458)]
 
 #팝업창에 사용될 폰트들
 title_font = None
@@ -145,9 +145,10 @@ class IdleState:
         #총 건설비용 출력
         cost_font.draw(main_state.WINDOW_WIDTH / 2 + 34 - 6 * lens[6], main_state.WINDOW_HEIGHT / 2 - 97, str(total_cost) + '만', (146, 49, 33))
 
-        #r = 17
-        #x = main_state.WINDOW_WIDTH/2 + 68
-        #y = main_state.WINDOW_HEIGHT/2 + 90
+        #종료버튼 BB
+        #r = 27
+        #x = 663
+        #y = 598
         #draw_rectangle(x-r, y-r, x+r, y+r)
 
         for icon in check:
@@ -162,6 +163,7 @@ class IdleState:
 
     @staticmethod
     def handle_events(event):
+        print(event.x, event.y)
         if(purchase.handle_events(event)):
             global total_cost, select_level
             main_state.PLAYER[main_state.PLAYER_TURN].cash -= total_cost #건설비용 지불
@@ -187,7 +189,7 @@ class IdleState:
                 else:
                     purchase.visible = 1
 
-        if event.x > main_state.WINDOW_WIDTH/2 + 51 and event.x < main_state.WINDOW_WIDTH/2 + 85 and event.y > main_state.WINDOW_HEIGHT/2 + 73 and event.y < main_state.WINDOW_HEIGHT/2 + 107:
+        if event.x > 663 - 27 and event.x < 663 + 27 and event.y > 598 - 27 and event.y < 598 + 27:
             global cur_state
             cur_state = ExitState
 
@@ -218,7 +220,7 @@ class CrossIcon:
             CrossIcon.image = load_image('.\\icons\\cross.png')
 
     def draw(self):
-        self.image.draw(self.x, self.y)
+        self.image.draw(self.x, self.y, 32, 27)
 
 
 class CheckIcon:
@@ -230,7 +232,7 @@ class CheckIcon:
             CheckIcon.image = load_image('.\\icons\\check.png')
 
     def draw(self):
-        self.image.clip_draw(10 * self.visible, 0, 10, 10, self.x, self.y)
+        self.image.clip_draw(10 * self.visible, 0, 10, 10, self.x, self.y, 32, 27)
 
     def handle_events(self, event):
         if event.x > self.x - 5 and self.x + 5 and event.y > self.y-5 and event.y < self.y+5:
@@ -246,9 +248,10 @@ class PurchaseIcon:
             PurchaseIcon.image = load_image('.\\icons\\purchase.png')
 
     def draw(self):
+        draw_rectangle(self.x-165, self.y-33, self.x+165, self.y+33)
         self.image.clip_draw(330 * self.visible, 0, 330, 66, self.x, self.y)
 
     def handle_events(self, event):
-        if self.visible and event.x > self.x - 60 and self.x + 60 and event.y > self.y-13 and event.y < self.y+13:
+        if self.visible and event.x > self.x - 165 and self.x + 165 and event.y > self.y-33 and event.y < self.y+33:
             return 1
         return 0
