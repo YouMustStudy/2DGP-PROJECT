@@ -6,12 +6,12 @@ import inf_state
 import pause_state
 
 from pico2d import *
+from Dice import DiceButton
 import game_framework
 import game_world
-import PlayerClass
-import TileClass
-import DiceClass
-from Dice import DiceButton
+import Player
+import Tile
+
 
 name = "MainState"
 
@@ -30,8 +30,8 @@ menu = None
 def enter():
     global MAP, PLAYER, PLAYER_TURN, DICE, bgimage, menu
     PLAYER_TURN = 0
-    MAP = TileClass.init_tile()
-    PLAYER.append(PlayerClass.Player(MAP[3].x, MAP[3].y, 'p'))
+    MAP = Tile.init_tile()
+    PLAYER.append(Player.Player(MAP[3].x, MAP[3].y, 'p'))
     DICE = DiceButton()
     bgimage = load_image('bgimage.jpg')
     menu = load_image('.\\icons\\settings.png')
