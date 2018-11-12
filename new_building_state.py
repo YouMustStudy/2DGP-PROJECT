@@ -28,9 +28,10 @@ pos = [(main_state.WINDOW_WIDTH/2 + 66, main_state.WINDOW_HEIGHT/2 + 30),
 title_font = None
 money_font = None
 passing_font = None
+cost_font = None
 
 def enter():
-    global image, width, height, cur_state, title_font, money_font, clicked_tile, lens, check, cross, min_level, max_level, select_level, total_cost, purchase, passing_font
+    global image, width, height, cur_state, title_font, money_font, clicked_tile, lens, check, cross, min_level, max_level, select_level, total_cost, purchase, passing_font, cost_font
     if image == None:
         image = load_image('.\\popup\\upgrade.png')
     if title_font == None:
@@ -39,8 +40,10 @@ def enter():
         money_font = load_font('.\\font\\InterparkGothicBold.ttf', 18)
     if passing_font == None:
         passing_font = load_font('.\\font\\InterparkGothicBold.ttf', 24)
+    if cost_font == None:
+        cost_font = load_font('.\\font\\InterparkGothicBold.ttf', 30)
     if purchase == None:
-        purchase = PurchaseIcon(main_state.WINDOW_WIDTH/2, main_state.WINDOW_HEIGHT/2 - 91)
+        purchase = PurchaseIcon(main_state.WINDOW_WIDTH/2 + 16, main_state.WINDOW_HEIGHT/2 - 97)
     width = height = 0
 
 
@@ -140,7 +143,7 @@ class IdleState:
         #통행료 출력
         passing_font.draw(main_state.WINDOW_WIDTH / 2 + 50 - 6*lens[5], main_state.WINDOW_HEIGHT / 2 - 153, str(clicked_tile.PassingCost[select_level]) + '만', (94, 85, 70))
         #총 건설비용 출력
-        money_font.draw(main_state.WINDOW_WIDTH / 2 + 17 - 6 * lens[6], main_state.WINDOW_HEIGHT / 2 - 91, str(total_cost) + '만', (146, 49, 33))
+        cost_font.draw(main_state.WINDOW_WIDTH / 2 + 34 - 6 * lens[6], main_state.WINDOW_HEIGHT / 2 - 97, str(total_cost) + '만', (146, 49, 33))
 
         #r = 17
         #x = main_state.WINDOW_WIDTH/2 + 68
@@ -180,9 +183,9 @@ class IdleState:
                 lens[5] = len(str(clicked_tile.PassingCost[select_level]))
                 lens[6] = len(str(total_cost))
                 if total_cost > main_state.PLAYER[main_state.PLAYER_TURN].cash:
-                    purchase.visible = 1
-                else:
                     purchase.visible = 0
+                else:
+                    purchase.visible = 1
 
         if event.x > main_state.WINDOW_WIDTH/2 + 51 and event.x < main_state.WINDOW_WIDTH/2 + 85 and event.y > main_state.WINDOW_HEIGHT/2 + 73 and event.y < main_state.WINDOW_HEIGHT/2 + 107:
             global cur_state
@@ -238,14 +241,14 @@ class PurchaseIcon:
     image = None
     def __init__(self, x, y):
         self.x , self.y = x, y
-        self.visible = 0
+        self.visible = 1
         if PurchaseIcon.image == None:
             PurchaseIcon.image = load_image('.\\icons\\purchase.png')
 
     def draw(self):
-        self.image.clip_draw(123 * self.visible, 0, 123, 26, self.x, self.y)
+        self.image.clip_draw(330 * self.visible, 0, 330, 66, self.x, self.y)
 
     def handle_events(self, event):
-        if self.visible == 0 and event.x > self.x - 60 and self.x + 60 and event.y > self.y-13 and event.y < self.y+13:
+        if self.visible and event.x > self.x - 60 and self.x + 60 and event.y > self.y-13 and event.y < self.y+13:
             return 1
         return 0
