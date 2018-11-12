@@ -58,7 +58,7 @@ def enter():
     cross = [CrossIcon(pos[i]) for i in range(max_level+1, 4)]
 
     for i in range(0, min_level +1):
-        check[i].visible = 0
+        check[i].visible = 1
 
     lens = [len(clicked_tile.name),
            len(str(clicked_tile.BuildingCost[0])),
@@ -177,10 +177,10 @@ class IdleState:
                 select_level = i
                 #체크 아이콘 재설정
                 for j in range(min_level, i+1):
-                    check[j].visible = 0
+                    check[j].visible = 1
                     total_cost+=clicked_tile.BuildingCost[j] #건설비용 재산정
                 for j in range(i+1, max_level+1):
-                    check[j].visible = 1
+                    check[j].visible = 0
 
                 lens[5] = len(str(clicked_tile.PassingCost[select_level]))
                 lens[6] = len(str(total_cost))
@@ -227,15 +227,15 @@ class CheckIcon:
     image = None
     def __init__(self, pos):
         self.x, self.y = pos[0], pos[1]
-        self.visible = 1
+        self.visible = 0
         if CheckIcon.image == None:
             CheckIcon.image = load_image('.\\icons\\check.png')
 
     def draw(self):
-        self.image.clip_draw(10 * self.visible, 0, 10, 10, self.x, self.y, 32, 27)
+        self.image.clip_draw(32 * self.visible, 0, 32, 27, self.x, self.y, 32, 27)
 
     def handle_events(self, event):
-        if event.x > self.x - 5 and self.x + 5 and event.y > self.y-5 and event.y < self.y+5:
+        if event.x > self.x - 16 and self.x + 16 and event.y > self.y-13 and event.y < self.y+13:
             return 1
         return 0
 
