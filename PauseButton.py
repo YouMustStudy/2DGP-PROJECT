@@ -2,12 +2,12 @@ from pico2d import *
 import game_framework
 import pause_state
 
-class PurseButton:
+class PauseButton:
     image = None
 
     def __init__(self):
-        if PurseButton.image == None:
-            PurseButton.image = load_image('.\\icons\\settings.png')
+        if PauseButton.image == None:
+            PauseButton.image = load_image('.\\icons\\settings.png')
 
     def update(self):
         pass

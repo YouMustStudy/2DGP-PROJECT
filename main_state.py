@@ -2,15 +2,21 @@ WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 1000
 CENTER = (WINDOW_WIDTH /2, WINDOW_HEIGHT - 400)
 
+#라이브러리 임포트
+from pico2d import *
+import game_framework
+import game_world
+
+#게임상태 임포트
 import inf_state
 import pause_state
 
-from pico2d import *
+#클래스 임포트
+from Player import Player
 from Dice import DiceButton
-import game_framework
-import game_world
-import Player
 import Tile
+from PauseButton import PauseButton
+
 
 
 name = "MainState"
@@ -20,27 +26,27 @@ PLAYER = []
 DICE = None
 PHASE = None
 PLAYER_TURN = None
+PAUSE_BUTTON = None
 
 CLICKED_TILE = 0 #팝업창을 띄울 타일
 
 bgimage = None
-menu = None
 
 def enter():
-    global MAP, PLAYER, PLAYER_TURN, DICE, bgimage, menu
+    global MAP, PLAYER, PLAYER_TURN, DICE, bgimage, PURSE_BUTTON
     PLAYER_TURN = 0
     MAP = Tile.init_tile()
-    PLAYER.append(Player.Player(MAP[3].x, MAP[3].y, 'p'))
+    PLAYER.append(Player(MAP[3].x, MAP[3].y, 'p'))
     DICE = DiceButton()
+    PAUSE_BUTTON = PauseButton()
     bgimage = load_image('bgimage.jpg')
-    menu = load_image('.\\icons\\settings.png')
 
-    #game_world.add_object(MAP, 0)
     for tiles in MAP:
         game_world.add_object(tiles, 0)
     for character in PLAYER:
         game_world.add_object(character, 0)
     game_world.add_object(DICE, 1)
+    game_world.add_object(PAUSE_BUTTON, 1)
 
 def exit():
     game_world.clear()
