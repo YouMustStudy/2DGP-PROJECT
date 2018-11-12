@@ -21,7 +21,6 @@ DICE = None
 PHASE = None
 PLAYER_TURN = None
 
-
 CLICKED_TILE = 0 #팝업창을 띄울 타일
 
 bgimage = None
@@ -97,4 +96,6 @@ def popup_event(event):
     for tile in MAP:
         if tile.isclicked(event.x, event.y) == 1:
             CLICKED_TILE = tile
+            if tile.name == '찬스카드':
+                break;
             game_framework.push_state(inf_state)
