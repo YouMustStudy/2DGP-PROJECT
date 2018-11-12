@@ -97,9 +97,11 @@ class IdleState:
         money_font.draw(main_state.WINDOW_WIDTH / 2 + 58 - 6*lens[2], main_state.WINDOW_HEIGHT / 2 + 12, str(clicked_tile.BuildingCost[1]) + '만')
         money_font.draw(main_state.WINDOW_WIDTH / 2 + 58 - 6*lens[3], main_state.WINDOW_HEIGHT / 2 - 5, str(clicked_tile.BuildingCost[2]) + '만')
         money_font.draw(main_state.WINDOW_WIDTH / 2 + 58 - 6*lens[4], main_state.WINDOW_HEIGHT / 2 - 22, str(clicked_tile.BuildingCost[3]) + '만')
-
-        title_font.draw(main_state.WINDOW_WIDTH / 2 - 22, main_state.WINDOW_HEIGHT / 2 - 78, str(clicked_tile.PassingCost[clicked_tile.level]), (255, 0, 0))
-        title_font.draw(main_state.WINDOW_WIDTH / 2 + 30, main_state.WINDOW_HEIGHT / 2 - 78, '만', (255, 0, 0))
+        if clicked_tile.level == -1:
+            title_font.draw(main_state.WINDOW_WIDTH / 2 - 7, main_state.WINDOW_HEIGHT / 2 - 78, '0', (154, 43, 16))
+        else:
+            title_font.draw(main_state.WINDOW_WIDTH / 2 - 22, main_state.WINDOW_HEIGHT / 2 - 78, str(clicked_tile.PassingCost[clicked_tile.level]), (154, 43, 16))
+            title_font.draw(main_state.WINDOW_WIDTH / 2 + 30, main_state.WINDOW_HEIGHT / 2 - 78, '만', (154, 43, 16))
         r = 17
         x = main_state.WINDOW_WIDTH/2 + 68
         y = main_state.WINDOW_HEIGHT/2 + 90

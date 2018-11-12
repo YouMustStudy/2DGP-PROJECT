@@ -14,7 +14,7 @@ axisZ = Vector(0, 0, 1)
 #60프레임 기준
 FRAME_PER_TIME = 60
 #경계
-BORDER = (400-210, 600-210, 400+210, 600+210)
+BORDER = (400-210+40, 500-210+40, 400+210-40, 500+210-40)
 
 class DiceButton:
     def __init__(self):
@@ -37,6 +37,7 @@ class DiceButton:
 
 class Dice:
     image = None
+
     def __init__(self):
         #주사위의 X, Y 방향 벡터
         self.vecX = Vector(1, 0, 0)
@@ -178,7 +179,7 @@ class Dice:
 
 
     def draw(self):
-        self.image.clip_composite_draw(self.index[0]*46, self.index[1]*46, 46, 46, -math.radians(self.rot), '', self.x, self.y, 46*(1+self.z/10), 46*(1+self.z/10))
+        self.image.clip_composite_draw(self.index[0]*46, self.index[1]*46, 46, 46, -math.radians(self.rot), '', self.x, self.y, 1.5*46*(1+self.z/10), 1.5*46*(1+self.z/10))
 
     def collison_ground(self):
         vecZ = self.vecX.cross(self.vecY)
