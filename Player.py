@@ -105,7 +105,7 @@ class RunState:
                     pass
                 elif(player.index == 9 or player.index == 24): #찬스카드
                     pass
-                elif(main_state.MAP[player.index].owner == -1 or main_state.MAP[player.index].owner == main_state.PLAYER_TURN): #땅주인이 없거나 본인이 주인이면
+                elif(main_state.MAP[player.index].owner == -1 or main_state.MAP[player.index].owner == main_state.PLAYER_TURN and main_state.MAP[player.index].return_cost() < player.cash): #땅주인이 없거나 본인이 주인이면
                     game_framework.push_state(building_state) #건설상태로 분기
                     return
                 else:
