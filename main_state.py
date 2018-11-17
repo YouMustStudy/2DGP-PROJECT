@@ -139,3 +139,10 @@ def change_turn():
 
     DICE.visible = 0
     PLAYER[PLAYER_TURN].change_state(SpinState)
+
+def change_money():
+    index = PLAYER[PLAYER_TURN].index
+    owner = MAP[index].owner
+
+
+    PLAYER[PLAYER_TURN].cash -= MAP[index].PassingCost
