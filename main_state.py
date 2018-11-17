@@ -12,7 +12,7 @@ import inf_state
 import pause_state
 
 #클래스 임포트
-from Player import Player
+from Player import Player, SpinState
 from Dice import DiceButton
 import Tile
 from PauseButton import PauseButton
@@ -132,5 +132,10 @@ def check_rank():
 
 def change_turn():
     global PLAYER_TURN
-    DICE.visible = 0
+
+    PLAYER[PLAYER_TURN].image.opacify(0.6)
     PLAYER_TURN = (PLAYER_TURN+1) % 2
+    PLAYER[PLAYER_TURN].image.opacify(1.0)
+
+    DICE.visible = 0
+    PLAYER[PLAYER_TURN].change_state(SpinState)

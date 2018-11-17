@@ -95,7 +95,7 @@ class RunState:
                 player.money += 600
             if main_state.MAP[player.index].theta > 0:
                 player.change_state(SpinState)
-            elif player.move == 0:
+            if player.move == 0:
                 player.change_state(IdleState)
                 #도착 후 이벤트 처리
                 if(player.index % 7 == 0): #큰타일 - 특수이벤트
@@ -104,6 +104,7 @@ class RunState:
                     pass
                 elif(main_state.MAP[player.index].owner == -1 or main_state.MAP[player.index].owner == main_state.PLAYER_TURN): #땅주인이 없거나 본인이 주인이면
                     game_framework.push_state(building_state) #건설상태로 분기
+                    return
                 #이벤트 처리 후 순위 체크
                 main_state.check_rank()
                 main_state.change_turn()
@@ -121,7 +122,7 @@ class SpinState:
         pass
     @staticmethod
     def do(player):
-        player.frame = (player.frame+1) % 2
+        player.frame = (player.frame + game_framework.frame_time * RUN_FRAME_PER_TIME) % 10
         if main_state.MAP[player.index].theta > 0:
             theta = min(main_state.MAP[player.index].theta, DEGREE_PER_TIME * game_framework.frame_time)
             main_state.rotate_world(theta)
@@ -131,4 +132,4 @@ class SpinState:
 
     @staticmethod
     def draw(player):
-        player.image.clip_draw(player.frame * 20 + 20, 0, 20, 20, player.x, player.y)
+        player.image.clip_draw(120 * int(player.frame), 0, 120, 130, player.x, player.y, 60, 60)

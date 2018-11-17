@@ -166,11 +166,11 @@ class IdleState:
     @staticmethod
     def handle_events(event):
         if(purchase.handle_events(event)):
-            global total_cost, select_level
+            global total_cost, select_level, cur_state
             main_state.PLAYER[CUR_TURN].cash -= total_cost #건설비용 지불
             clicked_tile.owner = CUR_TURN #소유권 변경
             clicked_tile.level = select_level #건설레벨 적용
-            game_framework.pop_state() #건설상태 종료
+            cur_state = ExitState
         for i in range(min_level, max_level+1):
             if(check[i].handle_events(event) == 1):
                 global lens
@@ -192,7 +192,6 @@ class IdleState:
 
         #종료버튼
         if event.x > 663 - 27 and event.x < 663 + 27 and event.y > 548 - 27 and event.y < 548 + 27:
-            global cur_state
             cur_state = ExitState
 
 class ExitState:
@@ -209,6 +208,7 @@ class ExitState:
         height = clamp(0, height, image.h)
         if width == 0:
             game_framework.pop_state()
+            main_state.change_turn()
 
     @staticmethod
     def handle_events(event):
