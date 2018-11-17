@@ -10,7 +10,7 @@ ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAME_PER_TIME = ACTION_PER_TIME * FRAME_PER_ACTION
 
 class UI:
-    cur_money_font = None
+    money_font = None
     rank_font = None
 
     def __init__(self, x, y, num, player):
@@ -18,14 +18,15 @@ class UI:
         self.num = num
         self.frame = randint(1, 2)
         self.player = player
+        self.rank = 1
         if num == 0:
             self.image = load_image(".\\icons\\GreenUI.png")
             self.character = load_image(".\\character\\Green.png")
         elif num == 1:
             self.image = load_image(".\\icons\\BlueUI.png")
             self.character = load_image(".\\character\\Blue.png")
-        if UI.cur_money_font == None:
-            UI.cur_money_font = load_font(".\\font\\GodoB.ttf", 20)
+        if UI.money_font == None:
+            UI.money_font = load_font(".\\font\\GodoB.ttf", 16)
         if UI.rank_font == None:
             UI.rank_font = load_font(".\\font\\GodoB.ttf", 20)
 
@@ -35,3 +36,6 @@ class UI:
     def draw(self):
         self.image.draw(self.x, self.y)
         self.character.clip_draw(120 * int(self.frame), 910, 120, 130, self.x-117, self.y, 60, 60)
+        self.money_font.draw(self.x - 8 * len(str(self.player.cash)) + 40, self.y, str(self.player.cash), (249, 236, 194))
+        self.money_font.draw(self.x - 8 * len(str(self.player.money)) + 40, self.y - 30, str(self.player.money), (239, 231, 223))
+        self.money_font.draw(self.x - 8 * len(str(self.player.money)) + 40, self.y - 30, str(self.rank), (239, 231, 223))

@@ -41,8 +41,8 @@ def enter():
     bgimage = load_image('bgimage.jpg')
 
 
-    P1UI = UI(150, 40, 0, PLAYER[0])
-    P2UI = UI(WINDOW_WIDTH - 150, 40, 1, PLAYER[1])
+    P1UI = UI(150, 40, 0, PLAYER)
+    P2UI = UI(WINDOW_WIDTH - 150, 40, 1, PLAYER)
 
     for tiles in MAP:
         game_world.add_object(tiles, 0)
@@ -109,3 +109,17 @@ def popup_event(event):
             if tile.name == '찬스카드':
                 break;
             game_framework.push_state(inf_state)
+
+
+def check_rank():
+    if PLAYER[0].money == PLAYER[[1].money:
+        PLAYER[0].rank = 1
+        PLAYER[1].rank = 1
+
+    elif PLAYER[0].money > PLAYER[[1].money:
+        PLAYER[0].rank = 1
+        PLAYER[1].rank = 2
+
+    elif PLAYER[0].money < PLAYER[[1].money:
+        PLAYER[0].rank = 2
+        PLAYER[1].rank = 1

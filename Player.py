@@ -20,6 +20,7 @@ class Player:
         self.status = IdleState
         self.frame = 0
         self.move = 0
+        self.rank = 1
         self.round = 1 #몇바퀴 돌았는지 | 업그레이드 가능한 건물 종류
 
     def draw(self):
