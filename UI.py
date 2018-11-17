@@ -13,10 +13,11 @@ class UI:
     cur_money_font = None
     rank_font = None
 
-    def __init__(self, x, y, num):
+    def __init__(self, x, y, num, player):
         self.x, self.y = x, y
         self.num = num
         self.frame = randint(1, 2)
+        self.player = player
         if num == 0:
             self.image = load_image(".\\icons\\GreenUI.png")
             self.character = load_image(".\\character\\Green.png")
@@ -33,4 +34,4 @@ class UI:
 
     def draw(self):
         self.image.draw(self.x, self.y)
-        self.character.clip_draw(120 * int(self.frame), 910, 120, 130, self.x-117, self.y, 70, 70)
+        self.character.clip_draw(120 * int(self.frame), 910, 120, 130, self.x-117, self.y, 60, 60)
