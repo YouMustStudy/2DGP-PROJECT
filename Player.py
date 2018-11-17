@@ -3,6 +3,7 @@ from main_state import CENTER
 import game_framework
 import building_state
 import main_state
+from Dollar import money_ceremony
 
 SPIN_PER_TIME = 1.5
 DEGREE_PER_TIME = SPIN_PER_TIME * 360
@@ -94,6 +95,7 @@ class RunState:
                 player.cash += 600
                 player.money += 600
                 player.round += 1
+                money_ceremony()
             if main_state.MAP[player.index].theta > 0:
                 player.change_state(SpinState)
             if player.move == 0:

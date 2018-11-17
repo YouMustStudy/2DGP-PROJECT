@@ -6,10 +6,10 @@ import game_world
 class Dollar:
     image = None
     def __init__(self, x=400, y=400):
-        self.dist = randint(200, 300)
-        self.length = self.dist / 0.3
+        self.dist = randint(200, 400)
+        self.length = self.dist / 0.2
         self.x, self.y = x, y + self.dist
-        self.timer = 1.0
+        self.timer = 0.5
         if Dollar.image == None:
             Dollar.image = load_image(".\\icons\\dollar.png")
 
