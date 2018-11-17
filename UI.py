@@ -18,7 +18,6 @@ class UI:
         self.num = num
         self.frame = randint(1, 2)
         self.player = player
-        self.rank = 1
         if num == 0:
             self.image = load_image(".\\icons\\GreenUI.png")
             self.character = load_image(".\\character\\Green.png")
@@ -38,4 +37,4 @@ class UI:
         self.character.clip_draw(120 * int(self.frame), 910, 120, 130, self.x-117, self.y, 60, 60)
         self.money_font.draw(self.x - 8 * len(str(self.player.cash)) + 40, self.y, str(self.player.cash), (249, 236, 194))
         self.money_font.draw(self.x - 8 * len(str(self.player.money)) + 40, self.y - 30, str(self.player.money), (239, 231, 223))
-        self.rank_font.draw(self.x + 95, self.y-3, str(self.rank), (239, 231, 223))
+        self.rank_font.draw(self.x + 95, self.y-3, str(self.player.rank), (239, 231, 223))

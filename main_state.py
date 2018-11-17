@@ -35,8 +35,8 @@ def enter():
     global MAP, PLAYER, PLAYER_TURN, DICE, bgimage, PAUSE_BUTTON
     PLAYER_TURN = 0
     MAP = Tile.init_tile()
-    PLAYER.append(Player(MAP[0].x, MAP[0].y, 'g'))
-    PLAYER.append(Player(MAP[0].x, MAP[0].y, 'b'))
+    PLAYER.append(Player(MAP[0].x, MAP[0].y+10, 'g'))
+    PLAYER.append(Player(MAP[0].x, MAP[0].y-10, 'b'))
     DICE = DiceButton()
     PAUSE_BUTTON = PauseButton()
     bgimage = load_image('bgimage.jpg')
@@ -74,20 +74,13 @@ def handle_events():
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_3:
-            PLAYER[PLAYER_TURN].move = 3
-            print(SDLK_1)
-            print(SDLK_2)
-            print(SDLK_3)
-            print(SDLK_4)
-            print(SDLK_5)
         elif event.type == SDL_MOUSEBUTTONDOWN:
             event.y = WINDOW_HEIGHT - event.y + 1
             DICE.handle_event(event)
             popup_event(event)
             PAUSE_BUTTON.handle_event(event)
         else:
-            pass
+            cheat_move(event)
 
 
 def update():
