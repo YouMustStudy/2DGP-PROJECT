@@ -73,7 +73,9 @@ def handle_events():
         if event.type == SDL_QUIT:
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-                game_framework.quit()
+            game_framework.quit()
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_3:
+            PLAYER[PLAYER_TURN].move = 3
         elif event.type == SDL_MOUSEBUTTONDOWN:
             event.y = WINDOW_HEIGHT - event.y + 1
             DICE.handle_event(event)
@@ -140,9 +142,12 @@ def change_turn():
     DICE.visible = 0
     PLAYER[PLAYER_TURN].change_state(SpinState)
 
-def change_money():
+def trade_money():
     index = PLAYER[PLAYER_TURN].index
     owner = MAP[index].owner
+    cost = MAP[index].return_cost()
 
-
-    PLAYER[PLAYER_TURN].cash -= MAP[index].PassingCost
+    PLAYER[PLAYER_TURN].cash -= cost
+    PLAYER[PLAYER_TURN].money -= cost
+    PLAYER[owner].cash += cost
+    PLAYER[owner].money += cost
