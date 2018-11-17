@@ -8,6 +8,7 @@ height = None
 cur_state = None
 
 clicked_tile = None #클릭된 타일
+CUR_TURN = 0 #현재 턴
 lens = None #출력 될 글자 수
 check = None #V자 아이콘
 cross = None #X자 아이콘
@@ -31,7 +32,7 @@ passing_font = None
 cost_font = None
 
 def enter():
-    global image, width, height, cur_state, title_font, money_font, clicked_tile, lens, check, cross, min_level, max_level, select_level, total_cost, purchase, passing_font, cost_font
+    global image, width, height, cur_state, title_font, money_font, clicked_tile, lens, check, cross, min_level, max_level, select_level, total_cost, purchase, passing_font, cost_font, CUR_TURN
     if image == None:
         image = load_image('.\\popup\\upgrade.png')
     if title_font == None:
@@ -45,12 +46,13 @@ def enter():
     if purchase == None:
         purchase = PurchaseIcon(main_state.WINDOW_WIDTH/2 + 16, main_state.WINDOW_HEIGHT/2 - 97)
     width = height = 0
+    CUR_TURN = main_state.PLAYER_TURN
 
 
-    clicked_tile = main_state.MAP[main_state.PLAYER[main_state.PLAYER_TURN].index]
+    clicked_tile = main_state.MAP[main_state.PLAYER[CUR_TURN].index]
     min_level = clicked_tile.level+1
     select_level = min_level
-    max_level = min(main_state.PLAYER[main_state.PLAYER_TURN].round, 3)
+    max_level = min(main_state.PLAYER[CUR_TURN].round, 3)
 
     total_cost = clicked_tile.BuildingCost[min_level]
 
@@ -165,8 +167,8 @@ class IdleState:
     def handle_events(event):
         if(purchase.handle_events(event)):
             global total_cost, select_level
-            main_state.PLAYER[main_state.PLAYER_TURN].cash -= total_cost #건설비용 지불
-            clicked_tile.owner = main_state.PLAYER_TURN #소유권 변경
+            main_state.PLAYER[CUR_TURN].cash -= total_cost #건설비용 지불
+            clicked_tile.owner = CUR_TURN #소유권 변경
             clicked_tile.level = select_level #건설레벨 적용
             game_framework.pop_state() #건설상태 종료
         for i in range(min_level, max_level+1):
@@ -183,7 +185,7 @@ class IdleState:
 
                 lens[5] = len(str(clicked_tile.PassingCost[select_level]))
                 lens[6] = len(str(total_cost))
-                if total_cost > main_state.PLAYER[main_state.PLAYER_TURN].cash:
+                if total_cost > main_state.PLAYER[CUR_TURN].cash:
                     purchase.visible = 0
                 else:
                     purchase.visible = 1
