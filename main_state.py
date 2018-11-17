@@ -36,13 +36,14 @@ def enter():
     PLAYER_TURN = 0
     MAP = Tile.init_tile()
     PLAYER.append(Player(MAP[3].x, MAP[3].y, 'p'))
+    PLAYER.append(Player(MAP[3].x, MAP[3].y, 'p'))
     DICE = DiceButton()
     PAUSE_BUTTON = PauseButton()
     bgimage = load_image('bgimage.jpg')
 
 
-    P1UI = UI(150, 40, 0, PLAYER)
-    P2UI = UI(WINDOW_WIDTH - 150, 40, 1, PLAYER)
+    P1UI = UI(150, 40, 0, PLAYER[0])
+    P2UI = UI(WINDOW_WIDTH - 150, 40, 1, PLAYER[1])
 
     for tiles in MAP:
         game_world.add_object(tiles, 0)
@@ -110,16 +111,13 @@ def popup_event(event):
                 break;
             game_framework.push_state(inf_state)
 
-
 def check_rank():
-    if PLAYER[0].money == PLAYER[[1].money:
+    if PLAYER[0].money == PLAYER[1].money:
         PLAYER[0].rank = 1
         PLAYER[1].rank = 1
-
-    elif PLAYER[0].money > PLAYER[[1].money:
+    elif PLAYER[0].money > PLAYER[1].money:
         PLAYER[0].rank = 1
         PLAYER[1].rank = 2
-
-    elif PLAYER[0].money < PLAYER[[1].money:
+    elif PLAYER[0].money < PLAYER[1].money:
         PLAYER[0].rank = 2
         PLAYER[1].rank = 1

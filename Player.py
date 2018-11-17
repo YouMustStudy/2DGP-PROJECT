@@ -58,6 +58,7 @@ class IdleState:
     @staticmethod
     def draw(player):
         player.image.clip_draw(player.frame * 20, 0, 20, 20, player.x, player.y)
+
 class RunState:
     @staticmethod
     def enter(player):
@@ -88,6 +89,8 @@ class RunState:
                     pass
                 elif(main_state.MAP[player.index].owner == -1 or main_state.MAP[player.index].owner == main_state.PLAYER_TURN): #땅주인이 없거나 본인이 주인이면
                     game_framework.push_state(building_state) #건설상태로 분기
+                #이벤트 처리 후 순위 체크
+                main_state.check_rank()
 
 
     @staticmethod

@@ -28,7 +28,7 @@ class UI:
         if UI.money_font == None:
             UI.money_font = load_font(".\\font\\GodoB.ttf", 16)
         if UI.rank_font == None:
-            UI.rank_font = load_font(".\\font\\GodoB.ttf", 20)
+            UI.rank_font = load_font(".\\font\\GodoB.ttf", 50)
 
     def update(self):
         self.frame = (self.frame + game_framework.frame_time * FRAME_PER_TIME) % 3
@@ -38,4 +38,4 @@ class UI:
         self.character.clip_draw(120 * int(self.frame), 910, 120, 130, self.x-117, self.y, 60, 60)
         self.money_font.draw(self.x - 8 * len(str(self.player.cash)) + 40, self.y, str(self.player.cash), (249, 236, 194))
         self.money_font.draw(self.x - 8 * len(str(self.player.money)) + 40, self.y - 30, str(self.player.money), (239, 231, 223))
-        self.money_font.draw(self.x - 8 * len(str(self.player.money)) + 40, self.y - 30, str(self.rank), (239, 231, 223))
+        self.rank_font.draw(self.x + 95, self.y-3, str(self.rank), (239, 231, 223))
