@@ -93,6 +93,7 @@ class RunState:
             if(player.index == 0):
                 player.cash += 600
                 player.money += 600
+                player.round += 1
             if main_state.MAP[player.index].theta > 0:
                 player.change_state(SpinState)
             if player.move == 0:
