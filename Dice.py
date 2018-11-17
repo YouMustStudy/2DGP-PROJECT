@@ -192,7 +192,6 @@ class Dice:
                         torque.normalize()
                         torque = torque.mul((max(0, -self.vz) + abs(self.va.dot(torque.mul(-1)))) * elastic)
                         self.va = self.va.add(torque)
-                        print(self.va.x, self.va.y, self.va.z)
 
 
     #피벗을 축으로 회전하는 함수

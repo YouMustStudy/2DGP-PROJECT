@@ -163,7 +163,6 @@ class IdleState:
 
     @staticmethod
     def handle_events(event):
-        print(event.x, event.y)
         if(purchase.handle_events(event)):
             global total_cost, select_level
             main_state.PLAYER[main_state.PLAYER_TURN].cash -= total_cost #건설비용 지불
@@ -189,6 +188,7 @@ class IdleState:
                 else:
                     purchase.visible = 1
 
+        #종료버튼
         if event.x > 663 - 27 and event.x < 663 + 27 and event.y > 548 - 27 and event.y < 548 + 27:
             global cur_state
             cur_state = ExitState
@@ -248,7 +248,8 @@ class PurchaseIcon:
             PurchaseIcon.image = load_image('.\\icons\\purchase.png')
 
     def draw(self):
-        draw_rectangle(self.x-165, self.y-33, self.x+165, self.y+33)
+        #구매버튼 BB
+        #draw_rectangle(self.x-165, self.y-33, self.x+165, self.y+33)
         self.image.clip_draw(330 * self.visible, 0, 330, 66, self.x, self.y)
 
     def handle_events(self, event):
