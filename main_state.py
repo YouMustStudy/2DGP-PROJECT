@@ -17,7 +17,7 @@ from Dice import DiceButton
 import Tile
 from PauseButton import PauseButton
 from UI import UI
-from Dollar import Dollar
+from Dollar import Bundle
 
 name = "MainState"
 
@@ -46,7 +46,7 @@ def enter():
     P2UI = UI(WINDOW_WIDTH - 150, 40, 1, PLAYER[1])
 
     #테스트용
-    dol = Dollar()
+    dol = Bundle()
 
     for tiles in MAP:
         game_world.add_object(tiles, 0)

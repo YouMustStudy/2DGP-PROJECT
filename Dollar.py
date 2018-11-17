@@ -16,10 +16,14 @@ class Dollar:
 
 class Bundle:
     def __init__(self):
-        pass
+        self.Dollar = []
+        for i in range(3):
+            for j in range(5-2*i):
+                self.Dollar.append(Dollar(400 - (j+i) * 24, 400 - j * 15 + (-5)*i))
 
     def update(self):
         pass
 
     def draw(self):
-        pass
+        for thing in self.Dollar:
+            thing.draw()
