@@ -235,7 +235,7 @@ class CheckIcon:
         self.image.clip_draw(32 * self.visible, 0, 32, 27, self.x, self.y, 32, 27)
 
     def handle_events(self, event):
-        if event.x > self.x - 16 and self.x + 16 and event.y > self.y-13 and event.y < self.y+13:
+        if event.x > self.x - 16 and event.x < self.x + 16 and event.y > self.y-13 and event.y < self.y+13:
             return 1
         return 0
 

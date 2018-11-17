@@ -5,6 +5,9 @@ import game_framework
 import building_state
 import main_state
 
+SPIN_PER_TIME = 1.5
+DEGREE_PER_TIME = SPIN_PER_TIME * 360
+
 class Player:
     def __init__(self, x, y, shape):
         self.index=3 #현 위치
@@ -107,7 +110,7 @@ class SpinState:
     def do(player):
         player.frame = (player.frame+1) % 2
         if main_state.MAP[player.index].theta > 0:
-            theta = min(main_state.MAP[player.index].theta, 180 * game_framework.frame_time)
+            theta = min(main_state.MAP[player.index].theta, DEGREE_PER_TIME * game_framework.frame_time)
             main_state.rotate_world(theta)
         else:
             main_state.fix_map()
