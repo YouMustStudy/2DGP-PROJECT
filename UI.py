@@ -1,4 +1,5 @@
 from pico2d import *
+from random import randint
 import game_framework
 
 
@@ -15,7 +16,7 @@ class UI:
     def __init__(self, x, y, num):
         self.x, self.y = x, y
         self.num = num
-        self.frame =
+        self.frame = randint(1, 2)
         if num == 0:
             self.image = load_image(".\\icons\\GreenUI.png")
             self.character = load_image(".\\character\\Green.png")
