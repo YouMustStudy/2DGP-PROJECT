@@ -17,6 +17,7 @@ from Dice import DiceButton
 import Tile
 from PauseButton import PauseButton
 from UI import UI
+from Dollar import Dollar
 
 name = "MainState"
 
@@ -41,9 +42,11 @@ def enter():
     PAUSE_BUTTON = PauseButton()
     bgimage = load_image('bgimage.jpg')
 
-
     P1UI = UI(150, 40, 0, PLAYER[0])
     P2UI = UI(WINDOW_WIDTH - 150, 40, 1, PLAYER[1])
+
+    #테스트용
+    dol = Dollar()
 
     for tiles in MAP:
         game_world.add_object(tiles, 0)
@@ -54,6 +57,9 @@ def enter():
 
     game_world.add_object(DICE, 1)
     game_world.add_object(PAUSE_BUTTON, 1)
+
+    #테스트용
+    game_world.add_object(dol, 1)
 
 def exit():
     game_world.clear()
