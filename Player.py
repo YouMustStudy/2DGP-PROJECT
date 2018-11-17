@@ -108,9 +108,7 @@ class SpinState:
         player.frame = (player.frame+1) % 2
         if main_state.MAP[player.index].theta > 0:
             theta = min(main_state.MAP[player.index].theta, 180 * game_framework.frame_time)
-            player.rotate(-theta)
-            main_state.rotate_map(-theta)
-            print(main_state.MAP[player.index].theta)
+            main_state.rotate_world(theta)
         else:
             main_state.fix_map()
             player.change_state(IdleState)

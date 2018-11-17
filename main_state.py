@@ -98,6 +98,14 @@ def rotate_map(theta):
     for tiles in MAP:
         tiles.rotate(theta)
 
+def rotate_player(theta):
+    for player in PLAYER:
+        player.rotate(theta)
+
+def rotate_world(theta):
+    rotate_player(-theta)
+    rotate_map(-theta)
+
 def fix_map():
     for tiles in MAP:
         tiles.fix_position()
@@ -121,3 +129,4 @@ def check_rank():
     elif PLAYER[0].money < PLAYER[1].money:
         PLAYER[0].rank = 2
         PLAYER[1].rank = 1
+
