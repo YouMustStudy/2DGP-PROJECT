@@ -23,7 +23,7 @@ class Dollar:
                 self.x += self.length * game_framework.frame_time
                 self.y -= self.length * game_framework.frame_time
         if self.y < 0:
-            
+            game_world.remove_object(self)
 
 
     def draw(self):
