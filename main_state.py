@@ -84,7 +84,7 @@ def update():
 
 
 def draw():
-    bgimage.draw(WINDOW_WIDTH/2, WINDOW_HEIGHT/2, WINDOW_WIDTH, WINDOW_HEIGHT)
+    #bgimage.draw(WINDOW_WIDTH/2, WINDOW_HEIGHT/2, WINDOW_WIDTH, WINDOW_HEIGHT)
     for game_object in game_world.all_objects():
         game_object.draw()
 
