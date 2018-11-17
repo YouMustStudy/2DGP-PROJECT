@@ -1,6 +1,5 @@
 from pico2d import*
 from main_state import CENTER
-from game_framework import frame_time
 import game_framework
 import building_state
 import main_state
@@ -8,18 +7,30 @@ import main_state
 SPIN_PER_TIME = 1.5
 DEGREE_PER_TIME = SPIN_PER_TIME * 360
 
+#아이들
+IDLE_TIME_PER_ACTION = 1.0
+IDLE_FRAME_PER_ACTION = 3.0
+IDLE_ACTION_PER_TIME = 1.0 / IDLE_TIME_PER_ACTION
+IDLE_FRAME_PER_TIME = IDLE_ACTION_PER_TIME * IDLE_FRAME_PER_ACTION
+
+#이동
+RUN_TIME_PER_ACTION = 1.0
+RUN_FRAME_PER_ACTION = 10.0
+RUN_ACTION_PER_TIME = 1.0 / RUN_TIME_PER_ACTION
+RUN_FRAME_PER_TIME = RUN_ACTION_PER_TIME * RUN_FRAME_PER_ACTION
+
 class Player:
     def __init__(self, x, y, shape):
-        self.index=3 #현 위치
+        self.index=0 #현 위치
         self.x = x
         self.y = y
         self.money=4000 #총자산
         self.cash=4000 #현자산
         self.image = None
-        if shape == 'p':
-            self.image = load_image('.\\character\\pig.png')
-        elif shape == 's':
-            self.image = load_image('.\\character\\skeleton.png')
+        if shape == 'g':
+            self.image = load_image('.\\character\\Green.png')
+        elif shape == 'b':
+            self.image = load_image('.\\character\\Blue.png')
         self.status = IdleState
         self.frame = 0
         self.move = 0
@@ -56,11 +67,12 @@ class IdleState:
         pass
     @staticmethod
     def do(player):
+        player.frame = (player.frame + game_framework.frame_time * IDLE_FRAME_PER_TIME) % 3
         if player.move > 0:
             player.change_state(RunState)
     @staticmethod
     def draw(player):
-        player.image.clip_draw(player.frame * 20, 0, 20, 20, player.x, player.y)
+        player.image.clip_draw(120 * int(player.frame), 910, 120, 130, player.x, player.y, 60, 60)
 
 class RunState:
     @staticmethod
@@ -71,7 +83,7 @@ class RunState:
         pass
     @staticmethod
     def do(player):
-        player.frame = (player.frame+1) % 2
+        player.frame = (player.frame + game_framework.frame_time * RUN_FRAME_PER_TIME) % 10
         player.x += game_framework.frame_time * 70 * 3
         player.x = clamp(main_state.MAP[player.index].x, player.x, main_state.MAP[player.index+1].x)
         if player.x == main_state.MAP[player.index+1].x:
@@ -94,11 +106,12 @@ class RunState:
                     game_framework.push_state(building_state) #건설상태로 분기
                 #이벤트 처리 후 순위 체크
                 main_state.check_rank()
+                main_state.change_turn()
 
 
     @staticmethod
     def draw(player):
-        player.image.clip_draw(player.frame * 20 + 20, 0, 20, 20, player.x, player.y)
+        player.image.clip_draw(120 * int(player.frame), 0, 120, 130, player.x, player.y, 60, 60)
 class SpinState:
     @staticmethod
     def enter(player):

@@ -35,8 +35,8 @@ def enter():
     global MAP, PLAYER, PLAYER_TURN, DICE, bgimage, PAUSE_BUTTON
     PLAYER_TURN = 0
     MAP = Tile.init_tile()
-    PLAYER.append(Player(MAP[3].x, MAP[3].y, 'p'))
-    PLAYER.append(Player(MAP[3].x, MAP[3].y, 'p'))
+    PLAYER.append(Player(MAP[0].x, MAP[0].y, 'g'))
+    PLAYER.append(Player(MAP[0].x, MAP[0].y, 'b'))
     DICE = DiceButton()
     PAUSE_BUTTON = PauseButton()
     bgimage = load_image('bgimage.jpg')
@@ -130,3 +130,7 @@ def check_rank():
         PLAYER[0].rank = 2
         PLAYER[1].rank = 1
 
+def change_turn():
+    global PLAYER_TURN
+    DICE.visible = 1
+    PLAYER_TURN = (PLAYER_TURN+1) % 2
