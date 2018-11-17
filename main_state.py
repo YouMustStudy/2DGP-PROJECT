@@ -41,8 +41,8 @@ def enter():
     bgimage = load_image('bgimage.jpg')
 
 
-    P1UI = UI(120, 32, 0)
-    P2UI = UI(WINDOW_WIDTH - 120, 32, 1)
+    P1UI = UI(150, 40, 0)
+    P2UI = UI(WINDOW_WIDTH - 150, 40, 1)
 
     for tiles in MAP:
         game_world.add_object(tiles, 0)
