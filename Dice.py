@@ -14,7 +14,7 @@ axisZ = Vector(0, 0, 1)
 #60프레임 기준
 FRAME_PER_TIME = 60
 #경계
-BORDER = (400-210+40, 500-210+40, 400+210-40, 500+210-40)
+BORDER = (400-210+40, 400-210+40, 400+210-40, 400+210-40)
 
 class DiceButton:
     def __init__(self):

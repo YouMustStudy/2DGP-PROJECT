@@ -1,5 +1,5 @@
 WINDOW_WIDTH = 800
-WINDOW_HEIGHT = 900
+WINDOW_HEIGHT = 800
 CENTER = (WINDOW_WIDTH /2, WINDOW_HEIGHT - 400)
 
 #라이브러리 임포트
@@ -16,8 +16,7 @@ from Player import Player
 from Dice import DiceButton
 import Tile
 from PauseButton import PauseButton
-
-import building_state
+from UI import UI
 
 name = "MainState"
 
@@ -41,14 +40,19 @@ def enter():
     PAUSE_BUTTON = PauseButton()
     bgimage = load_image('bgimage.jpg')
 
+
+    P1UI = UI(120, 32, 0)
+    P2UI = UI(WINDOW_WIDTH - 120, 32, 1)
+
     for tiles in MAP:
         game_world.add_object(tiles, 0)
     for character in PLAYER:
         game_world.add_object(character, 0)
+    game_world.add_object(P1UI, 0)
+    game_world.add_object(P2UI, 0)
+
     game_world.add_object(DICE, 1)
     game_world.add_object(PAUSE_BUTTON, 1)
-
-    game_framework.push_state(building_state)
 
 def exit():
     game_world.clear()

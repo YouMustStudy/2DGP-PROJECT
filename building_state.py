@@ -19,10 +19,10 @@ max_level = None #건설가능한 최대 레벨
 total_cost = None #총 건설비
 
 #아이콘 위치
-pos = [(158, 458),
-       (292, 458),
-       (427, 458),
-       (562, 458)]
+pos = [(158, 408),
+       (292, 408),
+       (427, 408),
+       (562, 408)]
 
 #팝업창에 사용될 폰트들
 title_font = None
@@ -189,7 +189,7 @@ class IdleState:
                 else:
                     purchase.visible = 1
 
-        if event.x > 663 - 27 and event.x < 663 + 27 and event.y > 598 - 27 and event.y < 598 + 27:
+        if event.x > 663 - 27 and event.x < 663 + 27 and event.y > 548 - 27 and event.y < 548 + 27:
             global cur_state
             cur_state = ExitState
 
