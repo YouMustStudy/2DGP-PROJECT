@@ -45,9 +45,6 @@ def enter():
     P1UI = UI(150, 40, 0, PLAYER[0])
     P2UI = UI(WINDOW_WIDTH - 150, 40, 1, PLAYER[1])
 
-    #테스트용
-    dol = Bundle()
-
     for tiles in MAP:
         game_world.add_object(tiles, 0)
     for character in PLAYER:
@@ -57,9 +54,6 @@ def enter():
 
     game_world.add_object(DICE, 1)
     game_world.add_object(PAUSE_BUTTON, 1)
-
-    #테스트용
-    game_world.add_object(dol, 1)
 
 def exit():
     game_world.clear()

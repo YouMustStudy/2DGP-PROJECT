@@ -46,3 +46,7 @@ class Bundle:
     def draw(self):
         for thing in self.Dollar:
             thing.draw()
+
+def money_ceremony():
+    bundle = Bundle()
+    game_world.add_object(bundle, 1)
