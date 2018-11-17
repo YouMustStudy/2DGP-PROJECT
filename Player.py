@@ -109,6 +109,7 @@ class RunState:
                     game_framework.push_state(building_state) #건설상태로 분기
                     return
                 else:
+                    money_ceremony()
                     main_state.trade_money()
                 #이벤트 처리 후 순위 체크
                 main_state.check_rank()
