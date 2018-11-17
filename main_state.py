@@ -132,5 +132,5 @@ def check_rank():
 
 def change_turn():
     global PLAYER_TURN
-    DICE.visible = 1
+    DICE.visible = 0
     PLAYER_TURN = (PLAYER_TURN+1) % 2
