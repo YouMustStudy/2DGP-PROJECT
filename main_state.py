@@ -76,6 +76,11 @@ def handle_events():
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_3:
             PLAYER[PLAYER_TURN].move = 3
+            print(SDLK_1)
+            print(SDLK_2)
+            print(SDLK_3)
+            print(SDLK_4)
+            print(SDLK_5)
         elif event.type == SDL_MOUSEBUTTONDOWN:
             event.y = WINDOW_HEIGHT - event.y + 1
             DICE.handle_event(event)
@@ -151,3 +156,9 @@ def trade_money():
     PLAYER[PLAYER_TURN].money -= cost
     PLAYER[owner].cash += cost
     PLAYER[owner].money += cost
+
+def cheat_move(event):
+    if event.type == SDL_KEYDOWN:
+        if event.key >= 49 and event.key <= 54:
+            PLAYER[PLAYER_TURN].move = event.key-48
+            DICE.visible=1
