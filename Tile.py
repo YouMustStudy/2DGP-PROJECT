@@ -1,6 +1,5 @@
 from pico2d import*
 from main_state import CENTER
-import main_state
 import math
 import json
 

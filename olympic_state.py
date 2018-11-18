@@ -2,14 +2,14 @@ from pico2d import *
 import game_framework
 import main_state
 
+from Tile import Bigtile
+
 Title = None
-Player = None
 
 def enter():
     global Title, Player
     if Title == None:
-        Title = load_image(".\\icons\\dest.png")
-    Player = main_state.PLAYER[main_state.PLAYER_TURN]
+        Title = load_image(".\\icons\\dest1.png")
 
 def exit():
     pass
@@ -45,13 +45,13 @@ def draw():
 
 def set_dst(event):
     global Player
-    dst = 21
+    dst = 14
     for tile in main_state.MAP:
-        if tile.isclicked(event.x, event.y) == 1:
+        if type(tile) != Bigtile and tile.isclicked(event.x, event.y) == 1:
             dst = main_state.MAP.index(tile)
             break
 
-    if dst != 21:
+    if dst != 14:
         Player.move = dst - Player.index
         if Player.move < 0:
             Player.move = 28 + Player.move

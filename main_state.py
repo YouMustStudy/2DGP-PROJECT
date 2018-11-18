@@ -47,23 +47,16 @@ def enter():
     P1UI = UI(150, 40, 0, PLAYER[0])
     P2UI = UI(WINDOW_WIDTH - 150, 40, 1, PLAYER[1])
 
-    BUILDING.append(Building(1, 0, MAP[4]))
-    BUILDING.append(Building(2, 0, MAP[4]))
-    BUILDING.append(Building(3, 0, MAP[4]))
-
-
     for tiles in MAP:
         game_world.add_object(tiles, 0)
     for character in PLAYER:
-        game_world.add_object(character, 0)
+        game_world.add_object(character, 1)
     game_world.add_object(P1UI, 0)
     game_world.add_object(P2UI, 0)
 
     game_world.add_object(DICE, 1)
     game_world.add_object(PAUSE_BUTTON, 1)
 
-    for building in BUILDING:
-        game_world.add_object(building, 1)
 
 def exit():
     game_world.clear()
