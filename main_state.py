@@ -115,6 +115,7 @@ def rotate_building(theta):
 
 def rotate_world(theta):
     rotate_player(-theta)
+    rotate_building(-theta)
     rotate_map(-theta)
 
 def fix_map():
