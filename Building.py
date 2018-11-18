@@ -10,13 +10,13 @@ class Building:
             self.image = Flag(color)
         elif level == 1:
             self.x = tile.x-20
-            self.image = Flag(color)
+            self.image = House(color)
         elif level == 2:
             self.x = tile.x
-            self.image = Flag(color)
+            self.image = Condo(color)
         elif level == 3:
             self.x = tile.x+20
-            self.image = Flag(color)
+            self.image = Hotel(color)
 
         self.y = tile.y + 50
         self.theta = 0

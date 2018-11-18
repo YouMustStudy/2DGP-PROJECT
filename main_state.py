@@ -45,8 +45,8 @@ def enter():
     P1UI = UI(150, 40, 0, PLAYER[0])
     P2UI = UI(WINDOW_WIDTH - 150, 40, 1, PLAYER[1])
 
-    BUILDING.append(Building(0, 0, MAP[4]))
     BUILDING.append(Building(1, 0, MAP[4]))
+    BUILDING.append(Building(2, 0, MAP[4]))
     BUILDING.append(Building(3, 0, MAP[4]))
 
 
