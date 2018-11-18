@@ -100,7 +100,7 @@ class IdleState:
         if clicked_tile.level == -1:
             title_font.draw(main_state.WINDOW_WIDTH / 2 - 7, main_state.WINDOW_HEIGHT / 2 - 78, '0', (154, 43, 16))
         else:
-            title_font.draw(main_state.WINDOW_WIDTH / 2 - 22, main_state.WINDOW_HEIGHT / 2 - 78, str(clicked_tile.PassingCost[clicked_tile.level]), (154, 43, 16))
+            title_font.draw(main_state.WINDOW_WIDTH / 2 - 22, main_state.WINDOW_HEIGHT / 2 - 78, str(clicked_tile.return_cost), (154, 43, 16))
             title_font.draw(main_state.WINDOW_WIDTH / 2 + 30, main_state.WINDOW_HEIGHT / 2 - 78, '만', (154, 43, 16))
         r = 17
         x = main_state.WINDOW_WIDTH/2 + 68
