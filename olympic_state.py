@@ -1,6 +1,8 @@
 from pico2d import *
 import game_framework
 import main_state
+import math
+import game_world
 
 from Tile import Bigtile
 
@@ -56,3 +58,20 @@ def set_dst(event):
         if Player.move < 0:
             Player.move = 28 + Player.move
         game_framework.pop_state()
+
+class Mag:
+    image = None
+    def __init__(self, tile):
+        if Mag.image == None:
+            Mag.image = load_image(".\\icons\\X2.png")
+        self.tile = tile
+        game_world.add_object(self, 0)
+
+    def update(self):
+        pass
+
+    def draw(self):
+        self.image.rotate_draw(math.radians(self.tile.theta), self.tile.x, self.tile.y)
+
+    def set_tile(self, tile):
+        self.tile = tile
