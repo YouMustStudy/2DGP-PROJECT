@@ -9,7 +9,6 @@ import game_world
 
 #게임상태 임포트
 import inf_state
-import pause_state
 
 #클래스 임포트
 from Player import Player, SpinState
@@ -128,7 +127,7 @@ def fix_map():
 def popup_event(event):
     global CLICKED_TILE
     for tile in MAP:
-        if tile.isclicked(event.x, event.y) == 1:
+        if type(tile) != Tile.Bigtile and tile.isclicked(event.x, event.y) == 1:
             CLICKED_TILE = tile
             if tile.name == '찬스카드':
                 break;

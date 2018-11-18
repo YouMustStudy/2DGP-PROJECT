@@ -46,6 +46,8 @@ class Bigtile:
         self.sy=self.y
 
     def isclicked(self, x, y):
+        if x > self.x - 50 and x < self.x + 50 and y > self.y - 50 and y < self.y + 50:
+            return 1
         return 0
 
 
