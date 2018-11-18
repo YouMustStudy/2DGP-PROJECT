@@ -19,7 +19,7 @@ class Building:
             self.x = tile.x+20
             self.image = Hotel(color)
 
-        self.y = tile.y + 100
+        self.y = tile.y + 200
         self.theta = 0
         self.tile = tile
         self.cur_state = FallenState
