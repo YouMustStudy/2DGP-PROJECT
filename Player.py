@@ -107,6 +107,9 @@ class RunState:
                     if player.index == 7:
                         make_mark(0)
                         player.event = 1
+                    if player.index == 21:
+                        make_mark(1)
+                        player.event = 2
                 elif(player.index == 9 or player.index == 24): #찬스카드
                     pass
                 elif(main_state.MAP[player.index].owner == -1 or main_state.MAP[player.index].owner == main_state.PLAYER_TURN and main_state.MAP[player.index].level != 3 and main_state.MAP[player.index].return_building() < player.cash): #땅주인이 없거나 본인이 주인이면
