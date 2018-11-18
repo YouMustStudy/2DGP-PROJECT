@@ -21,6 +21,9 @@ select_level = None #현재 선택된 건설레벨
 max_level = None #건설가능한 최대 레벨
 total_cost = None #총 건설비
 
+EndTimer = 0.0
+EndFlag = False
+
 #아이콘 위치
 pos = [(158, 408),
        (292, 408),
@@ -34,7 +37,7 @@ passing_font = None
 cost_font = None
 
 def enter():
-    global image, width, height, cur_state, title_font, money_font, clicked_tile, lens, check, cross, min_level, max_level, select_level, total_cost, purchase, passing_font, cost_font, CUR_TURN
+    global image, width, height, cur_state, title_font, money_font, clicked_tile, lens, check, cross, min_level, max_level, select_level, total_cost, purchase, passing_font, cost_font, CUR_TURN, EndFlag, EndTimer
     if image == None:
         image = load_image('.\\popup\\upgrade.png')
     if title_font == None:
@@ -48,6 +51,8 @@ def enter():
     if purchase == None:
         purchase = PurchaseIcon(main_state.WINDOW_WIDTH/2 + 16, main_state.WINDOW_HEIGHT/2 - 97)
     width = height = 0
+    EndTimer = 0.3
+    EndFlag = False
     CUR_TURN = main_state.PLAYER_TURN
 
 
@@ -169,7 +174,7 @@ class IdleState:
     def handle_events(event):
         #구매버튼 클릭시
         if(purchase.handle_events(event)):
-            global total_cost, select_level, cur_state
+            global total_cost, select_level, cur_state, EndFlag
             main_state.PLAYER[CUR_TURN].cash -= total_cost #건설비용 지불
             clicked_tile.owner = CUR_TURN #소유권 변경
 
@@ -179,6 +184,7 @@ class IdleState:
                 main_state.BUILDING.append(building)
 
             clicked_tile.level = select_level #건설레벨 적용
+            EndFlag = True
             cur_state = ExitState
         for i in range(min_level, max_level+1):
             if(check[i].handle_events(event) == 1):
@@ -216,8 +222,15 @@ class ExitState:
         width = clamp(0, width, image.w)
         height = clamp(0, height, image.h)
         if width == 0:
-            game_framework.pop_state()
-            main_state.change_turn()
+            if EndFlag:
+                global EndTimer
+                EndTimer -= game_framework.frame_time
+                if EndTimer <= 0:
+                    game_framework.pop_state()
+                    main_state.change_turn()
+            else:
+                game_framework.pop_state()
+                main_state.change_turn()
 
     @staticmethod
     def handle_events(event):
