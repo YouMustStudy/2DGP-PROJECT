@@ -82,3 +82,23 @@ class House:
 
     def update(self, building):
         pass
+
+class Condo:
+    Green = None
+    Blue = None
+
+    def __init__(self, color):
+        if Flag.Green == None:
+            Flag.Green = load_image('.\\building\\GreenCondo.png')
+        if Flag.Blue == None:
+            Flag.Green = load_image('.\\building\\BlueCondo.png')
+        if color == 0:
+            self.image = Flag.Green
+        else:
+            self.image = Flag.Blue
+
+    def draw(self, building):
+        self.image.rotate_draw(math.radians(building.theta), building.x, building.y)
+
+    def update(self, building):
+        pass
