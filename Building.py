@@ -2,6 +2,7 @@ from pico2d import *
 from main_state import CENTER
 import math
 import game_world
+import game_framework
 
 class Building:
     def __init__(self, level, color, tile):
@@ -18,15 +19,17 @@ class Building:
             self.x = tile.x+20
             self.image = Hotel(color)
 
-        self.y = tile.y + 50
+        self.y = tile.y + 100
         self.theta = 0
         self.tile = tile
+        self.cur_state = FallenState
 
     def draw(self):
         self.image.draw(self)
 
     def update(self):
         self.image.update(self)
+        self.cur_state.update(self)
 
     def rotate(self, theta):
         radian=math.radians(theta)
@@ -41,6 +44,20 @@ class Building:
         self.x+=CENTER[0]
         self.y+=CENTER[1]
 
+class FallenState:
+    @staticmethod
+    def update(building):
+        building.y -= 1000*game_framework.frame_time
+        building.y = max(building.tile.y + 50, building.y)
+        if building.y == building.tile.y + 50:
+            building.cur_state = IdleState
+
+class IdleState:
+    @staticmethod
+    def update(building):
+        pass
+
+
 class Flag:
     Green = None
     Blue = None
@@ -49,7 +66,7 @@ class Flag:
         if Flag.Green == None:
             Flag.Green = load_image('.\\building\\GreenFlag.png')
         if Flag.Blue == None:
-            Flag.Green = load_image('.\\building\\BlueFlag.png')
+            Flag.Blue = load_image('.\\building\\BlueFlag.png')
         if color == 0:
             self.image = Flag.Green
         else:
@@ -59,23 +76,23 @@ class Flag:
         self.image.rotate_draw(math.radians(building.theta), building.x, building.y)
 
     def update(self, building):
-        #if building.tile.level != 0:
-        #    game_world.remove_object(building)
-        pass
+        if building.tile.level != 0:
+            game_world.remove_object(building)
 
 class House:
     Green = None
     Blue = None
 
     def __init__(self, color):
-        if Flag.Green == None:
-            Flag.Green = load_image('.\\building\\GreenHouse.png')
-        if Flag.Blue == None:
-            Flag.Green = load_image('.\\building\\BlueHouse.png')
+        if House.Green == None:
+            House.Green = load_image('.\\building\\GreenHouse.png')
+        if House.Blue == None:
+            House.Blue = load_image('.\\building\\BlueHouse.png')
+        print(color)
         if color == 0:
-            self.image = Flag.Green
+            self.image = House.Green
         else:
-            self.image = Flag.Blue
+            self.image = House.Blue
 
     def draw(self, building):
         self.image.rotate_draw(math.radians(building.theta), building.x, building.y)
@@ -88,14 +105,14 @@ class Condo:
     Blue = None
 
     def __init__(self, color):
-        if Flag.Green == None:
-            Flag.Green = load_image('.\\building\\GreenCondo.png')
-        if Flag.Blue == None:
-            Flag.Green = load_image('.\\building\\BlueCondo.png')
+        if Condo.Green == None:
+            Condo.Green = load_image('.\\building\\GreenCondo.png')
+        if Condo.Blue == None:
+            Condo.Blue = load_image('.\\building\\BlueCondo.png')
         if color == 0:
-            self.image = Flag.Green
+            self.image = Condo.Green
         else:
-            self.image = Flag.Blue
+            self.image = Condo.Blue
 
     def draw(self, building):
         self.image.rotate_draw(math.radians(building.theta), building.x, building.y)
@@ -108,14 +125,14 @@ class Hotel:
     Blue = None
 
     def __init__(self, color):
-        if Flag.Green == None:
-            Flag.Green = load_image('.\\building\\GreenHotel.png')
-        if Flag.Blue == None:
-            Flag.Green = load_image('.\\building\\BlueHotel.png')
+        if Hotel.Green == None:
+            Hotel.Green = load_image('.\\building\\GreenHotel.png')
+        if Hotel.Blue == None:
+            Hotel.Blue = load_image('.\\building\\BlueHotel.png')
         if color == 0:
-            self.image = Flag.Green
+            self.image = Hotel.Green
         else:
-            self.image = Flag.Blue
+            self.image = Hotel.Blue
 
     def draw(self, building):
         self.image.rotate_draw(math.radians(building.theta), building.x, building.y)
