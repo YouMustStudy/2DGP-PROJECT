@@ -17,7 +17,7 @@ from Dice import DiceButton
 import Tile
 from PauseButton import PauseButton
 from UI import UI
-from Dollar import Bundle
+from Building import Building
 
 name = "MainState"
 
@@ -45,6 +45,8 @@ def enter():
     P1UI = UI(150, 40, 0, PLAYER[0])
     P2UI = UI(WINDOW_WIDTH - 150, 40, 1, PLAYER[1])
 
+    test = Building(0, 0, MAP[4])
+
     for tiles in MAP:
         game_world.add_object(tiles, 0)
     for character in PLAYER:
@@ -54,6 +56,8 @@ def enter():
 
     game_world.add_object(DICE, 1)
     game_world.add_object(PAUSE_BUTTON, 1)
+
+    game_world.add_object(test, 1)
 
 def exit():
     game_world.clear()

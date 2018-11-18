@@ -5,14 +5,19 @@ import game_world
 
 class Building:
     def __init__(self, level, color, tile):
-        self.x, self.y = 0, 0
+        self.x, self.y = 400, 400
         self.theta = 0
+        self.tile = tile
+
+        if level == 0:
+            self.image = Flag(color)
+
 
     def draw(self):
-        pass
+        self.image.draw(self)
 
     def update(self):
-        pass
+        self.image.update(self)
 
     def rotate(self, theta):
         radian=math.radians(theta)
@@ -45,5 +50,6 @@ class Flag:
         self.image.rotate_draw(math.radians(building.theta), building.x, building.y)
 
     def update(self, building):
-        if building.tile.level != 0:
-            game_world.remove_object(building)
+        #if building.tile.level != 0:
+        #    game_world.remove_object(building)
+        pass
