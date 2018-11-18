@@ -3,6 +3,7 @@ from main_state import CENTER
 import game_framework
 import building_state
 import main_state
+import trip_state
 from Dollar import money_ceremony
 from Marks import make_mark
 
@@ -107,12 +108,13 @@ class RunState:
                 player.change_state(IdleState)
                 #도착 후 이벤트 처리
                 if(player.index % 7 == 0): #큰타일 - 특수이벤트
-                    if player.index == 7:
+                    if player.index == 7: #무인도
                         make_mark(0)
                         player.event = 1
-                    if player.index == 21:
+                    if player.index == 21: #세계여행
                         make_mark(1)
-                        player.event = 2
+                        game_framework.push_state(trip_state)
+
                 elif(player.index == 9 or player.index == 24): #찬스카드
                     pass
                 elif(main_state.MAP[player.index].owner == -1 or main_state.MAP[player.index].owner == main_state.PLAYER_TURN and main_state.MAP[player.index].level != 3 and main_state.MAP[player.index].return_building() < player.cash): #땅주인이 없거나 본인이 주인이면
