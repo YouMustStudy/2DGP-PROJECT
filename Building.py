@@ -5,13 +5,22 @@ import game_world
 
 class Building:
     def __init__(self, level, color, tile):
-        self.x, self.y = 400, 400
-        self.theta = 0
-        self.tile = tile
-
         if level == 0:
+            self.x = tile.x
+            self.image = Flag(color)
+        elif level == 1:
+            self.x = tile.x-20
+            self.image = Flag(color)
+        elif level == 2:
+            self.x = tile.x
+            self.image = Flag(color)
+        elif level == 3:
+            self.x = tile.x+20
             self.image = Flag(color)
 
+        self.y = tile.y + 50
+        self.theta = 0
+        self.tile = tile
 
     def draw(self):
         self.image.draw(self)

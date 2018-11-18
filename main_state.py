@@ -23,6 +23,7 @@ name = "MainState"
 
 MAP = None
 PLAYER = []
+BUILDING = []
 DICE = None
 PHASE = None
 PLAYER_TURN = None
@@ -33,19 +34,21 @@ CLICKED_TILE = 0 #팝업창을 띄울 타일
 bgimage = None
 
 def enter():
-    global MAP, PLAYER, PLAYER_TURN, DICE, bgimage, PAUSE_BUTTON
+    global MAP, PLAYER, PLAYER_TURN, DICE, PAUSE_BUTTON, BUILDING
     PLAYER_TURN = 0
     MAP = Tile.init_tile()
     PLAYER.append(Player(MAP[0].x, MAP[0].y+10, 'g'))
     PLAYER.append(Player(MAP[0].x, MAP[0].y-10, 'b'))
     DICE = DiceButton()
     PAUSE_BUTTON = PauseButton()
-    bgimage = load_image('bgimage.jpg')
 
     P1UI = UI(150, 40, 0, PLAYER[0])
     P2UI = UI(WINDOW_WIDTH - 150, 40, 1, PLAYER[1])
 
-    test = Building(0, 0, MAP[4])
+    BUILDING.append(Building(0, 0, MAP[4]))
+    BUILDING.append(Building(1, 0, MAP[4]))
+    BUILDING.append(Building(3, 0, MAP[4]))
+
 
     for tiles in MAP:
         game_world.add_object(tiles, 0)
@@ -57,7 +60,8 @@ def enter():
     game_world.add_object(DICE, 1)
     game_world.add_object(PAUSE_BUTTON, 1)
 
-    game_world.add_object(test, 1)
+    for building in BUILDING:
+        game_world.add_object(building, 1)
 
 def exit():
     game_world.clear()
@@ -93,7 +97,6 @@ def update():
 
 
 def draw():
-    #bgimage.draw(WINDOW_WIDTH/2, WINDOW_HEIGHT/2, WINDOW_WIDTH, WINDOW_HEIGHT)
     for game_object in game_world.all_objects():
         game_object.draw()
 
