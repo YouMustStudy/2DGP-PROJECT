@@ -91,7 +91,7 @@ class RunState:
     @staticmethod
     def do(player):
         player.frame = (player.frame + game_framework.frame_time * RUN_FRAME_PER_TIME) % 10
-        player.x += game_framework.frame_time * 70 * 3
+        player.x += game_framework.frame_time * 70 * 10
         player.x = clamp(main_state.MAP[player.index].x, player.x, main_state.MAP[(player.index+1)%28].x)
         if player.x == main_state.MAP[(player.index+1)%28].x:
             player.index = (player.index + 1) % 28
@@ -114,7 +114,7 @@ class RunState:
                     if player.index == 21: #세계여행
                         make_mark(1)
                         game_framework.push_state(trip_state)
-
+                        return
                 elif(player.index == 9 or player.index == 24): #찬스카드
                     pass
                 elif(main_state.MAP[player.index].owner == -1 or main_state.MAP[player.index].owner == main_state.PLAYER_TURN and main_state.MAP[player.index].level != 3 and main_state.MAP[player.index].return_building() < player.cash): #땅주인이 없거나 본인이 주인이면

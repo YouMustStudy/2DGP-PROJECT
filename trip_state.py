@@ -31,13 +31,15 @@ def handle_events():
             game_framework.quit()
         elif event.type == SDL_MOUSEBUTTONDOWN:
             event.y = main_state.WINDOW_HEIGHT - event.y + 1
+            set_dst(event)
         else:
             pass
 
 def update():
-    pass
+    game_framework.stack[0].update()
 
 def draw():
+    game_framework.stack[0].draw()
     Title.draw(400, 400)
 
 def set_dst(event):
@@ -51,7 +53,5 @@ def set_dst(event):
     if dst != 21:
         Player.move = dst - Player.index
         if Player.move < 0:
-            Player.move = 28 - Player.move
-            game_framework.pop_state()
-
-
+            Player.move = 28 + Player.move
+        game_framework.pop_state()
