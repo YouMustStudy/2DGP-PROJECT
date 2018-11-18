@@ -102,3 +102,23 @@ class Condo:
 
     def update(self, building):
         pass
+
+class Hotel:
+    Green = None
+    Blue = None
+
+    def __init__(self, color):
+        if Flag.Green == None:
+            Flag.Green = load_image('.\\building\\GreenHotel.png')
+        if Flag.Blue == None:
+            Flag.Green = load_image('.\\building\\BlueHotel.png')
+        if color == 0:
+            self.image = Flag.Green
+        else:
+            self.image = Flag.Blue
+
+    def draw(self, building):
+        self.image.rotate_draw(math.radians(building.theta), building.x, building.y)
+
+    def update(self, building):
+        pass
