@@ -5,6 +5,7 @@ class Marks:
     island = None
     tour = None
     olympic = None
+
     def __init__(self, type):
         if Marks.island == None:
             Marks.island = load_image('.\\icons\\island.png')
@@ -23,18 +24,22 @@ class Marks:
         self.width = self.height = 0
         self.cur_state = EnterState
 
+    def update(self):
+        self.cur_state.update(self)
+
+    def draw(self):
+        self.cur_state.draw(self)
+
 class EnterState:
     @staticmethod
     def draw(Marks):
-        image.draw(400, 400, Marks.width, Marks.height)
+        Marks.image.draw(400, 400, Marks.width, Marks.height)
 
     @staticmethod
-    def update():
-        global width, height, image
-        width += image.w * game_framework.frame_time *15
-        height += image.h * game_framework.frame_time *15
-        width = clamp(0, width, image.w)
-        height = clamp(0, height, image.h)
-        if width == image.w:
-            global cur_state
-            cur_state = IdleState
+    def update(Marks):
+        Marks.width += Marks.image.w * game_framework.frame_time *15
+        Marks.height += Marks.image.h * game_framework.frame_time *15
+        Marks.width = clamp(0, Marks.width, Marks.image.w)
+        Marks.height = clamp(0, Marks.height, Marks.image.h)
+        if Marks.width == Marks.image.w:
+            Marks.cur_state = IdleState
