@@ -4,6 +4,7 @@ import game_framework
 import building_state
 import main_state
 import trip_state
+import olympic_state
 from Dollar import money_ceremony
 from Marks import make_mark
 
@@ -111,6 +112,10 @@ class RunState:
                     if player.index == 7: #무인도
                         make_mark(0)
                         player.event = 1
+                    if player.index == 14: #올림픽
+                        make_mark(2)
+                        game_framework.push_state(olympic_state)
+                        return
                     if player.index == 21: #세계여행
                         make_mark(1)
                         game_framework.push_state(trip_state)

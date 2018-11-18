@@ -7,9 +7,10 @@ import game_world
 from Tile import Bigtile
 
 Title = None
+mag = None
 
 def enter():
-    global Title, Player
+    global Title
     if Title == None:
         Title = load_image(".\\icons\\dest1.png")
 
@@ -46,18 +47,15 @@ def draw():
 
 
 def set_dst(event):
-    global Player
-    dst = 14
+    global mag
     for tile in main_state.MAP:
         if type(tile) != Bigtile and tile.isclicked(event.x, event.y) == 1:
-            dst = main_state.MAP.index(tile)
-            break
-
-    if dst != 14:
-        Player.move = dst - Player.index
-        if Player.move < 0:
-            Player.move = 28 + Player.move
-        game_framework.pop_state()
+            if mag == None:
+                mag = Mag(tile)
+            else:
+                mag.set_tile(tile)
+            main_state.change_turn()
+            game_framework.pop_state()
 
 class Mag:
     image = None
@@ -65,6 +63,7 @@ class Mag:
         if Mag.image == None:
             Mag.image = load_image(".\\icons\\X2.png")
         self.tile = tile
+        self.tile.mag = 2
         game_world.add_object(self, 0)
 
     def update(self):
@@ -74,4 +73,6 @@ class Mag:
         self.image.rotate_draw(math.radians(self.tile.theta), self.tile.x, self.tile.y)
 
     def set_tile(self, tile):
+        self.tile.mag = 1
         self.tile = tile
+        self.tile.mag = 2

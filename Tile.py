@@ -62,6 +62,7 @@ class Smalltile:
         self.PassingCost=None
         self.level = -1
         self.owner = -1
+        self.mag = 1
             
     def draw(self):
         self.image.rotate_draw(math.radians(self.theta), self.x, self.y)
@@ -105,7 +106,7 @@ class Smalltile:
         return 0
 
     def return_cost(self):
-        return self.PassingCost[self.level]
+        return self.PassingCost[self.level] * self.mag
 
     def return_building(self):
         return self.BuildingCost[self.level+1]
