@@ -23,6 +23,7 @@ class Marks:
 
         self.width = self.height = 0
         self.cur_state = EnterState
+        self.timer = 0.5
 
     def update(self):
         self.cur_state.update(self)
@@ -43,3 +44,14 @@ class EnterState:
         Marks.height = clamp(0, Marks.height, Marks.image.h)
         if Marks.width == Marks.image.w:
             Marks.cur_state = IdleState
+
+class IdleState:
+    @staticmethod
+    def draw(Marks):
+        Marks.image.draw(400, 400, Marks.width, Marks.height)
+
+    @staticmethod
+    def update(Marks):
+        Marks.timer -= game_framework.frame_time
+        if Marks.timer <= 0:
+            Marks.cur_state = ExitState
