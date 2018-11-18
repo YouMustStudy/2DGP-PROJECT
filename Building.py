@@ -88,7 +88,6 @@ class House:
             House.Green = load_image('.\\building\\GreenHouse.png')
         if House.Blue == None:
             House.Blue = load_image('.\\building\\BlueHouse.png')
-        print(color)
         if color == 0:
             self.image = House.Green
         else:

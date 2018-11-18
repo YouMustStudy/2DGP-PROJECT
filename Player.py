@@ -65,6 +65,9 @@ class IdleState:
     @staticmethod
     def enter(player):
         player.frame = 0
+        if main_state.START_FLAG:
+            main_state.START_FLAG = False
+            main_state.DICE.visible = 0
     @staticmethod
     def exit(player):
         pass

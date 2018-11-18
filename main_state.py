@@ -29,6 +29,9 @@ PHASE = None
 PLAYER_TURN = None
 PAUSE_BUTTON = None
 
+#턴 넘김시 시작했음을 알리는 플래그
+START_FLAG = False
+
 CLICKED_TILE = 0 #팝업창을 띄울 타일
 
 bgimage = None
@@ -143,13 +146,13 @@ def check_rank():
         PLAYER[1].rank = 1
 
 def change_turn():
-    global PLAYER_TURN
+    global PLAYER_TURN, START_FLAG
 
     PLAYER[PLAYER_TURN].image.opacify(0.6)
     PLAYER_TURN = (PLAYER_TURN+1) % 2
     PLAYER[PLAYER_TURN].image.opacify(1.0)
 
-    DICE.visible = 0
+    START_FLAG = True
     PLAYER[PLAYER_TURN].change_state(SpinState)
 
     if PLAYER[PLAYER_TURN].event == 1:
