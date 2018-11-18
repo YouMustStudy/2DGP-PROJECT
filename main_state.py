@@ -109,6 +109,10 @@ def rotate_player(theta):
     for player in PLAYER:
         player.rotate(theta)
 
+def rotate_building(theta):
+    for building in BUILDING:
+        building.rotate(theta)
+
 def rotate_world(theta):
     rotate_player(-theta)
     rotate_map(-theta)
