@@ -49,7 +49,7 @@ class Flag:
         if Flag.Green == None:
             Flag.Green = load_image('.\\building\\GreenFlag.png')
         if Flag.Blue == None:
-            Flag.Green = load_image('.\\building\\GreenFlag.png')
+            Flag.Green = load_image('.\\building\\BlueFlag.png')
         if color == 0:
             self.image = Flag.Green
         else:
@@ -61,4 +61,24 @@ class Flag:
     def update(self, building):
         #if building.tile.level != 0:
         #    game_world.remove_object(building)
+        pass
+
+class House:
+    Green = None
+    Blue = None
+
+    def __init__(self, color):
+        if Flag.Green == None:
+            Flag.Green = load_image('.\\building\\GreenHouse.png')
+        if Flag.Blue == None:
+            Flag.Green = load_image('.\\building\\BlueHouse.png')
+        if color == 0:
+            self.image = Flag.Green
+        else:
+            self.image = Flag.Blue
+
+    def draw(self, building):
+        self.image.rotate_draw(math.radians(building.theta), building.x, building.y)
+
+    def update(self, building):
         pass
