@@ -1,5 +1,6 @@
 from pico2d import *
 import game_framework
+import game_world
 
 class Marks:
     island = None
@@ -55,3 +56,17 @@ class IdleState:
         Marks.timer -= game_framework.frame_time
         if Marks.timer <= 0:
             Marks.cur_state = ExitState
+
+class ExitState:
+    @staticmethod
+    def draw(Marks):
+        Marks.image.draw(400, 400, Marks.width, Marks.height)
+
+    @staticmethod
+    def update(Marks):
+        Marks.width += Marks.image.w * game_framework.frame_time *15
+        Marks.height += Marks.image.h * game_framework.frame_time *15
+        Marks.width = clamp(0, Marks.width, Marks.image.w)
+        Marks.height = clamp(0, Marks.height, Marks.image.h)
+        if Marks.width == Marks.image.w:
+            game_world.remove_object(Marks)
