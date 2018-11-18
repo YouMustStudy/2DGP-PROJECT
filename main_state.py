@@ -152,6 +152,10 @@ def change_turn():
     DICE.visible = 0
     PLAYER[PLAYER_TURN].change_state(SpinState)
 
+    if PLAYER[PLAYER_TURN].event == 1:
+        PLAYER[PLAYER_TURN].event = 0
+        change_turn()
+
 def trade_money():
     index = PLAYER[PLAYER_TURN].index
     owner = MAP[index].owner

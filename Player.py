@@ -4,6 +4,7 @@ import game_framework
 import building_state
 import main_state
 from Dollar import money_ceremony
+from Marks import make_mark
 
 SPIN_PER_TIME = 1.5
 DEGREE_PER_TIME = SPIN_PER_TIME * 360
@@ -37,6 +38,7 @@ class Player:
         self.move = 0
         self.rank = 1
         self.round = 1 #몇바퀴 돌았는지 | 업그레이드 가능한 건물 종류
+        self.event = 0 #이벤트 비트 | 1 : 무인도 | 2 : 세계여행 | 처리는 change_turn에서 한다
 
     def draw(self):
         self.status.draw(self)
@@ -102,7 +104,9 @@ class RunState:
                 player.change_state(IdleState)
                 #도착 후 이벤트 처리
                 if(player.index % 7 == 0): #큰타일 - 특수이벤트
-                    pass
+                    if player.index == 7:
+                        make_mark(0)
+                        player.event = 1
                 elif(player.index == 9 or player.index == 24): #찬스카드
                     pass
                 elif(main_state.MAP[player.index].owner == -1 or main_state.MAP[player.index].owner == main_state.PLAYER_TURN and main_state.MAP[player.index].level != 3 and main_state.MAP[player.index].return_building() < player.cash): #땅주인이 없거나 본인이 주인이면

@@ -4,27 +4,27 @@ import game_world
 
 class Marks:
     island = None
-    tour = None
+    trip = None
     olympic = None
 
     def __init__(self, type):
         if Marks.island == None:
             Marks.island = load_image('.\\icons\\island.png')
-        if Marks.tour == None:
-            Marks.tour = load_image('.\\icons\\tour.png')
+        if Marks.trip == None:
+            Marks.trip = load_image('.\\icons\\trip.png')
         if Marks.olympic == None:
             Marks.olympic = load_image('.\\icons\\olympic.png')
 
         if type == 0:
             self.image = Marks.island
         elif type == 1:
-            self.image = Marks.tour
+            self.image = Marks.trip
         elif type == 2:
             self.image = Marks.olympic
 
         self.width = self.height = 0
         self.cur_state = EnterState
-        self.timer = 0.5
+        self.timer = 0.8
 
     def update(self):
         self.cur_state.update(self)
@@ -64,9 +64,13 @@ class ExitState:
 
     @staticmethod
     def update(Marks):
-        Marks.width += Marks.image.w * game_framework.frame_time *15
-        Marks.height += Marks.image.h * game_framework.frame_time *15
+        Marks.width -= Marks.image.w * game_framework.frame_time *15
+        Marks.height -= Marks.image.h * game_framework.frame_time *15
         Marks.width = clamp(0, Marks.width, Marks.image.w)
         Marks.height = clamp(0, Marks.height, Marks.image.h)
-        if Marks.width == Marks.image.w:
+        if Marks.width == 0:
             game_world.remove_object(Marks)
+
+def make_mark(type):
+    tmp = Marks(type)
+    game_world.add_object(tmp, 1)
