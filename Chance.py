@@ -9,13 +9,15 @@ class Chance:
     olympic = None
 
     def __init__(self, player):
-        trigger = 2
+        trigger = 3
         if trigger == 0:
             self.event = GotoOlympic()
-        if trigger == 1:
+        elif trigger == 1:
             self.event = GotoTrip()
-        if trigger == 2:
+        elif trigger == 2:
             self.event = GotoStart()
+        elif trigger == 3:
+            self.event = GotoIsland()
 
         self.player = player
         self.width = self.height = 0
@@ -98,6 +100,17 @@ class GotoStart:
 
     def do(self, Chance):
         Chance.player.move = 0 - Chance.player.index
+        if Chance.player.move < 0:
+            Chance.player.move += 28
+
+class GotoIsland:
+    image = None
+    def __init__(self):
+        if GotoIsland.image == None:
+            GotoIsland.image = load_image(".\\chance\\island.png")
+
+    def do(self, Chance):
+        Chance.player.move = 7 - Chance.player.index
         if Chance.player.move < 0:
             Chance.player.move += 28
 
