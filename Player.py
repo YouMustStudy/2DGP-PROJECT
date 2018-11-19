@@ -7,6 +7,7 @@ import trip_state
 import olympic_state
 from Dollar import money_ceremony
 from Marks import make_mark
+from Chance import make_chance
 
 SPIN_PER_TIME = 1.5
 DEGREE_PER_TIME = SPIN_PER_TIME * 360
@@ -121,7 +122,8 @@ class RunState:
                         game_framework.push_state(trip_state)
                         return
                 elif(player.index == 9 or player.index == 24): #찬스카드
-                    pass
+                    make_chance(player)
+                    return
                 elif(main_state.MAP[player.index].owner == -1 or main_state.MAP[player.index].owner == main_state.PLAYER_TURN and main_state.MAP[player.index].level != 3 and main_state.MAP[player.index].return_building() < player.cash): #땅주인이 없거나 본인이 주인이면
                     game_framework.push_state(building_state) #건설상태로 분기
                     return

@@ -31,11 +31,11 @@ class EnterState:
 
     @staticmethod
     def update(Chance):
-        Chance.width += Chance.image.w * game_framework.frame_time *15
-        Chance.height += Chance.image.h * game_framework.frame_time *15
-        Chance.width = clamp(0, Chance.width, Chance.image.w)
-        Chance.height = clamp(0, Chance.height, Chance.image.h)
-        if Chance.width == Chance.image.w:
+        Chance.width += Chance.event.image.w * game_framework.frame_time *15
+        Chance.height += Chance.event.image.h * game_framework.frame_time *15
+        Chance.width = clamp(0, Chance.width, Chance.event.image.w)
+        Chance.height = clamp(0, Chance.height, Chance.event.image.h)
+        if Chance.width == Chance.event.image.w:
             Chance.cur_state = IdleState
 
 class IdleState:
@@ -56,10 +56,10 @@ class ExitState:
 
     @staticmethod
     def update(Chance):
-        Chance.width -= Chance.image.w * game_framework.frame_time *15
-        Chance.height -= Chance.image.h * game_framework.frame_time *15
-        Chance.width = clamp(0, Chance.width, Chance.image.w)
-        Chance.height = clamp(0, Chance.height, Chance.image.h)
+        Chance.width -= Chance.event.image.w * game_framework.frame_time *15
+        Chance.height -= Chance.event.image.h * game_framework.frame_time *15
+        Chance.width = clamp(0, Chance.width, Chance.event.image.w)
+        Chance.height = clamp(0, Chance.height, Chance.event.image.h)
         if Chance.width == 0:
             Chance.event.do(Chance)
             game_world.remove_object(Chance)
@@ -75,6 +75,6 @@ class GotoOlympic:
         if Chance.player.move < 0:
             Chance.player.move += 28
 
-def make_chance():
-    tmp = Chance()
+def make_chance(player):
+    tmp = Chance(player)
     game_world.add_object(tmp, 1)
