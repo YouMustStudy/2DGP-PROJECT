@@ -9,9 +9,11 @@ class Chance:
     olympic = None
 
     def __init__(self, player):
-        trigger = 0
+        trigger = 1
         if trigger == 0:
             self.event = GotoOlympic()
+        if trigger == 1:
+            self.event = GotoTrip()
 
         self.player = player
         self.width = self.height = 0
@@ -72,6 +74,17 @@ class GotoOlympic:
 
     def do(self, Chance):
         Chance.player.move = 14 - Chance.player.index
+        if Chance.player.move < 0:
+            Chance.player.move += 28
+
+class GotoTrip:
+    image = None
+    def __init__(self):
+        if GotoTrip.image == None:
+            GotoTrip.image = load_image(".\\chance\\trip.png")
+
+    def do(self, Chance):
+        Chance.player.move = 21 - Chance.player.index
         if Chance.player.move < 0:
             Chance.player.move += 28
 
