@@ -1,16 +1,17 @@
 from pico2d import *
 import game_framework
 import main_state
+import menu_state
 
 image = None
 width = None
 height = None
 cur_state = None
 
-menubutton = (395, 320)
-exitbutton = (395, 180)
-button_width = 140
-button_height = 50
+menubutton = (400, 345)
+exitbutton = (400, 270)
+button_width = 88
+button_height = 23
 selection = 0
 
 IMAGE_EXPENTION_SPD = 15
@@ -49,19 +50,19 @@ def handle_events():
 
 
 def update():
-    game_framework.stack[0].update()
+    #game_framework.stack[0].update()
     cur_state.update()
 
 
 def draw():
-    game_framework.stack[0].draw()
+    #game_framework.stack[0].draw()
     cur_state.draw()
 
 class EnterState:
     @staticmethod
     def draw():
         image.draw(main_state.WINDOW_WIDTH/2, main_state.WINDOW_HEIGHT/2, width, height)
-        draw_rectangle(menubutton[0]-button_width, menubutton[1]-button_height,menubutton[0]+button_width, menubutton[1]+button_height)
+
 
     @staticmethod
     def update():
@@ -108,13 +109,17 @@ class ExitState:
 
     @staticmethod
     def update():
-        global width, height, image
+        global width, height, image, selection
         width -= image.w * game_framework.frame_time * IMAGE_EXPENTION_SPD
         height -= image.h * game_framework.frame_time * IMAGE_EXPENTION_SPD
         width = clamp(0, width, image.w)
         height = clamp(0, height, image.h)
         if width == 0:
-            game_framework.pop_state()
+            if selection == 0:
+                pass
+            if selection == 1:
+                game_framework.quit();
+
 
     @staticmethod
     def handle_events(event):
