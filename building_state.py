@@ -169,24 +169,14 @@ class IdleState:
 
     @staticmethod
     def update():
-        pass
+        if main_state.PLAYER[CUR_TURN].AI:
+            trade_done()
 
     @staticmethod
     def handle_events(event):
         #구매버튼 클릭시
         if(purchase.handle_events(event)):
-            global total_cost, select_level, cur_state, EndFlag
-            main_state.PLAYER[CUR_TURN].cash -= total_cost #건설비용 지불
-            clicked_tile.owner = CUR_TURN #소유권 변경
-
-            for i in range(clicked_tile.level+1, select_level + 1): #건물 객체 추가
-                building = Building(i, CUR_TURN, clicked_tile)
-                game_world.add_object(building, 1)
-                main_state.BUILDING.append(building)
-
-            clicked_tile.level = select_level #건설레벨 적용
-            EndFlag = True
-            cur_state = ExitState
+            trade_done()
         for i in range(min_level, max_level+1):
             if(check[i].handle_events(event) == 1):
                 global lens
@@ -281,3 +271,17 @@ class PurchaseIcon:
         if self.visible and event.x > self.x - 165 and self.x + 165 and event.y > self.y-33 and event.y < self.y+33:
             return 1
         return 0
+
+def trade_done():
+    global total_cost, select_level, cur_state, EndFlag
+    main_state.PLAYER[CUR_TURN].cash -= total_cost  # 건설비용 지불
+    clicked_tile.owner = CUR_TURN  # 소유권 변경
+
+    for i in range(clicked_tile.level + 1, select_level + 1):  # 건물 객체 추가
+        building = Building(i, CUR_TURN, clicked_tile)
+        game_world.add_object(building, 1)
+        main_state.BUILDING.append(building)
+
+    clicked_tile.level = select_level  # 건설레벨 적용
+    EndFlag = True
+    cur_state = ExitState
