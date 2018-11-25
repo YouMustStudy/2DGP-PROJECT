@@ -5,11 +5,12 @@ import game_world
 
 class Dollar:
     image = None
-    def __init__(self, x=400, y=400):
+    def __init__(self, x, y, bundle):
         self.dist = randint(200, 400)
         self.length = self.dist / 0.2
         self.x, self.y = x, y + self.dist
         self.timer = 0.5
+        self.bundle = bundle
         if Dollar.image == None:
             Dollar.image = load_image(".\\icons\\dollar.png")
 
@@ -23,6 +24,7 @@ class Dollar:
                 self.x += self.length * game_framework.frame_time
                 self.y -= self.length * game_framework.frame_time
         if self.y < 0:
+            self.bundle.count-=1
             game_world.remove_object(self)
 
 
@@ -33,13 +35,14 @@ class Dollar:
 class Bundle:
     sound = None
     def __init__(self, x = 400, y = 400):
+        self.count = 24
         self.Dollar = []
         for i in range(3):
             for j in range(5):
-                self.Dollar.append(Dollar(x - j * 24 + 48, y - j * 15 + 5*i - 15 + 30))
+                self.Dollar.append(Dollar(x - j * 24 + 48, y - j * 15 + 5*i - 15 + 30, self))
         for i in range(3):
             for j in range(5-2*i):
-                self.Dollar.append(Dollar(x - (j+i) * 24 + 48, y - j * 15 + (-5)*i + 30))
+                self.Dollar.append(Dollar(x - (j+i) * 24 + 48, y - j * 15 + (-5)*i + 30, self))
         if Bundle.sound == None:
             Bundle.sound = load_wav('.\\sound\\arrive_other2.wav')
             Bundle.sound.set_volume(64)
@@ -49,6 +52,8 @@ class Bundle:
     def update(self):
         for thing in self.Dollar:
             thing.update()
+        if self.count == 0:
+            game_world.remove_object(self)
     def draw(self):
         for thing in self.Dollar:
             thing.draw()
