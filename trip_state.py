@@ -1,10 +1,12 @@
 from pico2d import *
 import game_framework
 import main_state
+import random
 
 Title = None
 Player = None
 sound = None
+player = None
 
 def enter():
     global Title, Player, sound
@@ -42,6 +44,8 @@ def handle_events():
 
 def update():
     game_framework.stack[0].update()
+    if Player.AI:
+        AI_set_dst()
 
 def draw():
     Title.draw(400, 300)
@@ -61,3 +65,14 @@ def set_dst(event):
         if Player.move < 0:
             Player.move = 28 + Player.move
         game_framework.pop_state()
+
+def AI_set_dst():
+    global Player
+    dst = random.randint(0, 27)
+    if dst == 21:
+        dst += 1
+
+    Player.move = dst - Player.index
+    if Player.move < 0:
+        Player.move = 28 + Player.move
+    game_framework.pop_state()

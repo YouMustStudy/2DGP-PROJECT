@@ -174,6 +174,7 @@ class IdleState:
 
     @staticmethod
     def handle_events(event):
+        global total_cost, select_level, cur_state, EndFlag
         #구매버튼 클릭시
         if(purchase.handle_events(event)):
             trade_done()
