@@ -27,6 +27,7 @@ RUN_FRAME_PER_TIME = RUN_ACTION_PER_TIME * RUN_FRAME_PER_ACTION
 
 class Player:
     move_sound = None
+    go_sound = None
     def __init__(self, x, y, shape):
         self.index=0 #현 위치
         self.x = x
@@ -49,6 +50,8 @@ class Player:
     def sound_loading(self):
         if Player.move_sound == None:
             Player.move_sound = load_wav('.\\sound\\piece_move.wav')
+        if Player.go_sound == None:
+            Player.go_sound = load_wav('.\\sound\\arrive_go.wav')
 
 
 
@@ -110,6 +113,7 @@ class RunState:
             player.move_sound.play()
             #월급 시스템 추가
             if(player.index == 0):
+                player.go_sound.play()
                 player.cash += 600
                 player.money += 600
                 player.round += 1
