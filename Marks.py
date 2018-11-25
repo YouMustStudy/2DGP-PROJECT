@@ -20,6 +20,7 @@ class Marks:
             Marks.sound = []
             Marks.sound.append(load_wav('.\\sound\\ArriveIsland.wav'))
             Marks.sound.append(load_wav('.\\sound\\arrive_travel.wav'))
+            Marks.sound.append(load_wav('.\\sound\\arrive_olympic_1.wav'))
 
         self.type = type
         if type == 0:

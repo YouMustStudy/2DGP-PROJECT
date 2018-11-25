@@ -38,6 +38,7 @@ class DiceButton:
 class Dice:
     image = None
     tick = None
+    sound = None
     def __init__(self):
         #주사위의 X, Y 방향 벡터
         self.vecX = Vector(1, 0, 0)
@@ -77,6 +78,10 @@ class Dice:
         #사운드
         if Dice.tick == None:
             Dice.tick = load_wav('.\\sound\\GameDiceTong14.wav')
+        if Dice.sound == None:
+            Dice.sound = []
+            for i in range(1, 7):
+                Dice.sound.append(load_wav('.\\sound\\DiceNum_A0'+str(i)+'.wav'))
 
 
     def update(self):
@@ -134,16 +139,22 @@ class Dice:
             self.endtimer -= game_framework.frame_time
             if self.endtimer <= 0:
                 if self.index[1] == 0:
+                    self.sound[2].play()
                     main_state.PLAYER[main_state.PLAYER_TURN].move = 3
                 elif self.index[1] == 8:
+                    self.sound[3].play()
                     main_state.PLAYER[main_state.PLAYER_TURN].move = 4
                 elif self.index[0] == 0:
+                    self.sound[0].play()
                     main_state.PLAYER[main_state.PLAYER_TURN].move = 1
                 elif self.index[0] == 4:
+                    self.sound[1].play()
                     main_state.PLAYER[main_state.PLAYER_TURN].move = 2
                 elif self.index[0] == 8:
+                    self.sound[5].play()
                     main_state.PLAYER[main_state.PLAYER_TURN].move = 6
                 elif self.index[0] == 12:
+                    self.sound[4].play()
                     main_state.PLAYER[main_state.PLAYER_TURN].move = 5
                 game_world.remove_object(self)
 
