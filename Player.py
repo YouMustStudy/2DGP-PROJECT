@@ -91,8 +91,8 @@ class IdleState:
     @staticmethod
     def do(player):
         player.frame = (player.frame + game_framework.frame_time * IDLE_FRAME_PER_TIME) % 3
-        if player.AI and main_state.PLAYER_TURN == player.num and main_state.DICE.visible == 0:
-            main_state.DICE.Rolling_Dice()
+        #if player.AI and main_state.PLAYER_TURN == player.num and main_state.DICE.visible == 0:
+        #    main_state.DICE.Rolling_Dice()
         if player.move > 0:
             player.change_state(RunState)
     @staticmethod

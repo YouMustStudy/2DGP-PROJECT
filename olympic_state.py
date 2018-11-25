@@ -3,15 +3,18 @@ import game_framework
 import main_state
 import math
 import game_world
+import random
 
 from Tile import Bigtile
 
 Title = None
 mag = None
 sound = None
+player = None
 
 def enter():
-    global Title, sound
+    global Title, sound, player
+    player = main_state.PLAYER[main_state.PLAYER_TURN]
     if Title == None:
         Title = load_image(".\\icons\\dest1.png")
     if sound == None:
@@ -45,6 +48,9 @@ def handle_events():
 
 def update():
     game_framework.stack[0].update()
+    if player.AI:
+        AI_set_dst()
+
 
 def draw():
     Title.draw(400, 300)
@@ -54,13 +60,30 @@ def draw():
 def set_dst(event):
     global mag
     for tile in main_state.MAP:
-        if type(tile) != Bigtile and tile.isclicked(event.x, event.y) == 1:
+        if type(tile) != Bigtile and tile.name != '찬스카드' and tile.isclicked(event.x, event.y) == 1:
             if mag == None:
                 mag = Mag(tile)
             else:
                 mag.set_tile(tile)
             main_state.change_turn()
             game_framework.pop_state()
+
+def AI_set_dst():
+    global mag
+    index = random.randint(0, 27)
+    if index % 7 == 0:
+        index+=1
+    if main_state.MAP[index].name == '찬스카드':
+        index+=1
+
+    tile = main_state.MAP[index]
+    if mag == None:
+        mag = Mag(tile)
+    else:
+        mag.set_tile(tile)
+    main_state.change_turn()
+    game_framework.pop_state()
+
 
 class Mag:
     image = None
