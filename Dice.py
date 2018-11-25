@@ -37,7 +37,7 @@ class DiceButton:
 
 class Dice:
     image = None
-
+    num_sound = None
     def __init__(self):
         #주사위의 X, Y 방향 벡터
         self.vecX = Vector(1, 0, 0)
@@ -74,6 +74,18 @@ class Dice:
         vecDir.normalize()
         vecPivot = vecDir.cross(Vector(0, 0, -1))
         self.rotate(vecPivot, vecPivot.size()*random.randint(20, 130))
+        #사운드 로딩
+        self.sound_loading()
+
+    def sound_loading(self):
+        if Dice.num_sound == None:
+            Dice.num_sound = []
+            for i in range(1, 7):
+                path = '.\\sound\\dice\\DiceNum_A0'
+                Dice.num_sound.append(load_wav(path+str(i)+'.wav'))
+                Dice.num_sound[i-1].set_volume(32)
+            Dice.num_sound[1].play()
+
 
     def update(self):
         self.collison_ground()
@@ -130,16 +142,22 @@ class Dice:
             self.endtimer -= game_framework.frame_time
             if self.endtimer <= 0:
                 if self.index[1] == 0:
+                    #Dice.num_sound[2].play()
                     main_state.PLAYER[main_state.PLAYER_TURN].move = 3
                 elif self.index[1] == 8:
+                    #Dice.num_sound[3].play()
                     main_state.PLAYER[main_state.PLAYER_TURN].move = 4
                 elif self.index[0] == 0:
+                    #Dice.num_sound[0].play()
                     main_state.PLAYER[main_state.PLAYER_TURN].move = 1
                 elif self.index[0] == 4:
+                    #Dice.num_sound[1].play()
                     main_state.PLAYER[main_state.PLAYER_TURN].move = 2
                 elif self.index[0] == 8:
+                    #Dice.num_sound[5].play()
                     main_state.PLAYER[main_state.PLAYER_TURN].move = 6
                 elif self.index[0] == 12:
+                    #Dice.num_sound[4].play()
                     main_state.PLAYER[main_state.PLAYER_TURN].move = 5
                 game_world.remove_object(self)
 

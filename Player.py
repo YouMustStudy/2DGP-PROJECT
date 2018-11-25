@@ -48,7 +48,7 @@ class Player:
 
     def sound_loading(self):
         if Player.move_sound == None:
-            Player.move_sound = load_wav('.\\sound\\piece_move.wav')
+            Player.move_sound = load_wav('.\\sound.\\player\\piece_move.wav')
             Player.move_sound.set_volume(64)
 
     def draw(self):
