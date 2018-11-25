@@ -27,19 +27,21 @@ PHASE = None
 PLAYER_TURN = None
 PAUSE_BUTTON = None
 
+
 #턴 넘김시 시작했음을 알리는 플래그
 START_FLAG = False
 
 CLICKED_TILE = 0 #팝업창을 띄울 타일
 
 bgimage = None
+bgm = None
 
 def enter():
-    global MAP, PLAYER, PLAYER_TURN, DICE, PAUSE_BUTTON, BUILDING
+    global MAP, PLAYER, PLAYER_TURN, DICE, PAUSE_BUTTON, BUILDING, bgm
     PLAYER_TURN = 0
     MAP = Tile.init_tile()
-    PLAYER.append(Player(MAP[0].x, MAP[0].y+10, 'g'))
-    PLAYER.append(Player(MAP[0].x, MAP[0].y-10, 'b'))
+    PLAYER.append(Player(MAP[0].x, MAP[0].y, 'g'))
+    PLAYER.append(Player(MAP[0].x, MAP[0].y, 'b'))
     DICE = DiceButton()
     PAUSE_BUTTON = PauseButton()
 
@@ -56,13 +58,18 @@ def enter():
     game_world.add_object(DICE, 1)
     game_world.add_object(PAUSE_BUTTON, 1)
 
+    bgm = load_music('.\\sound\\GamePlay1.mp3')
+    bgm.repeat_play()
+
 
 
 def exit():
+    global bgm
     game_world.clear()
     MAP.clear()
     PLAYER.clear()
     BUILDING.clear()
+    del(bgm)
 
 
 
@@ -148,12 +155,13 @@ def change_turn():
     PLAYER_TURN = (PLAYER_TURN+1) % 2
     PLAYER[PLAYER_TURN].image.opacify(1.0)
 
-    START_FLAG = True
-    PLAYER[PLAYER_TURN].change_state(SpinState)
-
     if PLAYER[PLAYER_TURN].event == 1:
         PLAYER[PLAYER_TURN].event = 0
         change_turn()
+        return
+
+    START_FLAG = True
+    PLAYER[PLAYER_TURN].change_state(SpinState)
 
 def trade_money():
     index = PLAYER[PLAYER_TURN].index
