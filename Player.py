@@ -26,6 +26,7 @@ RUN_ACTION_PER_TIME = 1.0 / RUN_TIME_PER_ACTION
 RUN_FRAME_PER_TIME = RUN_ACTION_PER_TIME * RUN_FRAME_PER_ACTION
 
 class Player:
+    move_sound = None
     def __init__(self, x, y, shape):
         self.index=0 #현 위치
         self.x = x
@@ -43,6 +44,12 @@ class Player:
         self.rank = 1
         self.round = 1 #몇바퀴 돌았는지 | 업그레이드 가능한 건물 종류
         self.event = 0 #이벤트 비트 | 1 : 무인도 | 2 : 세계여행 | 처리는 change_turn에서 한다
+        self.sound_loading()
+
+    def sound_loading(self):
+        if Player.move_sound == None:
+            Player.move_sound = load_wav('.\\sound\\piece_move.wav')
+            Player.move_sound.set_volume(64)
 
     def draw(self):
         self.status.draw(self)
@@ -99,6 +106,7 @@ class RunState:
         if player.x == main_state.MAP[(player.index+1)%28].x:
             player.index = (player.index + 1) % 28
             player.move -= 1
+            player.move_sound.play()
             #월급 시스템 추가
             if(player.index == 0):
                 player.cash += 600
