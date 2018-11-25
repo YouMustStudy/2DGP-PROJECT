@@ -8,11 +8,15 @@ from Tile import Bigtile
 
 Title = None
 mag = None
+sound = None
 
 def enter():
-    global Title
+    global Title, sound
     if Title == None:
         Title = load_image(".\\icons\\dest1.png")
+    if sound == None:
+        sound = load_wav('.\\sound\\ChanceCardWantCity_A01.wav')
+    sound.play()
 
 def exit():
     pass

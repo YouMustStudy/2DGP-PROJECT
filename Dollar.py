@@ -42,6 +42,7 @@ class Bundle:
                 self.Dollar.append(Dollar(x - (j+i) * 24 + 48, y - j * 15 + (-5)*i + 30))
         if Bundle.sound == None:
             Bundle.sound = load_wav('.\\sound\\arrive_other2.wav')
+            Bundle.sound.set_volume(64)
         self.sound.play()
 
 
