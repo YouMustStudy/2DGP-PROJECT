@@ -4,16 +4,12 @@ import main_state
 
 Title = None
 Player = None
-Sound = None
 
 def enter():
     global Title, Player, Sound
     if Title == None:
         Title = load_image(".\\icons\\dest.png")
     Player = main_state.PLAYER[main_state.PLAYER_TURN]
-    if Sound == None:
-        Sound = load_wav('.\\sound\\arrive_travel.wav')
-    Sound.play()
 
 def exit():
     pass

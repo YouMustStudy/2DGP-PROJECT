@@ -109,7 +109,6 @@ class Smalltile:
         return self.PassingCost[self.level] * self.mag
 
     def return_building(self):
-        print(self.BuildingCost[self.level+1])
         return self.BuildingCost[self.level+1]
 
 def load_position(x, y):
