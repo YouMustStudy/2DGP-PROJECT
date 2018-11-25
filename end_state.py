@@ -7,6 +7,7 @@ image = None
 width = None
 height = None
 cur_state = None
+sound = None
 
 menubutton = (400, 345)
 exitbutton = (400, 270)
@@ -17,9 +18,12 @@ selection = 0
 IMAGE_EXPENTION_SPD = 15
 
 def enter():
-    global image, width, height, cur_state
+    global image, width, height, cur_state, sound
     if image == None:
         image = load_image('.\\popup\\end.png')
+    if sound == None:
+        sound = load_wav('.\\sound\\Bankrup_A01.wav')
+    sound.play()
     width = height = 0
     cur_state = EnterState
 
