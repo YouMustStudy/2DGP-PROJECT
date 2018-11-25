@@ -7,7 +7,7 @@ class Chance:
     island = None
     trip = None
     olympic = None
-
+    sound = None
     def __init__(self, player):
         trigger = 3
         if trigger == 0:
@@ -19,6 +19,9 @@ class Chance:
         elif trigger == 3:
             self.event = GotoIsland()
 
+        if Chance.sound == None:
+            Chance.sound = load_wav('.\\sound\\ChanceCard_A02.wav')
+        self.sound.play()
         self.player = player
         self.width = self.height = 0
         self.cur_state = EnterState
