@@ -53,6 +53,7 @@ class Bundle:
         for thing in self.Dollar:
             thing.update()
         if self.count == 0:
+            self.Dollar.clear()
             game_world.remove_object(self)
     def draw(self):
         for thing in self.Dollar:
