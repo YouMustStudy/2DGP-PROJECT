@@ -31,6 +31,7 @@ class Dollar:
 
 
 class Bundle:
+    sound = None
     def __init__(self, x = 400, y = 400):
         self.Dollar = []
         for i in range(3):
@@ -39,6 +40,10 @@ class Bundle:
         for i in range(3):
             for j in range(5-2*i):
                 self.Dollar.append(Dollar(x - (j+i) * 24 + 48, y - j * 15 + (-5)*i + 30))
+        if Bundle.sound == None:
+            Bundle.sound = load_wav('.\\sound\\cash_moveIn.wav')
+        #Bundle.sound.repeat_play()
+
 
     def update(self):
         for thing in self.Dollar:

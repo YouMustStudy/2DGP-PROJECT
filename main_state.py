@@ -57,6 +57,7 @@ def enter():
     game_world.add_object(PAUSE_BUTTON, 1)
 
 
+
 def exit():
     game_world.clear()
     MAP.clear()

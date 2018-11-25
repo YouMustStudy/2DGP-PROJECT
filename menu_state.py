@@ -3,18 +3,22 @@ import game_framework
 import main_state
 
 image = None
+bgm = None
 playbutton = (395, 320)
 exitbutton = (395, 180)
 button_width = 140
 button_height = 50
 
 def enter():
-    global image
+    global image, bgm
     image = load_image('.\\popup\\menu.png')
+    bgm = load_music('.\\sound\\GameWaitting_Original.mp3')
+    bgm.repeat_play()
 
 def exit():
-    global image
+    global image, bgm
     del(image)
+    del(bgm)
 
 def update(): pass
 def draw():
