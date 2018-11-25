@@ -98,7 +98,7 @@ def handle_events():
         if event.type == SDL_QUIT:
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-                main_state.PAUSE_BUTTON.goto_pause()
+            main_state.PAUSE_BUTTON.goto_pause()
         elif event.type == SDL_MOUSEBUTTONDOWN:
             event.y = main_state.WINDOW_HEIGHT - event.y + 1
             cur_state.handle_events(event)
