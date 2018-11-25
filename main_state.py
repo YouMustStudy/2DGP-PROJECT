@@ -16,7 +16,6 @@ from Dice import DiceButton
 import Tile
 from PauseButton import PauseButton
 from UI import UI
-from Building import Building
 
 name = "MainState"
 
@@ -76,7 +75,7 @@ def handle_events():
         if event.type == SDL_QUIT:
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-            game_framework.quit()
+            PAUSE_BUTTON.goto_pause()
         elif event.type == SDL_MOUSEBUTTONDOWN:
             event.y = WINDOW_HEIGHT - event.y + 1
             DICE.handle_event(event)

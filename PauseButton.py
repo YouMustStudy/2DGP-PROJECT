@@ -17,4 +17,8 @@ class PauseButton:
 
     def handle_event(self, event):
         if event.x > 750 - 25 and event.x < 750 + 25 and event.y > 755 - 25 and event.y < 755 + 25:
-            game_framework.push_state(pause_state)
+            self.goto_pause();
+
+    @staticmethod
+    def goto_pause():
+        game_framework.push_state(pause_state)

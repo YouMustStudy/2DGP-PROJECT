@@ -39,7 +39,6 @@ def handle_events():
 
 
 def update():
-    game_framework.stack[0].update()
     cur_state.update()
 
 
@@ -72,12 +71,6 @@ class IdleState:
     @staticmethod
     def draw():
         image.draw(main_state.WINDOW_WIDTH/2, main_state.WINDOW_HEIGHT/2)
-        #w = 67
-        #h = 16
-        #x = main_state.WINDOW_WIDTH/2
-        #y = main_state.WINDOW_HEIGHT/2 + 30
-        #draw_rectangle(x-w, y-h, x+w, y+h)
-
 
     @staticmethod
     def update():
