@@ -6,7 +6,6 @@ import game_world
 from Vector import Vector
 from pico2d import *
 from main_state import CENTER
-from Jukebox import Jukebox
 
 #탄성도
 elastic = 0.6
@@ -38,6 +37,7 @@ class DiceButton:
 
 class Dice:
     image = None
+    tick = None
     def __init__(self):
         #주사위의 X, Y 방향 벡터
         self.vecX = Vector(1, 0, 0)
@@ -74,7 +74,9 @@ class Dice:
         vecDir.normalize()
         vecPivot = vecDir.cross(Vector(0, 0, -1))
         self.rotate(vecPivot, vecPivot.size()*random.randint(20, 130))
-
+        #사운드
+        if Dice.tick == None:
+            Dice.tick = load_wav('.\\sound\\GameDiceTong14.wav')
 
 
     def update(self):
@@ -132,22 +134,16 @@ class Dice:
             self.endtimer -= game_framework.frame_time
             if self.endtimer <= 0:
                 if self.index[1] == 0:
-                    Juke.play_dice_number(2)
                     main_state.PLAYER[main_state.PLAYER_TURN].move = 3
                 elif self.index[1] == 8:
-                    Juke.play_dice_number(3)
                     main_state.PLAYER[main_state.PLAYER_TURN].move = 4
                 elif self.index[0] == 0:
-                    Juke.play_dice_number(0)
                     main_state.PLAYER[main_state.PLAYER_TURN].move = 1
                 elif self.index[0] == 4:
-                    Juke.play_dice_number(1)
                     main_state.PLAYER[main_state.PLAYER_TURN].move = 2
                 elif self.index[0] == 8:
-                    Juke.play_dice_number(5)
                     main_state.PLAYER[main_state.PLAYER_TURN].move = 6
                 elif self.index[0] == 12:
-                    Juke.play_dice_number(4)
                     main_state.PLAYER[main_state.PLAYER_TURN].move = 5
                 game_world.remove_object(self)
 
@@ -196,7 +192,7 @@ class Dice:
                 for k in [-1, 1]:
                     point = Vector(i*self.vecX.x+j*self.vecY.x+k*vecZ.x, i*self.vecX.y+j*self.vecY.y+k*vecZ.y, i*self.vecX.z+j*self.vecY.z+k*vecZ.z)
                     if(self.z + point.z < -1):
-
+                        self.tick.play()
                         torque = point.cross(axisZ)
                         torque.normalize()
                         torque = torque.mul((max(0, -self.vz) + abs(self.va.dot(torque.mul(-1)))) * elastic)

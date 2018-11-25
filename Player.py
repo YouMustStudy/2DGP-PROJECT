@@ -31,8 +31,8 @@ class Player:
         self.index=0 #현 위치
         self.x = x
         self.y = y
-        self.money=100 #총자산
-        self.cash=100 #현자산
+        self.money=4000 #총자산
+        self.cash=4000 #현자산
         self.image = None
         if shape == 'g':
             self.image = load_image('.\\character\\Green.png')
@@ -48,8 +48,7 @@ class Player:
 
     def sound_loading(self):
         if Player.move_sound == None:
-            Player.move_sound = load_wav('.\\sound.\\player\\piece_move.wav')
-            Player.move_sound.set_volume(64)
+            Player.move_sound = load_wav('.\\sound.\\piece_move.wav')
 
 
     def draw(self):

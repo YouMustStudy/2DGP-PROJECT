@@ -1,8 +1,6 @@
-
 # layer 0: MAP INDEX
 # layer 1: BackGround
 objects = [[],[]]
-
 
 def add_object(o, layer):
     objects[layer].append(o)

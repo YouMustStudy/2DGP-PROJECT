@@ -5,6 +5,7 @@ import game_world
 import game_framework
 
 class Building:
+    sound = None
     def __init__(self, level, color, tile):
         if level == 0:
             self.x = tile.x
@@ -23,6 +24,9 @@ class Building:
         self.theta = 0
         self.tile = tile
         self.cur_state = FallenState
+
+        if Building.sound == None:
+            Building.sound = load_wav('.\\sound\\buy_build.wav')
 
     def draw(self):
         self.image.draw(self)
@@ -50,6 +54,7 @@ class FallenState:
         building.y -= 1000*game_framework.frame_time
         building.y = max(building.tile.y + 50, building.y)
         if building.y == building.tile.y + 50:
+            building.sound.play()
             building.cur_state = IdleState
 
 class IdleState:
