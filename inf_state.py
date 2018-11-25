@@ -102,10 +102,6 @@ class IdleState:
         else:
             title_font.draw(main_state.WINDOW_WIDTH / 2 - 22, main_state.WINDOW_HEIGHT / 2 - 78, str(clicked_tile.return_cost()), (154, 43, 16))
             title_font.draw(main_state.WINDOW_WIDTH / 2 + 30, main_state.WINDOW_HEIGHT / 2 - 78, '만', (154, 43, 16))
-        r = 17
-        x = main_state.WINDOW_WIDTH/2 + 68
-        y = main_state.WINDOW_HEIGHT/2 + 90
-        draw_rectangle(x-r, y-r, x+r, y+r)
 
 
     @staticmethod
