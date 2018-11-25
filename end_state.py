@@ -116,9 +116,10 @@ class ExitState:
         height = clamp(0, height, image.h)
         if width == 0:
             if selection == 0:
-                pass
+                game_framework.clear_stack()
+                game_framework.push_state(menu_state)
             if selection == 1:
-                game_framework.quit();
+                game_framework.quit()
 
 
     @staticmethod

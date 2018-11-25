@@ -110,7 +110,10 @@ def test_game_framework():
     start_state = TestGameState('StartState')
     run(start_state)
 
-
+def clear_stack():
+    while (len(stack) > 0):
+        stack[-1].exit()
+        stack.pop()
 
 if __name__ == '__main__':
     test_game_framework()
