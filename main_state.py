@@ -16,8 +16,10 @@ from Dice import DiceButton
 import Tile
 from PauseButton import PauseButton
 from UI import UI
+from Jukebox import Jukebox
 
 name = "MainState"
+Juke = Jukebox()
 
 MAP = None
 PLAYER = []
