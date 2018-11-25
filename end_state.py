@@ -50,12 +50,12 @@ def handle_events():
 
 
 def update():
-    #game_framework.stack[0].update()
+    game_framework.stack[0].update()
     cur_state.update()
 
 
 def draw():
-    #game_framework.stack[0].draw()
+    game_framework.stack[0].draw()
     cur_state.draw()
 
 class EnterState:

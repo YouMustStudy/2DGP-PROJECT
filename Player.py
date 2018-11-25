@@ -5,6 +5,7 @@ import building_state
 import main_state
 import trip_state
 import olympic_state
+import end_state
 from Dollar import money_ceremony
 from Marks import make_mark
 from Chance import make_chance
@@ -29,8 +30,8 @@ class Player:
         self.index=0 #현 위치
         self.x = x
         self.y = y
-        self.money=4000 #총자산
-        self.cash=4000 #현자산
+        self.money=100 #총자산
+        self.cash=100 #현자산
         self.image = None
         if shape == 'g':
             self.image = load_image('.\\character\\Green.png')
@@ -124,12 +125,16 @@ class RunState:
                 elif(player.index == 9 or player.index == 24): #찬스카드
                     make_chance(player)
                     return
-                elif(main_state.MAP[player.index].owner == -1 or main_state.MAP[player.index].owner == main_state.PLAYER_TURN and main_state.MAP[player.index].level != 3 and main_state.MAP[player.index].return_building() < player.cash): #땅주인이 없거나 본인이 주인이면
-                    game_framework.push_state(building_state) #건설상태로 분기
-                    return
+                elif(main_state.MAP[player.index].owner == -1 or main_state.MAP[player.index].owner == main_state.PLAYER_TURN and main_state.MAP[player.index].level != 3): #땅주인이 없거나 본인이 주인이면
+                    if (main_state.MAP[player.index].return_building() < player.cash):
+                        game_framework.push_state(building_state) #건설상태로 분기
+                        return
                 else:
                     money_ceremony()
                     main_state.trade_money()
+                    if player.cash < 0: #게임 종료
+                        game_framework.push_state(end_state)
+                        return
                 #이벤트 처리 후 순위 체크
                 main_state.check_rank()
                 main_state.change_turn()

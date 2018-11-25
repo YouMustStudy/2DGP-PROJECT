@@ -20,6 +20,8 @@ def clear():
     for o in all_objects():
         del o
     objects.clear()
+    objects.append([])
+    objects.append([])
 
 
 def all_objects():

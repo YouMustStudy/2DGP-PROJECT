@@ -59,6 +59,10 @@ def enter():
 
 def exit():
     game_world.clear()
+    MAP.clear()
+    PLAYER.clear()
+    BUILDING.clear()
+
 
 
 def pause():
