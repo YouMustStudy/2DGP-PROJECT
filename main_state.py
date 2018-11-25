@@ -40,7 +40,7 @@ def enter():
     global MAP, PLAYER, PLAYER_TURN, DICE, PAUSE_BUTTON, BUILDING, bgm
     PLAYER_TURN = 0
     MAP = Tile.init_tile()
-    PLAYER.append(Player(0, MAP[0].x, MAP[0].y, 'g', 0))
+    PLAYER.append(Player(0, MAP[0].x, MAP[0].y, 'g', 1))
     PLAYER.append(Player(1, MAP[0].x, MAP[0].y, 'b', 1))
     DICE = DiceButton()
     PAUSE_BUTTON = PauseButton()

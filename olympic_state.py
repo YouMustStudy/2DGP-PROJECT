@@ -20,6 +20,8 @@ def enter():
     if sound == None:
         sound = load_wav('.\\sound\\ChanceCardWantCity_A01.wav')
     sound.play()
+    if player.AI:
+        AI_set_dst()
 
 def exit():
     pass
@@ -48,8 +50,7 @@ def handle_events():
 
 def update():
     game_framework.stack[0].update()
-    if player.AI:
-        AI_set_dst()
+
 
 
 def draw():

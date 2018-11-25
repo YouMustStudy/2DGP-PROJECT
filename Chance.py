@@ -9,7 +9,7 @@ class Chance:
     olympic = None
     sound = None
     def __init__(self, player):
-        trigger = 3
+        trigger = randint(0, 3)
         if trigger == 0:
             self.event = GotoOlympic()
         elif trigger == 1:

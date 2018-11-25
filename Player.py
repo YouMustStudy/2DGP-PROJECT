@@ -33,8 +33,8 @@ class Player:
         self.index=0 #현 위치
         self.x = x
         self.y = y
-        self.money=4000 #총자산
-        self.cash=4000 #현자산
+        self.money=500 #총자산
+        self.cash=500 #현자산
         self.image = None
         if shape == 'g':
             self.image = load_image('.\\character\\Green.png')
@@ -91,8 +91,8 @@ class IdleState:
     @staticmethod
     def do(player):
         player.frame = (player.frame + game_framework.frame_time * IDLE_FRAME_PER_TIME) % 3
-        #if player.AI and main_state.PLAYER_TURN == player.num and main_state.DICE.visible == 0:
-        #    main_state.DICE.Rolling_Dice()
+        if player.AI and main_state.PLAYER_TURN == player.num and main_state.DICE.visible == 0:
+            main_state.DICE.Rolling_Dice()
         if player.move > 0:
             player.change_state(RunState)
     @staticmethod

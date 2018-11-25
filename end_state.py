@@ -54,7 +54,6 @@ def handle_events():
 
 
 def update():
-    game_framework.stack[0].update()
     cur_state.update()
 
 

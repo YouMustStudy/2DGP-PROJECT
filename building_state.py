@@ -65,10 +65,8 @@ def enter():
 
     check = [CheckIcon(pos[i]) for i in range(max_level + 1)]
     cross = [CrossIcon(pos[i]) for i in range(max_level+1, 4)]
-
     for i in range(0, min_level +1):
         check[i].visible = 1
-
     lens = [len(clicked_tile.name),
            len(str(clicked_tile.BuildingCost[0])),
            len(str(clicked_tile.BuildingCost[1])),
@@ -77,8 +75,9 @@ def enter():
            len(str(clicked_tile.PassingCost[min_level])),
            len(str(total_cost))
             ]
-
     cur_state = EnterState
+    if main_state.PLAYER[CUR_TURN].AI:
+        trade_done()
 
 
 def exit():
@@ -169,8 +168,7 @@ class IdleState:
 
     @staticmethod
     def update():
-        if main_state.PLAYER[CUR_TURN].AI:
-            trade_done()
+        pass
 
     @staticmethod
     def handle_events(event):
