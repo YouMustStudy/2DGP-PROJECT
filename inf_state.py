@@ -113,6 +113,7 @@ class IdleState:
         if event.x > main_state.WINDOW_WIDTH/2 + 51 and event.x < main_state.WINDOW_WIDTH/2 + 85 and event.y > main_state.WINDOW_HEIGHT/2 + 73 and event.y < main_state.WINDOW_HEIGHT/2 + 107:
             global cur_state
             cur_state = ExitState
+        main_state.PAUSE_BUTTON.handle_event(event)
 
 class ExitState:
     @staticmethod

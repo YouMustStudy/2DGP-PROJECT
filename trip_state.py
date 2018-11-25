@@ -32,6 +32,7 @@ def handle_events():
         elif event.type == SDL_MOUSEBUTTONDOWN:
             event.y = main_state.WINDOW_HEIGHT - event.y + 1
             set_dst(event)
+            main_state.PAUSE_BUTTON.handle_event(event)
         else:
             pass
 

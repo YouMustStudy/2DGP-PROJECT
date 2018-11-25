@@ -36,6 +36,8 @@ def handle_events():
         elif event.type == SDL_MOUSEBUTTONDOWN:
             event.y=main_state.WINDOW_HEIGHT - event.y + 1
             cur_state.handle_events(event)
+            if event.x > 750 - 25 and event.x < 750 + 25 and event.y > 755 - 25 and event.y < 755 + 25:
+                game_framework.pop_state()
 
 
 def update():
