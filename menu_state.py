@@ -13,7 +13,11 @@ def exit():
 
 def update(): pass
 def draw():
+    center = (395, 320)
+    width = 140
+    height = 50
     image.draw(400, 400)
+    draw_rectangle(center[0]-width, center[1]-height,center[0]+width, center[1]+height)
 
 def handle_events():
     events = get_events()
