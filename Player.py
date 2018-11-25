@@ -28,7 +28,8 @@ RUN_FRAME_PER_TIME = RUN_ACTION_PER_TIME * RUN_FRAME_PER_ACTION
 class Player:
     move_sound = None
     go_sound = None
-    def __init__(self, x, y, shape):
+    def __init__(self,num, x, y, shape, AI):
+        self.num = num
         self.index=0 #현 위치
         self.x = x
         self.y = y
@@ -44,7 +45,8 @@ class Player:
         self.move = 0
         self.rank = 1
         self.round = 1 #몇바퀴 돌았는지 | 업그레이드 가능한 건물 종류
-        self.event = 0 #이벤트 비트 | 1 : 무인도 | 2 : 세계여행 | 처리는 change_turn에서 한다
+        self.event = 0 #이벤트 비트 | 1 : 무인도 | 처리는 change_turn에서 한다
+        self.AI = AI
         self.sound_loading()
 
     def sound_loading(self):
@@ -89,6 +91,8 @@ class IdleState:
     @staticmethod
     def do(player):
         player.frame = (player.frame + game_framework.frame_time * IDLE_FRAME_PER_TIME) % 3
+        if player.AI and main_state.PLAYER_TURN == player.num and main_state.DICE.visible == 0:
+            main_state.DICE.Rolling_Dice()
         if player.move > 0:
             player.change_state(RunState)
     @staticmethod

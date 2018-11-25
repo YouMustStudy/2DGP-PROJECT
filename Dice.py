@@ -28,11 +28,11 @@ class DiceButton:
 
     def handle_event(self, event):
         if self.visible == 0 and event.x > main_state.WINDOW_WIDTH/2 - 60 and event.x < main_state.WINDOW_WIDTH/2+60 and event.y > main_state.WINDOW_HEIGHT/2-30 and event.y < main_state.WINDOW_HEIGHT/2+30:
-            self.visible = 1
             self.Rolling_Dice()
 
     def Rolling_Dice(self):
         dice = Dice()
+        self.visible = 1
         game_world.add_object(dice, 1)
 
 class Dice:
