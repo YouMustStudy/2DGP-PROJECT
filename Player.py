@@ -160,6 +160,8 @@ class RunState:
     @staticmethod
     def draw(player):
         player.image.clip_draw(120 * int(player.frame), 0, 120, 130, player.x, player.y, 60, 60)
+
+
 class SpinState:
     @staticmethod
     def enter(player):
