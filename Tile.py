@@ -111,6 +111,9 @@ class Smalltile:
     def return_building(self):
         return self.BuildingCost[self.level+1]
 
+    def return_level_building(self, level):
+        return self.BuildingCost[level]
+
 def load_position(x, y):
     pos=[]
     #tile=load_image('Tile.png')
