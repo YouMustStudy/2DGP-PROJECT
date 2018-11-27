@@ -82,4 +82,4 @@ class ExitState:
 
 def make_mark(type):
     tmp = Marks(type)
-    game_world.add_object(tmp, 1)
+    game_world.add_object(tmp, 2)

@@ -50,11 +50,13 @@ def handle_events():
                 if mode == 0:
                     mode = 1
                 else:
+                    main_state.set_mode(0)
                     game_framework.change_state(main_state)
             elif event.x > exitbutton[0] - button_width and event.x < exitbutton[0] + button_width and event.y > exitbutton[1] - button_height and event.y < exitbutton[1] + button_height:
                 if mode == 0:
-                    mode = 1
+                    game_framework.quit()
                 else:
+                    main_state.set_mode(1)
                     game_framework.change_state(main_state)
         else:pass
 

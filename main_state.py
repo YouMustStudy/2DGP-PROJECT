@@ -26,7 +26,7 @@ DICE = None
 PHASE = None
 PLAYER_TURN = None
 PAUSE_BUTTON = None
-
+MODE = 0
 
 #턴 넘김시 시작했음을 알리는 플래그
 START_FLAG = False
@@ -40,8 +40,15 @@ def enter():
     global MAP, PLAYER, PLAYER_TURN, DICE, PAUSE_BUTTON, BUILDING, bgm
     PLAYER_TURN = 0
     MAP = Tile.init_tile()
-    PLAYER.append(Player(0, MAP[0].x, MAP[0].y, 'g', 1))
-    PLAYER.append(Player(1, MAP[0].x, MAP[0].y, 'b', 1))
+
+    if(MODE == 0):
+        PLAYER.append(Player(0, MAP[0].x, MAP[0].y, 'g', 0))
+        PLAYER.append(Player(1, MAP[0].x, MAP[0].y, 'b', 1))
+    else:
+        PLAYER.append(Player(0, MAP[0].x, MAP[0].y, 'g', 0))
+        PLAYER.append(Player(1, MAP[0].x, MAP[0].y, 'b', 0))
+
+
     DICE = DiceButton()
     PAUSE_BUTTON = PauseButton()
 
@@ -178,3 +185,7 @@ def cheat_move(event):
         if event.key >= 49 and event.key <= 54:
             PLAYER[PLAYER_TURN].move = event.key-48
             DICE.visible=1
+
+def set_mode(bit):
+    global MODE
+    MODE = bit
