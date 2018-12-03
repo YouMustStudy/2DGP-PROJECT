@@ -118,8 +118,8 @@ class RunState:
             #월급 시스템 추가
             if(player.index == 0):
                 player.go_sound.play()
-                player.cash += 600
-                player.money += 600
+                player.cash += 4000
+                player.money += 4000
                 player.round += 1
                 money_ceremony()
             if main_state.MAP[player.index].theta > 0:

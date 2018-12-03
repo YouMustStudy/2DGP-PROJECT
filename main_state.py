@@ -33,11 +33,11 @@ START_FLAG = False
 
 CLICKED_TILE = 0 #팝업창을 띄울 타일
 
-bgimage = None
+bg = None
 bgm = None
 
 def enter():
-    global MAP, PLAYER, PLAYER_TURN, DICE, PAUSE_BUTTON, BUILDING, bgm
+    global MAP, PLAYER, PLAYER_TURN, DICE, PAUSE_BUTTON, BUILDING, bgm, bg
     PLAYER_TURN = 0
     MAP = Tile.init_tile()
 
@@ -67,16 +67,18 @@ def enter():
 
     bgm = load_music('.\\sound\\GamePlay1.mp3')
     bgm.repeat_play()
+    bg =load_image(".\\popup\\bgimage.jpg")
 
 
 
 def exit():
-    global bgm
+    global bgm, bg
     game_world.clear()
     MAP.clear()
     PLAYER.clear()
     BUILDING.clear()
     del(bgm)
+    del(bg)
 
 
 
@@ -110,6 +112,7 @@ def update():
 
 
 def draw():
+    bg.draw(400, 400, 800, 800)
     for game_object in game_world.all_objects():
         game_object.draw()
 

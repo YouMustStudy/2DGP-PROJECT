@@ -80,12 +80,13 @@ def enter():
     if main_state.PLAYER[CUR_TURN].AI:
         total_cost = 0
         for i in range(min_level, max_level+1):
+            select_level = i
             total_cost+=clicked_tile.return_level_building(i)
             if(total_cost > main_state.PLAYER[CUR_TURN].cash):
                 total_cost-=clicked_tile.return_level_building(i)
                 select_level = i-1
                 break
-            select_level = i
+
         trade_done()
 
 
