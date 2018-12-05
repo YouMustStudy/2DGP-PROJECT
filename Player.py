@@ -33,8 +33,8 @@ class Player:
         self.index=0 #현 위치
         self.x = x
         self.y = y
-        self.money=500 #총자산
-        self.cash=500 #현자산
+        self.money=4000 #총자산
+        self.cash=4000 #현자산
         self.image = None
         if shape == 'g':
             self.image = load_image('.\\character\\Green.png')
@@ -118,8 +118,8 @@ class RunState:
             #월급 시스템 추가
             if(player.index == 0):
                 player.go_sound.play()
-                player.cash += 4000
-                player.money += 4000
+                player.cash += 600
+                player.money += 600
                 player.round += 1
                 money_ceremony()
             if main_state.MAP[player.index].theta > 0:

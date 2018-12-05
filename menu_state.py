@@ -37,7 +37,6 @@ def handle_events():
     global mode
     events = get_events()
     for event in events:
-        event.y = 800 - event.y + 1
         if event.type == SDL_QUIT:
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
@@ -46,6 +45,7 @@ def handle_events():
             else:
                 mode = 1
         elif event.type == SDL_MOUSEBUTTONDOWN:
+            event.y = 800 - event.y + 1
             if event.x > playbutton[0] - button_width and event.x < playbutton[0] + button_width and event.y > playbutton[1] - button_height and event.y < playbutton[1] + button_height:
                 if mode == 0:
                     mode = 1
