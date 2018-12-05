@@ -146,7 +146,7 @@ def init_tile():
     for i in range(7):
         pos[-(i+1)].rotate(270)
 
-    MAP_DATA_FILE = open('.\\data\\MAP_DATA.txt', 'r')
+    MAP_DATA_FILE = open('.\\data\\MAP_DATA.txt', 'r', encoding='euc-kr')
     MAP_DATA = json.load(MAP_DATA_FILE)
     MAP_DATA_FILE.close()
 
