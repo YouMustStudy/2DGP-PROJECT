@@ -8,7 +8,7 @@ from pico2d import *
 from main_state import CENTER
 
 #탄성도
-elastic = 0.6
+elastic = 0.8
 #월드의 Z축
 axisZ = Vector(0, 0, 1)
 #60프레임 기준
@@ -49,11 +49,11 @@ class Dice:
         self.rotZ = 0
         #주사위 초기위치
         self.x, self.y = CENTER[0], CENTER[1]
-        self.z = 3
+        self.z = 2
         self.oldz = 0
         #주사위 속도
-        self.vx = random.randint(-50, +50)
-        self.vy = random.randint(-50, +50)
+        self.vx = random.randint(-100, +100)
+        self.vy = random.randint(-100, +100)
         self.vz = 0
         self.oldvz = 0
         #주사위 각속도
@@ -72,9 +72,9 @@ class Dice:
         self.rot = 0
         #초기 회전각 부여
         vecDir = Vector(self.vx * 10, self.vy * 10, 0)
-        vecDir.normalize()
+        #vecDir.normalize()
         vecPivot = vecDir.cross(Vector(0, 0, -1))
-        self.rotate(vecPivot, vecPivot.size()*random.randint(20, 130))
+        self.rotate(vecPivot, vecDir.size())
         #사운드
         if Dice.tick == None:
             Dice.tick = load_wav('.\\sound\\GameDiceTong14.wav')
